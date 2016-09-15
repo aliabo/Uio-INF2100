@@ -44,51 +44,20 @@ public class Scanner {
     public void readNextToken() {
 	curToken = nextToken;  nextToken = null;
 	String temp = "";
-	int numberOfChar=0;
+	int lineLength=0;
 	// Del 1 her:
 	// intialize
 	if(sourcePos == 0 ){
 		readNextLine();
-		numberOfChar = sourceLine.length();
+		lineLength = sourceLine.length();
 	}
 	
-		
+	
 	// kode cut Token
-	while(!containsToken(temp) && sourcePos < numberOfChar){//eof?
+	while(!containsToken(temp) && sourcePos < lineLength){//eof?
 
-		// Remove comments
-		 if (temp.contains("/*")){
-			temp= temp.substring(0,temp.length()-2); // to remove /*
-			while(sourceLine.charAt(sourcePos)!='/' && sourceLine.charAt(sourcePos-1) != '*' && sourceLine != null){
-				//new line				
-				if(sourcePos == numberOfChar){
-					readNextLine();
-					numberOfChar=sourceLine.length();
-					continue;
-				}
-				sourcePos++;
-			}
-			// error  */
-			if(sourceLine == null){
-				scannerError("*/");
-                        }
-			else{
-				sourcePos++;
-			}
-		}
-		// removing comments
-		else if (temp.contains("{")){
-			temp= temp.substring(0,temp.length()-1); // to remove /*
-			while(sourceLine.charAt(sourcePos)!='}' && sourcePos != numberOfChar)
-				sourcePos++;
-			// Error not found }
-			if(sourceLine.charAt(sourcePos)!='}' )
-				scannerError("*/");
-
-			else{
-				sourcePos++;
-			}
-		}
+		temp = removeComments(temp,lineLength);	
+                lineLength = sourceLine.length();
 		// seeking token
 		if(sourceLine.charAt(sourcePos) != ' ' && sourceLine.charAt(sourcePos) != '\n' ){
 			temp += sourceLine.charAt(sourcePos);
@@ -97,10 +66,11 @@ public class Scanner {
 		// Escaping spaces
 		else{
 			sourcePos++;
+			break;
 		}
 	}
 	 // Perparing for reading a newLine
-	 if(sourcePos >= numberOfChar){
+	 if(sourcePos >= lineLength){
 		sourcePos = 0;
          }
 	 // First call of readNextToken()
@@ -115,16 +85,57 @@ public class Scanner {
 	    temp = checkNextchar(temp,'>',sourceLine.charAt(sourcePos+1),'=');
 	    temp = checkNextchar(temp,'<',sourceLine.charAt(sourcePos+1),'=');
 	    temp = checkNextchar(temp,'<',sourceLine.charAt(sourcePos+1),'>');
-	   
-	    nextToken = getToken(temp);//Token
+	  // not eof token
+	  if(nextToken != null)
+	    	nextToken = getToken(temp);//Token
+	  else{
+		nextToken = getToken("e-o-f");
+	  }
             //compare with curToken
-	    readNextToken();
 	 }
-
-
-        Main.log.noteToken(nextToken);
+	if(nextToken != null)
+        	Main.log.noteToken(nextToken);
     }
 
+    // A function for look for comments and remove them
+    private String removeComments(String s,int lineLength){
+
+	// Remove comments
+	if (s.contains("/*")){
+		s= s.substring(0,s.length()-2); // to remove /*
+		while(((sourceLine.charAt(sourcePos)!='/') || (sourceLine.charAt(sourcePos-1) != '*')) && (sourceLine != null)){
+			
+			//new line				
+			if(sourcePos == lineLength){
+				readNextLine();
+				lineLength=sourceLine.length();
+				continue;
+			}
+			sourcePos++;
+		}
+		// error  */
+		if(sourceLine == null){
+			scannerError("*/");
+                }
+		else{
+			sourcePos++;
+		}
+	}
+	// removing comments
+	else if (s.contains("{")){
+		s= s.substring(0,s.length()-1); // to remove /*
+		while(sourceLine.charAt(sourcePos)!='}' && sourcePos != lineLength)
+			sourcePos++;
+		// Error not found }
+		if(sourceLine.charAt(sourcePos)!='}' )
+			scannerError("*/");
+		else{
+			sourcePos++;
+		}
+	}
+	return s;
+
+    }
     private String checkNextchar(String s,char c, char nextC,char c2){
 
 	if(s.equals(c) && nextC==c2){
@@ -136,20 +147,16 @@ public class Scanner {
     private boolean containsToken(String s){//toString()?
 
       for (TokenKind k: TokenKind.values()){
-           if(k.name().equals(s))
+           if(s.equals(k))
 		return true;
 	}
        return false;
     }
 
     // This method finds the appropriate TokenKind
-    private Token getToken(String s){
+    private Token getToken(String s){//TODO check integer og variables
 
-       for (TokenKind k: TokenKind.values()){
-           if(k.name().equals(s))
-		return new Token(s,getFileLineNum());
-	}
-       return null;
+	return TokenKind.getToken(s,getFileLineNum());
     }
     private void readNextLine() {
 	if (sourceFile != null) {

@@ -3,7 +3,6 @@ package main;
 import parser.*;
 import scanner.Scanner;
 import static scanner.TokenKind.*;
-
 import java.io.*;
 
 public class Main {
