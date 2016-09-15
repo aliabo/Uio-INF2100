@@ -44,41 +44,54 @@ public class Scanner {
     public void readNextToken() {
 	curToken = nextToken;  nextToken = null;
 	String temp = "";
-	int numberOfChar;
-	// read char char
+	int numberOfChar=0;
 	// Del 1 her:
-
+	// intialize
 	if(sourcePos == 0 ){
-		sourceLine = readNextLine();
+		readNextLine();
 		numberOfChar = sourceLine.length();
 	}
 	
 		
 	// kode cut Token
-	while(!cotainsToken(temp) && sourcePos < numberOfChar){//eof?
+	while(!containsToken(temp) && sourcePos < numberOfChar){//eof?
 
 		// Remove comments
-		 if temp.contains("/*")&& !temp.contains ("\""){
-			temp= temp.substring(0,path.lenth()-2) // to remove /*
-			while(sourceLine.charAt(sourcePos)!='/' && sourceLine.charAt(sourcePos-1) != '*'){
+		 if (temp.contains("/*")){
+			temp= temp.substring(0,temp.length()-2); // to remove /*
+			while(sourceLine.charAt(sourcePos)!='/' && sourceLine.charAt(sourcePos-1) != '*' && sourceLine != null){
 				//new line				
 				if(sourcePos == numberOfChar){
-					sourceLine=readNextLine();
+					readNextLine();
 					numberOfChar=sourceLine.length();
 					continue;
 				}
 				sourcePos++;
 			}
+			// error  */
+			if(sourceLine == null){
+				scannerError("*/");
+                        }
+			else{
+				sourcePos++;
+			}
 		}
 		// removing comments
-		else if temp.contains("{")&& !temp.contains ("\""){
-			temp= temp.substring(0,path.lenth()-1) // to remove /*
-			while(sourceLine.charAt(sourcePos)!='}')
+		else if (temp.contains("{")){
+			temp= temp.substring(0,temp.length()-1); // to remove /*
+			while(sourceLine.charAt(sourcePos)!='}' && sourcePos != numberOfChar)
 				sourcePos++;
+			// Error not found }
+			if(sourceLine.charAt(sourcePos)!='}' )
+				scannerError("*/");
+
+			else{
+				sourcePos++;
+			}
 		}
 		// seeking token
 		if(sourceLine.charAt(sourcePos) != ' ' && sourceLine.charAt(sourcePos) != '\n' ){
-			temp += sorceLine.charAt(sourcePos);
+			temp += sourceLine.charAt(sourcePos);
 			sourcePos++;
 		}
 		// Escaping spaces
@@ -92,7 +105,7 @@ public class Scanner {
          }
 	 // First call of readNextToken()
 	 if (curToken == null){ 
-	    nextToken = getToken(temp)
+	    nextToken = getToken(temp);
          }
 	 // Second call of readNextToken()
 	 else{ 
@@ -103,7 +116,7 @@ public class Scanner {
 	    temp = checkNextchar(temp,'<',sourceLine.charAt(sourcePos+1),'=');
 	    temp = checkNextchar(temp,'<',sourceLine.charAt(sourcePos+1),'>');
 	   
-	    nextToken = getToken(temp)//Token
+	    nextToken = getToken(temp);//Token
             //compare with curToken
 	    readNextToken();
 	 }
@@ -112,11 +125,11 @@ public class Scanner {
         Main.log.noteToken(nextToken);
     }
 
-    private String checkNextChar(String s,char c, char nextC,char c2){
+    private String checkNextchar(String s,char c, char nextC,char c2){
 
 	if(s.equals(c) && nextC==c2){
-		return s += c2;
 		sourcePos++;
+		return s += c2;
 	    }
 	return s;
     }
@@ -148,7 +161,7 @@ public class Scanner {
 		} else {
 		    sourceLine += " ";
 		}
-		sourcesourcePos = 0;
+		sourcePos = 0;
 	    } catch (IOException e) {
 		Main.error("Scanner error: unspecified I/O error!");
 	    }
@@ -173,7 +186,10 @@ public class Scanner {
     private boolean isDigit(char c) {
 	return '0'<=c && c<='9';
     }
-
+    public void scannerError(String message) {
+	Main.error(curLineNum(), 
+		   "Expected a " + message);
+    }
 
     // Parser tests:
 
