@@ -47,54 +47,58 @@ public class Scanner {
 	int lineLength=0;
 	// Del 1 her:
 	// intialize
-	if(sourcePos == 0 ){
-		readNextLine();
-		lineLength = sourceLine.length();
-	}
+        while (nextToken == null){
+		if(sourcePos == 0 ){
+			readNextLine();
+			lineLength = sourceLine.length();
+		}
 	
-	
-	// kode cut Token
-	while(!containsToken(temp) && sourcePos < lineLength){//eof?
+		// kode cut Token
+	       while(!containsToken(temp) && sourcePos < lineLength){//eof?
 
-		temp = removeComments(temp,lineLength);	
-                lineLength = sourceLine.length();
-		// seeking token
-		if(sourceLine.charAt(sourcePos) != ' ' && sourceLine.charAt(sourcePos) != '\n' ){
-			temp += sourceLine.charAt(sourcePos);
-			sourcePos++;
+			temp = removeComments(temp,lineLength);	
+                	lineLength = sourceLine.length();
+			// seeking token
+			if(sourceLine.charAt(sourcePos) != ' ' && sourceLine.charAt(sourcePos) != '\n' ){
+				temp += sourceLine.charAt(sourcePos);
+				sourcePos++;
+			}
+			// Escaping spaces
+			else{
+				sourcePos++;
+				break;
+			}
 		}
-		// Escaping spaces
-		else{
-			sourcePos++;
-			break;
+	 	// Perparing for reading a newLine
+	 	if(sourcePos >= lineLength){
+			sourcePos = 0;
+        	 }
+		 // First call of readNextToken()
+		 if (curToken == null){ 
+		    nextToken = getToken(temp);
+        	 }
+		 // Second call of readNextToken()
+		 else{ 
+		    // test of different Tokens
+		    if(temp.length()>0){
+			temp = checkNextchar(temp,':',sourceLine.charAt(sourcePos+1),'=');
+		    	temp = checkNextchar(temp,'.',sourceLine.charAt(sourcePos+1),'.');
+		    	temp = checkNextchar(temp,'>',sourceLine.charAt(sourcePos+1),'=');
+		    	temp = checkNextchar(temp,'<',sourceLine.charAt(sourcePos+1),'=');
+		    	temp = checkNextchar(temp,'<',sourceLine.charAt(sourcePos+1),'>');
+		     }
+		     // not eof token
+		     if(!temp.equals("")){
+		    	nextToken = getToken(temp);//Token
+		     }
+		 }
+		if(nextToken != null)
+        		Main.log.noteToken(nextToken);
+		else if (sourceLine.equals("")){
+			nextToken = getToken("e-o-f");
+			Main.log.noteToken(nextToken);
 		}
 	}
-	 // Perparing for reading a newLine
-	 if(sourcePos >= lineLength){
-		sourcePos = 0;
-         }
-	 // First call of readNextToken()
-	 if (curToken == null){ 
-	    nextToken = getToken(temp);
-         }
-	 // Second call of readNextToken()
-	 else{ 
-	    // test of different Tokens
-	    temp = checkNextchar(temp,':',sourceLine.charAt(sourcePos+1),'=');
-	    temp = checkNextchar(temp,'.',sourceLine.charAt(sourcePos+1),'.');
-	    temp = checkNextchar(temp,'>',sourceLine.charAt(sourcePos+1),'=');
-	    temp = checkNextchar(temp,'<',sourceLine.charAt(sourcePos+1),'=');
-	    temp = checkNextchar(temp,'<',sourceLine.charAt(sourcePos+1),'>');
-	  // not eof token
-	  if(nextToken != null)
-	    	nextToken = getToken(temp);//Token
-	  else{
-		nextToken = getToken("e-o-f");
-	  }
-            //compare with curToken
-	 }
-	if(nextToken != null)
-        	Main.log.noteToken(nextToken);
     }
 
     // A function for look for comments and remove them

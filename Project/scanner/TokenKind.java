@@ -114,6 +114,8 @@ public enum TokenKind {//TODO skip name and number
            if(s.equals(k.toString()) &&  !s.equals("name") && !s.equals("number"))
 		return new Token(k,lineNum);
 	}
-       return null;
+	if(s != null)
+      		return new Token(s,lineNum);
+	else return null;
     }
 }
