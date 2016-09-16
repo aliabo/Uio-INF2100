@@ -2,7 +2,7 @@ package scanner;
 
 import main.Main;
 import static scanner.TokenKind.*;
-
+import java.lang.*;
 import java.io.*;
 
 public class Scanner {
@@ -127,7 +127,7 @@ public class Scanner {
                 lineLength = sourceLine.length();
 		// seeking token
 		if(sourceLine.charAt(sourcePos) != ' ' && sourceLine.charAt(sourcePos) != '\n' ){
-			s += sourceLine.charAt(sourcePos);
+			s += Character.toLowerCase(sourceLine.charAt(sourcePos));
 			sourcePos++;
 		}
 	}
@@ -199,8 +199,6 @@ public class Scanner {
     // This method finds the appropriate TokenKind
     private Token getToken(String s){
         Token token = TokenKind.getToken(s,getFileLineNum());
-	char c1 = '\'';
-	char c2 = '’';
 	if(token == null && !s.equals("")){ //check general tokenkinds
 		if(s.charAt(0)> '0' && s.charAt(0) < '9'){ // int
 			try{
@@ -209,11 +207,11 @@ public class Scanner {
 				scannerError("int");
 			}
 		}
-		else if(s.charAt(0) == c1 || s.charAt(0) == c2){//TODO which one?
-			if(s.charAt(2) == c1 || s.charAt(2) == c2 ){
+		else if(s.charAt(0) == '\''){
+			if(s.charAt(2) == '\'' ){
 				token = new Token(s.charAt(1),getFileLineNum());
 			}
-			else{
+			else{//error
 				scannerError("'");
 			}
 		}
