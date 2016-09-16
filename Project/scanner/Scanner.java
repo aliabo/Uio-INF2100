@@ -44,18 +44,16 @@ public class Scanner {
     public void readNextToken() {
 	curToken = nextToken;  nextToken = null;
 	String temp = "";
-	int lineLength=0;
+	int lineLength=sourceLine.length();
 	// Del 1 her:
 	// intialize
         while (nextToken == null){
-		if(sourcePos == 0 ){
+		if(sourcePos >= lineLength ){
 			readNextLine();
 			lineLength = sourceLine.length();
 		}
-	
 		// kode cut Token
 	       while(!containsToken(temp) && sourcePos < lineLength){//eof?
-
 			temp = removeComments(temp,lineLength);	
                 	lineLength = sourceLine.length();
 			// seeking token
@@ -69,27 +67,29 @@ public class Scanner {
 				break;
 			}
 		}
-	 	// Perparing for reading a newLine
-	 	if(sourcePos >= lineLength){
-			sourcePos = 0;
-        	 }
+		// 2 tokens catched together?
+		if(temp.length()>1 && containsToken(temp.charAt(temp.length()-1)+"")){
+
+			temp = temp.substring(0,temp.length()-1);
+			sourcePos--; 
+		}
+		System.out.println("after if" + temp);
 		 // First call of readNextToken()
 		 if (curToken == null){ 
-		    nextToken = getToken(temp);
+		    if(!temp.equals(""))
+		    	nextToken = getToken(temp);
+			temp = "";
         	 }
 		 // Second call of readNextToken()
 		 else{ 
 		    // test of different Tokens
-		    if(temp.length()>0){
-			temp = checkNextchar(temp,':',sourceLine.charAt(sourcePos+1),'=');
-		    	temp = checkNextchar(temp,'.',sourceLine.charAt(sourcePos+1),'.');
-		    	temp = checkNextchar(temp,'>',sourceLine.charAt(sourcePos+1),'=');
-		    	temp = checkNextchar(temp,'<',sourceLine.charAt(sourcePos+1),'=');
-		    	temp = checkNextchar(temp,'<',sourceLine.charAt(sourcePos+1),'>');
+		    if(temp.length()>sourcePos){
+			temp = testDifferentTokens(temp);
 		     }
 		     // not eof token
 		     if(!temp.equals("")){
 		    	nextToken = getToken(temp);//Token
+			temp="";
 		     }
 		 }
 		if(nextToken != null)
@@ -101,14 +101,24 @@ public class Scanner {
 	}
     }
 
-    // A function for look for comments and remove them
+   // A method that calls the method checkNextchar for different values
+    private String testDifferentTokens(String s){
+
+	s = checkNextchar(s,':',sourceLine.charAt(sourcePos+1),'=');
+	s = checkNextchar(s,'.',sourceLine.charAt(sourcePos+1),'.');
+        s = checkNextchar(s,'>',sourceLine.charAt(sourcePos+1),'=');
+	s = checkNextchar(s,'<',sourceLine.charAt(sourcePos+1),'=');
+	s = checkNextchar(s,'<',sourceLine.charAt(sourcePos+1),'>');
+	return s;
+    }
+
+    // A method for look for comments and remove them
     private String removeComments(String s,int lineLength){
 
 	// Remove comments
 	if (s.contains("/*")){
 		s= s.substring(0,s.length()-2); // to remove /*
-		while(((sourceLine.charAt(sourcePos)!='/') || (sourceLine.charAt(sourcePos-1) != '*')) && (sourceLine != null)){
-			
+		while(((sourceLine.charAt(sourcePos)!='/') || (sourceLine.charAt(sourcePos-1) != '*')) && (!sourceLine.equals(""))){
 			//new line				
 			if(sourcePos == lineLength){
 				readNextLine();
@@ -118,12 +128,10 @@ public class Scanner {
 			sourcePos++;
 		}
 		// error  */
-		if(sourceLine == null){
+		if(sourceLine.equals("")){
 			scannerError("*/");
                 }
-		else{
-			sourcePos++;
-		}
+		else sourcePos++;
 	}
 	// removing comments
 	else if (s.contains("{")){
@@ -133,9 +141,7 @@ public class Scanner {
 		// Error not found }
 		if(sourceLine.charAt(sourcePos)!='}' )
 			scannerError("*/");
-		else{
-			sourcePos++;
-		}
+		else sourcePos++;
 	}
 	return s;
 
@@ -151,7 +157,7 @@ public class Scanner {
     private boolean containsToken(String s){//toString()?
 
       for (TokenKind k: TokenKind.values()){
-           if(s.equals(k))
+           if(s.equals(k.toString()))
 		return true;
 	}
        return false;
