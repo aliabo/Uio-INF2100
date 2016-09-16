@@ -9,7 +9,7 @@ Scanner: begin token on line 4
    5: write(’x’); 
 Scanner: name token on line 5: write
 Scanner: ( token on line 5
-Scanner: name token on line 5: ’x’
+Scanner: char token on line 5: 'x'
 Scanner: ) token on line 5
 Scanner: ; token on line 5
    6: end. 

@@ -60,6 +60,7 @@ public class Scanner {
 	       temp = checkTwoTokens(temp);// check if there is 2 unsplitted Tokens
 	       //skipSpaces(lineLength);
 	       // First call of readNextToken()
+	       checkIllegalSymbols(temp);// test
 		if (curToken == null){ 
 		    if(!temp.equals("")){
 		    	nextToken = getToken(temp);
@@ -96,6 +97,16 @@ public class Scanner {
 		else sourcePos =0; 
 	}
 	return s;
+    }
+
+    private void checkIllegalSymbols(String s){
+	if(s.equals(""))
+		return;
+	if(s.charAt(0) == '\'' || s.charAt(0) == '’')
+		return;
+	// TODO check the illegal symbols
+	else if(s.contains("!") || s.contains("?") || s.contains("@") || s.contains("!") || s.contains("|") || s.contains("^"))
+		scannerError("Illegal symbol!");
     }
 
     // A method to skip spaces
@@ -188,28 +199,25 @@ public class Scanner {
     // This method finds the appropriate TokenKind
     private Token getToken(String s){
         Token token = TokenKind.getToken(s,getFileLineNum());
+	char c1 = '\'';
+	char c2 = '’';
 	if(token == null && !s.equals("")){ //check general tokenkinds
-		System.out.println("inside if");
-		System.out.println("0 1: " + s.substring(0,1) + "2 3 " +s.substring(2,3));
-		if(s.charAt(0)< '0' && s.charAt(0) < '9'){ // int
+		if(s.charAt(0)> '0' && s.charAt(0) < '9'){ // int
 			try{
-				System.out.println("inside 1");
 	   			token = new Token(Integer.parseInt(s),getFileLineNum());
 			}catch(Exception e){
 				scannerError("int");
 			}
 		}
-		else if(s.contains("\'")){//TODO FIX This
-			if(!s.substring(2,3).equals("'"))
-				scannerError("'");
+		else if(s.charAt(0) == c1 || s.charAt(0) == c2){//TODO which one?
+			if(s.charAt(2) == c1 || s.charAt(2) == c2 ){
+				token = new Token(s.charAt(1),getFileLineNum());
+			}
 			else{
-				System.out.println("inside 2");
-				token = new Token(s.charAt(1), getFileLineNum());
+				scannerError("'");
 			}
 		}
 		else{
-			System.out.println("inside 3");
-			System.out.println(s);
 			token = new Token(s,getFileLineNum());
 		}
 	}
