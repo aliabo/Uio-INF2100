@@ -2,6 +2,7 @@
    2: program Mini; 
 Scanner: program token on line 2
 Scanner: name token on line 2: Mini
+Scanner: ; token on line 2
    3: begin 
 Scanner: begin token on line 3
    4: write(’x’); 

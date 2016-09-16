@@ -40,7 +40,6 @@ public class Scanner {
 		   ": " + message);
     }
 
-
     public void readNextToken() {
 	curToken = nextToken;  nextToken = null;
 	String temp = "";
@@ -48,12 +47,17 @@ public class Scanner {
 	// Del 1 her:
 	// intialize
         while (nextToken == null){
-		if(sourcePos >= lineLength ){
+		if(sourcePos >= lineLength ){//Reached end of line
 			readNextLine();
 			lineLength = sourceLine.length();
 		}
-		// kode cut Token
-	       while(!containsToken(temp) && sourcePos < lineLength){//eof?
+		if(!sourceLine.equals(""))	
+		while(sourcePos < lineLength && sourceLine.charAt(sourcePos) == ' '){// Escaping spaces
+				sourcePos++;
+				break;
+		}
+		// code cut Token
+	       while(!containsToken(temp) && sourcePos < lineLength){
 			temp = removeComments(temp,lineLength);	
                 	lineLength = sourceLine.length();
 			// seeking token
@@ -63,19 +67,21 @@ public class Scanner {
 				sourcePos++;
 				System.out.println("inside if" +temp );
 			}
-			while(sourceLine.charAt(sourcePos) == ' '){// Escaping spaces
-				sourcePos++;
-				break;
-			}
-		}
+		}// end code cut Token
 		temp = removeComments(temp,lineLength);	
                 	lineLength = sourceLine.length();
 		// 2 tokens catched together?
 		if(temp.length()>1 && containsToken(temp.charAt(temp.length()-1)+"")){
 
 			temp = temp.substring(0,temp.length()-1);
-			sourcePos -= 1; //move the cursor before the tokenat last position  
-			System.out.println("pos" + sourcePos + "Length()" + lineLength);
+			if(sourcePos>1)
+				sourcePos -= 1; //move the cursor before the tokenat last position 
+			else sourcePos =0; 
+		}
+		if(!sourceLine.equals(""))	
+		while(sourcePos < lineLength && sourceLine.charAt(sourcePos) == ' '){// Escaping spaces
+			sourcePos++;
+			break;
 		}
 		 // First call of readNextToken()
 		 if (curToken == null){ 
@@ -121,7 +127,7 @@ public class Scanner {
 	// Remove comments
 	if (s.contains("/*")){
 		s= s.substring(0,s.length()-2); // to remove /*
-		while(((sourceLine.charAt(sourcePos)!='/') && (sourceLine.charAt(sourcePos-1) != '*')) && (!sourceLine.equals(""))){
+		while(((sourceLine.charAt(sourcePos)!='/') || (sourceLine.charAt(sourcePos-1) != '*')) && (!sourceLine.equals(""))){
 			//new line				
 			if(sourcePos == lineLength){
 				readNextLine();
