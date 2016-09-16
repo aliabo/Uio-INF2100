@@ -57,23 +57,26 @@ public class Scanner {
 			temp = removeComments(temp,lineLength);	
                 	lineLength = sourceLine.length();
 			// seeking token
+			System.out.println("before if" + sourceLine.charAt(sourcePos) + sourcePos + " " + lineLength +"\n"+ sourceLine );
 			if(sourceLine.charAt(sourcePos) != ' ' && sourceLine.charAt(sourcePos) != '\n' ){
 				temp += sourceLine.charAt(sourcePos);
 				sourcePos++;
+				System.out.println("inside if" +temp );
 			}
-			// Escaping spaces
-			else{
+			while(sourceLine.charAt(sourcePos) == ' '){// Escaping spaces
 				sourcePos++;
 				break;
 			}
 		}
+		temp = removeComments(temp,lineLength);	
+                	lineLength = sourceLine.length();
 		// 2 tokens catched together?
 		if(temp.length()>1 && containsToken(temp.charAt(temp.length()-1)+"")){
 
 			temp = temp.substring(0,temp.length()-1);
-			sourcePos--; 
+			sourcePos -= 1; //move the cursor before the tokenat last position  
+			System.out.println("pos" + sourcePos + "Length()" + lineLength);
 		}
-		System.out.println("after if" + temp);
 		 // First call of readNextToken()
 		 if (curToken == null){ 
 		    if(!temp.equals(""))
@@ -118,7 +121,7 @@ public class Scanner {
 	// Remove comments
 	if (s.contains("/*")){
 		s= s.substring(0,s.length()-2); // to remove /*
-		while(((sourceLine.charAt(sourcePos)!='/') || (sourceLine.charAt(sourcePos-1) != '*')) && (!sourceLine.equals(""))){
+		while(((sourceLine.charAt(sourcePos)!='/') && (sourceLine.charAt(sourcePos-1) != '*')) && (!sourceLine.equals(""))){
 			//new line				
 			if(sourcePos == lineLength){
 				readNextLine();
@@ -157,7 +160,7 @@ public class Scanner {
     private boolean containsToken(String s){//toString()?
 
       for (TokenKind k: TokenKind.values()){
-           if(s.equals(k.toString()))
+           if(s.contains(k.toString()))
 		return true;
 	}
        return false;
