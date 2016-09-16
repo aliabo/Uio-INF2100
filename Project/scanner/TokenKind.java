@@ -3,7 +3,7 @@ package scanner;
 // Note that tokens found in standard Pascal but not in Pascal2016
 // have been commented out.
 
-public enum TokenKind {//TODO skip name and number
+public enum TokenKind {
     nameToken("name"),
     intValToken("number"),
     charValToken("char"),
@@ -114,8 +114,6 @@ public enum TokenKind {//TODO skip name and number
            if(s.equals(k.toString()) &&  !s.equals("name") && !s.equals("number"))
 		return new Token(k,lineNum);
 	}
-	if(!s.equals(""))
-      		return new Token(s,lineNum);
-	else return null;
+	return null;
     }
 }

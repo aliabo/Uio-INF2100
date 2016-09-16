@@ -51,46 +51,23 @@ public class Scanner {
 			readNextLine();
 			lineLength = sourceLine.length();
 		}
-		if(!sourceLine.equals(""))	
-		while(sourcePos < lineLength && sourceLine.charAt(sourcePos) == ' '){// Escaping spaces
-				sourcePos++;
-				break;
-		}
-		// code cut Token
-	       while(!containsToken(temp) && sourcePos < lineLength){
-			temp = removeComments(temp,lineLength);	
-                	lineLength = sourceLine.length();
-			// seeking token
-			System.out.println("before if" + sourceLine.charAt(sourcePos) + sourcePos + " " + lineLength +"\n"+ sourceLine );
-			if(sourceLine.charAt(sourcePos) != ' ' && sourceLine.charAt(sourcePos) != '\n' ){
-				temp += sourceLine.charAt(sourcePos);
-				sourcePos++;
-				System.out.println("inside if" +temp );
-			}
-		}// end code cut Token
-		temp = removeComments(temp,lineLength);	
-                	lineLength = sourceLine.length();
-		// 2 tokens catched together?
-		if(temp.length()>1 && containsToken(temp.charAt(temp.length()-1)+"")){
 
-			temp = temp.substring(0,temp.length()-1);
-			if(sourcePos>1)
-				sourcePos -= 1; //move the cursor before the tokenat last position 
-			else sourcePos =0; 
-		}
-		if(!sourceLine.equals(""))	
-		while(sourcePos < lineLength && sourceLine.charAt(sourcePos) == ' '){// Escaping spaces
-			sourcePos++;
-			break;
-		}
-		 // First call of readNextToken()
-		 if (curToken == null){ 
-		    if(!temp.equals(""))
+	       skipSpaces(lineLength);
+	       // code cut Token
+	       temp = selectTokenText(temp,lineLength);// select the token from the text
+	       temp = removeComments(temp,lineLength);// remove comments if found	
+               lineLength = sourceLine.length();
+	       temp = checkTwoTokens(temp);// check if there is 2 unsplitted Tokens
+	       //skipSpaces(lineLength);
+	       // First call of readNextToken()
+		if (curToken == null){ 
+		    if(!temp.equals("")){
 		    	nextToken = getToken(temp);
 			temp = "";
-        	 }
-		 // Second call of readNextToken()
-		 else{ 
+		    } 
+        	}
+		// Second call of readNextToken()
+		else{ 
 		    // test of different Tokens
 		    if(temp.length()>sourcePos){
 			temp = testDifferentTokens(temp);
@@ -110,7 +87,43 @@ public class Scanner {
 	}
     }
 
-   // A method that calls the method checkNextchar for different values
+    // A method to check if 2 tokens are included in one word
+    private String checkTwoTokens(String s){
+	if(s.length()>1 && containsToken(s.charAt(s.length()-1)+"")){
+		s = s.substring(0,s.length()-1);
+		if(sourcePos>1)
+			sourcePos -= 1; //move the cursor before the tokenat last position 
+		else sourcePos =0; 
+	}
+	return s;
+    }
+
+    // A method to skip spaces
+    private void skipSpaces(int lineLength){
+	if(!sourceLine.equals("")){	
+		while(sourcePos < lineLength && sourceLine.charAt(sourcePos) == ' '){
+			sourcePos++;
+			break;
+		}
+	}
+	
+    }
+	
+    // A method to select the part of line that contains a token
+    private String selectTokenText(String s, int lineLength){
+ 	while(!containsToken(s) && sourcePos < lineLength){
+		s = removeComments(s,lineLength);	
+                lineLength = sourceLine.length();
+		// seeking token
+		if(sourceLine.charAt(sourcePos) != ' ' && sourceLine.charAt(sourcePos) != '\n' ){
+			s += sourceLine.charAt(sourcePos);
+			sourcePos++;
+		}
+	}
+	return s;
+    }
+
+    // A method that calls the method checkNextchar for different values
     private String testDifferentTokens(String s){
 
 	s = checkNextchar(s,':',sourceLine.charAt(sourcePos+1),'=');
@@ -163,7 +176,7 @@ public class Scanner {
 	    }
 	return s;
     }
-    private boolean containsToken(String s){//toString()?
+    private boolean containsToken(String s){
 
       for (TokenKind k: TokenKind.values()){
            if(s.contains(k.toString()))
@@ -173,9 +186,34 @@ public class Scanner {
     }
 
     // This method finds the appropriate TokenKind
-    private Token getToken(String s){//TODO check integer og variables
-
-	return TokenKind.getToken(s,getFileLineNum());
+    private Token getToken(String s){
+        Token token = TokenKind.getToken(s,getFileLineNum());
+	if(token == null && !s.equals("")){ //check general tokenkinds
+		System.out.println("inside if");
+		System.out.println("0 1: " + s.substring(0,1) + "2 3 " +s.substring(2,3));
+		if(s.charAt(0)< '0' && s.charAt(0) < '9'){ // int
+			try{
+				System.out.println("inside 1");
+	   			token = new Token(Integer.parseInt(s),getFileLineNum());
+			}catch(Exception e){
+				scannerError("int");
+			}
+		}
+		else if(s.contains("\'")){//TODO FIX This
+			if(!s.substring(2,3).equals("'"))
+				scannerError("'");
+			else{
+				System.out.println("inside 2");
+				token = new Token(s.charAt(1), getFileLineNum());
+			}
+		}
+		else{
+			System.out.println("inside 3");
+			System.out.println(s);
+			token = new Token(s,getFileLineNum());
+		}
+	}
+	return token;
     }
     private void readNextLine() {
 	if (sourceFile != null) {
