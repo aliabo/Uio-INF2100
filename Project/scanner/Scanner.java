@@ -129,11 +129,13 @@ public class Scanner {
 		if(sourceLine.charAt(sourcePos) != ' ' && sourceLine.charAt(sourcePos) != '\n' ){
 			
 			if(sourceLine.charAt(sourcePos) == '\''){// reading 'c'
-				if(s.equals("")){//s dont contain something before
-					s += sourceLine.substring(sourcePos,sourcePos + 2);
-					sourcePos += 2;
-				}
-				return s;
+				try{
+					if(s.equals("")){//s dont contain something before
+						s += sourceLine.substring(sourcePos,sourcePos + 3);
+						sourcePos += 3;
+					}
+					return s;
+				}catch(Exception e){scannerError("'");}
 			}
 			s += Character.toLowerCase(sourceLine.charAt(sourcePos));
 			sourcePos++;
@@ -221,9 +223,9 @@ public class Scanner {
 		}
 		else if(s.contains("'")){// 'c'
 			try{
-				if(sourceLine.charAt(sourcePos)== '\''  && sourceLine.charAt(sourcePos-2)== '\'' ){
-					token = new Token(sourceLine.charAt(sourcePos - 1),getFileLineNum());
-				}
+				if(s.charAt(0)== '\''  && s.charAt(2)== '\'' ){
+					token = new Token(s.charAt(1),getFileLineNum());
+				}else{scannerError("'");}
 			
 			}catch(Exception e){//error
 				scannerError("'");
