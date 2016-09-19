@@ -55,9 +55,8 @@ public class Scanner {
 	       skipSpaces(lineLength);//spaces at beginning
 	       // code cut Token
 	       temp = selectTokenText(temp,lineLength);// select the token from the text
-	       skipSpaces(lineLength);
-	       temp = removeComments(temp,lineLength);// remove comments if found
-	       skipSpaces(lineLength);	
+	       //skipSpaces(lineLength);
+	       temp = removeComments(temp,lineLength);// remove comments if found	
                lineLength = sourceLine.length();
 	       temp = checkTwoTokens(temp);// check if there is 2 unsplitted Tokens like i;
 	       // First call of readNextToken()
@@ -129,7 +128,7 @@ public class Scanner {
     // A method to skip spaces
     private void skipSpaces(int lineLength){
 	if(!sourceLine.equals("")){	
-		while(sourcePos < lineLength && sourceLine.charAt(sourcePos) == ' '){
+		while(sourcePos < lineLength && (sourceLine.charAt(sourcePos) == ' ' || sourceLine.charAt(sourcePos) == '\t')){
 			sourcePos++;
 			break;
 		}
@@ -226,6 +225,7 @@ public class Scanner {
                 }
 		else sourcePos++;		
 	}
+	System.out.println("s=" + s + "mmm");
 	return s;
 
     }
