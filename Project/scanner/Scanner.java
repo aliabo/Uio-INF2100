@@ -122,7 +122,7 @@ public class Scanner {
 	else if (s.contains("'"))
 		scannerError("Illegal character: '''!");
 	else if (s.contains("_"))
-		scannerError("Illegal character: '_'");
+		scannerError("Illegal character: '_'!");
     }
 
     // A method to skip spaces
@@ -199,7 +199,7 @@ public class Scanner {
 		}
 		// error  */
 		if(sourceLine.equals("")){
-			scannerError("*/");
+			scannerError("No end for comment starting on line " + curLineNum()+ "!");
                 }
 		else sourcePos++;
 	}
