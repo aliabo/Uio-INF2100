@@ -152,13 +152,14 @@ public class Scanner {
 	if (s.contains("/*")){
 		s= s.substring(0,s.length()-2); // to remove /*
 		while(((sourceLine.charAt(sourcePos)!='/') || (sourceLine.charAt(sourcePos-1) != '*')) && (!sourceLine.equals(""))){
+		
+			sourcePos++;
 			//new line				
 			if(sourcePos == lineLength){
 				readNextLine();
-				lineLength=sourceLine.length();
+				lineLength=sourceLine.length()-1;
 				continue;
 			}
-			sourcePos++;
 		}
 		// error  */
 		if(sourceLine.equals("")){

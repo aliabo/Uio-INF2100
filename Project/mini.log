@@ -2,7 +2,7 @@
    2: /* Et minimalt Pascal-program */ 
    3: program Mini; 
 Scanner: program token on line 3
-Scanner: name token on line 3: mini
+Scanner: name token on line 3: Mini
 Scanner: ; token on line 3
    4: begin 
 Scanner: begin token on line 4
