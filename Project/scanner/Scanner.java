@@ -52,13 +52,14 @@ public class Scanner {
 			lineLength = sourceLine.length();
 		}
 
-	       skipSpaces(lineLength);
+	       skipSpaces(lineLength);//spaces at beginning
 	       // code cut Token
 	       temp = selectTokenText(temp,lineLength);// select the token from the text
-	       temp = removeComments(temp,lineLength);// remove comments if found	
+	       skipSpaces(lineLength);
+	       temp = removeComments(temp,lineLength);// remove comments if found
+	       skipSpaces(lineLength);	
                lineLength = sourceLine.length();
 	       temp = checkTwoTokens(temp);// check if there is 2 unsplitted Tokens like i;
-	       //skipSpaces(lineLength);
 	       // First call of readNextToken()
 	       checkIllegalSymbols(temp);// test
 		if (curToken == null){ 
@@ -102,11 +103,27 @@ public class Scanner {
     private void checkIllegalSymbols(String s){
 	if(s.equals(""))
 		return;
-	if(s.charAt(0) == '\'' || s.charAt(0) == '’')
+	if(s.charAt(0) == '\'')
 		return;
-	// TODO check the illegal symbols
-	else if(s.contains("!") || s.contains("?") || s.contains("@") || s.contains("!") || s.contains("|") || s.contains("^"))
-		scannerError("Illegal symbol!");
+	//  check the illegal symbols
+	else if(s.contains("!"))
+		scannerError("Illegal character: '!'!");
+	else if (s.contains("#"))
+		scannerError("Illegal character: '#'!");
+	else if (s.contains("%"))
+		scannerError("Illegal character: '%'!");
+	else if (s.contains("&"))
+		scannerError("Illegal character: '&'!");
+	else if (s.contains("/"))
+		scannerError("Illegal character: '/'!");
+	else if (s.contains("?"))
+		scannerError("Illegal character: '?'!");
+	else if (s.contains("\""))
+		scannerError("Illegal character: '\"'!");
+	else if (s.contains("'"))
+		scannerError("Illegal character: '''!");
+	else if (s.contains("_"))
+		scannerError("Illegal character: '_'");
     }
 
     // A method to skip spaces
@@ -123,7 +140,7 @@ public class Scanner {
     // A method to select the part of line that contains a token
     private String selectTokenText(String s, int lineLength){
  	while(!containsToken(s) && sourcePos < lineLength && sourceLine.charAt(sourcePos) != ' '){
-		s = removeComments(s,lineLength);	
+		s = removeComments(s,lineLength);
                 lineLength = sourceLine.length();
 		// seeking token
 		if(sourceLine.charAt(sourcePos) != ' ' && sourceLine.charAt(sourcePos) != '\n' ){
@@ -131,15 +148,21 @@ public class Scanner {
 			if(sourceLine.charAt(sourcePos) == '\''){// reading 'c'
 				try{
 					if(s.equals("")){//s dont contain something before
+						if(sourcePos + 4 < lineLength)
+							if(sourceLine.substring(sourcePos,sourcePos + 4).equals("''''")){//''''
+								s += sourceLine.substring(sourcePos,sourcePos + 3);
+								sourcePos += 4;
+								return s;
+							}
 						s += sourceLine.substring(sourcePos,sourcePos + 3);
 						sourcePos += 3;
 					}
 					return s;
-				}catch(Exception e){scannerError("'");}
+				}catch(Exception e){scannerError("Illegal char literal!");}
 			}
 			s += Character.toLowerCase(sourceLine.charAt(sourcePos));
 			sourcePos++;
-		}
+		}			
 	}
 	
 	return s;
@@ -155,19 +178,23 @@ public class Scanner {
 	return s;
     }
 
+  
     // A method for look for comments and remove them
     private String removeComments(String s,int lineLength){
-
 	// Remove comments
 	if (s.contains("/*")){
 		s= s.substring(0,s.length()-2); // to remove /*
-		while(((sourceLine.charAt(sourcePos)!='/') || (sourceLine.charAt(sourcePos-1) != '*')) && (!sourceLine.equals(""))){
-		
+		while((!sourceLine.equals("")) && ((sourceLine.charAt(sourcePos)!='/') || (sourceLine.charAt(sourcePos-1) != '*')) ){
 			sourcePos++;
 			//new line				
 			if(sourcePos == lineLength){
 				readNextLine();
-				lineLength=sourceLine.length()-1;
+				lineLength=sourceLine.length();
+				while(sourceLine.length() < 2 && !sourceLine.equals("")){ // skip lines that dont contain 2 chars for */
+					readNextLine();
+					lineLength=sourceLine.length();
+				}
+				sourcePos++;
 				continue;
 			}
 		}
@@ -180,12 +207,24 @@ public class Scanner {
 	// removing comments
 	else if (s.contains("{")){
 		s= s.substring(0,s.length()-1); // to remove /*
-		while(sourceLine.charAt(sourcePos)!='}' && sourcePos != lineLength)
+		while((!sourceLine.equals("")) && (sourceLine.charAt(sourcePos)!='}')){
 			sourcePos++;
-		// Error not found }
-		if(sourceLine.charAt(sourcePos)!='}' )
+			//new line			
+			if(sourcePos == lineLength){
+				readNextLine();
+				lineLength=sourceLine.length();
+				while(sourceLine.length() < 1 && !sourceLine.equals("")){ // skip lines that dont contain 1 chars for }
+					readNextLine();
+					lineLength=sourceLine.length();
+				}
+				continue;
+			}
+		}
+		// error  */
+		if(sourceLine.equals("")){
 			scannerError("}");
-		else sourcePos++;
+                }
+		else sourcePos++;		
 	}
 	return s;
 
@@ -218,17 +257,17 @@ public class Scanner {
 			try{
 	   			token = new Token(Integer.parseInt(s),getFileLineNum());
 			}catch(Exception e){
-				scannerError("int");
+				scannerError("Expected int!");
 			}
 		}
 		else if(s.contains("'")){// 'c'
 			try{
 				if(s.charAt(0)== '\''  && s.charAt(2)== '\'' ){
 					token = new Token(s.charAt(1),getFileLineNum());
-				}else{scannerError("'");}
+				}else{scannerError("Illegal char literal!");}
 			
 			}catch(Exception e){//error
-				scannerError("'");
+				scannerError("Illegal char literal!");
 			}
 		}// end else if
 		else{
@@ -274,8 +313,7 @@ public class Scanner {
 	return '0'<=c && c<='9';
     }
     public void scannerError(String message) {
-	Main.error(curLineNum(), 
-		   "Expected a " + message);
+	Main.error(curLineNum(), message);
     }
 
     // Parser tests:
