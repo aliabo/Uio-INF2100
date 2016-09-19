@@ -225,7 +225,6 @@ public class Scanner {
                 }
 		else sourcePos++;		
 	}
-	System.out.println("s=" + s + "mmm");
 	return s;
 
     }
