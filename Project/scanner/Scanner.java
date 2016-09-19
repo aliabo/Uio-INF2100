@@ -184,7 +184,7 @@ public class Scanner {
 			sourcePos++;
 		// Error not found }
 		if(sourceLine.charAt(sourcePos)!='}' )
-			scannerError("*/");
+			scannerError("}");
 		else sourcePos++;
 	}
 	return s;
