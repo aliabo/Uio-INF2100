@@ -57,7 +57,7 @@ public class Scanner {
 	       temp = selectTokenText(temp,lineLength);// select the token from the text
 	       temp = removeComments(temp,lineLength);// remove comments if found	
                lineLength = sourceLine.length();
-	       temp = checkTwoTokens(temp);// check if there is 2 unsplitted Tokens
+	       temp = checkTwoTokens(temp);// check if there is 2 unsplitted Tokens like i;
 	       //skipSpaces(lineLength);
 	       // First call of readNextToken()
 	       checkIllegalSymbols(temp);// test
@@ -70,8 +70,8 @@ public class Scanner {
 		// Second call of readNextToken()
 		else{ 
 		    // test of different Tokens
-		    if(temp.length()>sourcePos){
-			temp = testDifferentTokens(temp);
+		    if(sourcePos< lineLength){
+			temp = testDifferentTokens(temp); //like : or :=
 		     }
 		     // not eof token
 		     if(!temp.equals("")){
@@ -90,7 +90,7 @@ public class Scanner {
 
     // A method to check if 2 tokens are included in one word
     private String checkTwoTokens(String s){
-	if(s.length()>1 && containsToken(s.charAt(s.length()-1)+"")){
+	if(s.length()>1 && containsToken(s.charAt(s.length()-1)+"") && s.charAt(0) != '\''){
 		s = s.substring(0,s.length()-1);
 		if(sourcePos>1)
 			sourcePos -= 1; //move the cursor before the tokenat last position 
@@ -127,6 +127,14 @@ public class Scanner {
                 lineLength = sourceLine.length();
 		// seeking token
 		if(sourceLine.charAt(sourcePos) != ' ' && sourceLine.charAt(sourcePos) != '\n' ){
+			
+			if(sourceLine.charAt(sourcePos) == '\''){// reading 'c'
+				if(s.equals("")){//s dont contain something before
+					s += sourceLine.substring(sourcePos,sourcePos + 2);
+					sourcePos += 2;
+				}
+				return s;
+			}
 			s += Character.toLowerCase(sourceLine.charAt(sourcePos));
 			sourcePos++;
 		}
@@ -137,12 +145,11 @@ public class Scanner {
 
     // A method that calls the method checkNextchar for different values
     private String testDifferentTokens(String s){
-
-	s = checkNextchar(s,':',sourceLine.charAt(sourcePos+1),'=');
-	s = checkNextchar(s,'.',sourceLine.charAt(sourcePos+1),'.');
-        s = checkNextchar(s,'>',sourceLine.charAt(sourcePos+1),'=');
-	s = checkNextchar(s,'<',sourceLine.charAt(sourcePos+1),'=');
-	s = checkNextchar(s,'<',sourceLine.charAt(sourcePos+1),'>');
+	s = checkNextchar(s,':',sourceLine.charAt(sourcePos),'=');
+	s = checkNextchar(s,'.',sourceLine.charAt(sourcePos),'.');
+        s = checkNextchar(s,'>',sourceLine.charAt(sourcePos),'=');
+	s = checkNextchar(s,'<',sourceLine.charAt(sourcePos),'=');
+	s = checkNextchar(s,'<',sourceLine.charAt(sourcePos),'>');
 	return s;
     }
 
@@ -181,14 +188,17 @@ public class Scanner {
 	return s;
 
     }
+    
+   // fucnction to choose tokens like (: or :=) (< or <=) 
     private String checkNextchar(String s,char c, char nextC,char c2){
-
-	if(s.equals(c) && nextC==c2){
+	if(s.equals(c + "") && nextC==c2){
 		sourcePos++;
 		return s += c2;
 	    }
 	return s;
     }
+
+    //function to sjekk if a word contains a token
     private boolean containsToken(String s){
 
       for (TokenKind k: TokenKind.values()){
@@ -202,25 +212,28 @@ public class Scanner {
     private Token getToken(String s){
         Token token = TokenKind.getToken(s,getFileLineNum());
 	if(token == null && !s.equals("")){ //check general tokenkinds
-		if(s.charAt(0)> '0' && s.charAt(0) < '9'){ // int
+		if(s.charAt(0)>= '0' && s.charAt(0) <= '9'){ // int
 			try{
 	   			token = new Token(Integer.parseInt(s),getFileLineNum());
 			}catch(Exception e){
 				scannerError("int");
 			}
 		}
-		else if(s.charAt(0) == '\''){
-			if(s.charAt(2) == '\'' ){
-				token = new Token(s.charAt(1),getFileLineNum());
-			}
-			else{//error
+		else if(s.contains("'")){// 'c'
+			try{
+				if(sourceLine.charAt(sourcePos)== '\''  && sourceLine.charAt(sourcePos-2)== '\'' ){
+					token = new Token(sourceLine.charAt(sourcePos - 1),getFileLineNum());
+				}
+			
+			}catch(Exception e){//error
 				scannerError("'");
 			}
-		}
+		}// end else if
 		else{
 			token = new Token(s,getFileLineNum());
 		}
 	}
+	
 	return token;
     }
     private void readNextLine() {
