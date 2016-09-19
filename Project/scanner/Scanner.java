@@ -122,7 +122,7 @@ public class Scanner {
 	
     // A method to select the part of line that contains a token
     private String selectTokenText(String s, int lineLength){
- 	while(!containsToken(s) && sourcePos < lineLength){
+ 	while(!containsToken(s) && sourcePos < lineLength && sourceLine.charAt(sourcePos) != ' '){
 		s = removeComments(s,lineLength);	
                 lineLength = sourceLine.length();
 		// seeking token
@@ -131,6 +131,7 @@ public class Scanner {
 			sourcePos++;
 		}
 	}
+	
 	return s;
     }
 
