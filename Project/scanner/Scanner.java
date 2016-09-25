@@ -35,9 +35,9 @@ public class Scanner {
 
     
     private void error(String message) {
-	Main.error("Scanner error on " +
-		   (curLineNum()<0 ? "last line" : "line "+curLineNum()) + 
-		   ": " + message);
+	 Main.error("Scanner error" +
+             (getFileLineNum()>0 ? " on line "+getFileLineNum() : "") +
+             ": " + message);
     }
 
     public void readNextToken() {
