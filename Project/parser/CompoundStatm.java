@@ -1,7 +1,9 @@
 package parser;
 import main.*;
+import scanner.*;
+import static scanner.TokenKind.*;
 
-class CompoundStatm extends Statment{
+class CompoundStatm extends Statement{
 	CompoundStatm(int lNum) {
 	super(lNum);
 	}

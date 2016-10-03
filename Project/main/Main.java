@@ -31,8 +31,8 @@ public class Main {
 	    if (testScanner) 
 		doTestScanner(s);// jobb
 	    // Del 2: 
-	    // else if (testParser)
-	    //     doTestParser(s);
+	    else if (testParser)
+	         doTestParser(s);
 	    // Del 3:
 	    // else if (testChecker)
 	    //     doTestChecker(s);
@@ -99,7 +99,7 @@ public class Main {
     }
  
 
-    /* Del 2:
+    // Del 2:
     private static void doTestParser(Scanner s) {
 	Program prog = Program.parse(s);
 	if (s.curToken.kind != eofToken) 
@@ -107,7 +107,7 @@ public class Main {
 
 	prog.prettyPrint();
     }
-    */
+    
 
 
     /* Del 3:

@@ -23,14 +23,14 @@ public class Program extends PascalDecl {
 		s.readNextToken();
 		s.skip(semicolonToken);
 		p.progBlock = Block.parse(s);
-                p.progBlock.context = p;//TODO check if needed p.progBlock.context = p;????
+                //p.progBlock.context = p;//TODO check if needed p.progBlock.context = p;????
 		s.skip(dotToken);
 		leaveParser("program");
 		return p;
 	}
         //TODO check if needed or not
        
-        @Override void prettyPrint() {
+        public @Override void prettyPrint() {
 		Main.log.prettyPrintLn("program " + name + ";"); 
                 Main.log.prettyIndent();
 		progBlock.prettyPrint();
