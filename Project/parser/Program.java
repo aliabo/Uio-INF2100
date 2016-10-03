@@ -22,9 +22,19 @@ public class Program extends PascalDecl {
 		Program p = new Program(s.curToken.id, s.curLineNum());
 		s.readNextToken();
 		s.skip(semicolonToken);
-		p.progBlock = Block.parse(s);  p.progBlock.context = p;
+		p.progBlock = Block.parse(s);
+                p.progBlock.context = p;//TODO check if needed p.progBlock.context = p;????
 		s.skip(dotToken);
 		leaveParser("program");
 		return p;
+	}
+        //TODO check if needed or not
+       
+        @Override void prettyPrint() {
+		Main.log.prettyPrintLn("program " + name + ";"); 
+                Main.log.prettyIndent();
+		progBlock.prettyPrint();
+		Main.log.prettyOutdent();
+                Main.log.prettyPrint("."); 
 	}
 }
