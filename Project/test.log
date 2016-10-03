@@ -1,18 +1,1 @@
    1: program test; 
-Parser:   <program>
-   2: begin 
-   3: end. 
-Parser:     <block>
-Parser:       <statm-list>
-Parser:         <statement>
-Parser:           <empty-statm>
-Parser:           </empty-statm>
-Parser:         </statement>
-Parser:       </statm-list>
-Parser:     </block>
-Parser:   </program>
-program test;
-  begin
-    
-  end
-.

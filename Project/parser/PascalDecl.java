@@ -34,7 +34,6 @@ public abstract class PascalDecl extends PascalSyntax {
      * </dl>
      */
     //abstract void checkWhetherAssignable(PascalSyntax where);
-
     //abstract void checkWhetherFunction(PascalSyntax where);
     //abstract void checkWhetherProcedure(PascalSyntax where);
     //abstract void checkWhetherValue(PascalSyntax where);
