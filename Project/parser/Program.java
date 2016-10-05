@@ -4,7 +4,7 @@ import scanner.*;
 import static scanner.TokenKind.*;
 /* <program> ::= ’program’ <name> ’;’ <block> ’.’ */
 
-//TODO implement the abstract classes
+//TODO implement abstract from ParscalDecl
 public class Program extends PascalDecl {
 	Block progBlock;
 	Program(String id, int lNum) {
