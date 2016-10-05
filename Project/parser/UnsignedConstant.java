@@ -30,7 +30,7 @@ public abstract class UnsignedConstant extends Factor {
 				s.testError("nameToken");
 		}
 		leaveParser("unsigned-constant");
-		return st;
+		return uc;
 	}
 
 	@Override void prettyPrint() {
