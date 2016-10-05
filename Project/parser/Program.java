@@ -6,7 +6,9 @@ import static scanner.TokenKind.*;
 
 //TODO implement abstract from ParscalDecl
 public class Program extends PascalDecl {
+
 	Block progBlock;
+
 	Program(String id, int lNum) {
 		super(id, lNum);
 	}
