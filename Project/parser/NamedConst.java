@@ -27,7 +27,7 @@ public class NamedConst extends UnsignedConstant {
 	}
 
 	@Override void prettyPrint() {
-		prettyPrint(name);
+		Main.log.prettyPrint(name);
 	}
 
 }
