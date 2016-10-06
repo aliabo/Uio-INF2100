@@ -10,10 +10,6 @@ abstract class Statement extends PascalSyntax {
 		super(lNum);
 	}
 
-	@Override public String identify() {
-		return "<statement> on line " + lineNum;
-	}
-
 	public static Statement parse(Scanner s) {
          
 		enterParser("statement");
@@ -40,6 +36,10 @@ abstract class Statement extends PascalSyntax {
 		}
 		leaveParser("statement");
 		return st;
+	}
+
+	@Override public String identify() {
+		return "<statement> on line " + lineNum;
 	}
 
 	@Override void prettyPrint() {

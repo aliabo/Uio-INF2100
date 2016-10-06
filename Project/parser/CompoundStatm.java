@@ -3,28 +3,35 @@ import main.*;
 import scanner.*;
 import static scanner.TokenKind.*;
 
+// --> (Begin) --> [Statmlist] --> (End)
 class CompoundStatm extends Statement{
-	CompoundStatm(int lNum) {
-	super(lNum);
-	}
-	Statement body;
 
-	public static Statement parse(Scanner s) {
-		enterParser("CompundStatm");
-	
-		CompoundStatm cs = new CompoundStatm(s.curLineNum());
-		s.skip(beginToken);
-	
-		//Når man kaller parse, skal første symbol være lest inn
+    CompoundStatm(int lNum) {
+        super(lNum);
+    }
 
-		// Når man returnerer fra en parse, skal første symbol etter konstruksjonen være lest.
-		while(s.curToken.kind == semicolonToken){
-			s.skip(semicolonToken);
-			cs.body = Statement.parse(s);
-		}
+    private StatmList st;
 
-		s.skip(endToken);
-		leaveParser("CompundStatm");
-		return cs;
-	}
+    public static Statement parse(Scanner s) {
+        enterParser("compundStatm");
+        CompoundStatm cs = new CompoundStatm(s.curLineNum());
+
+        s.skip(beginToken);
+        cs.st = StatmList.parse(s);
+        s.skip(endToken);
+
+        leaveParser("compundStatm");
+        return cs;
+    }
+
+    @Override public String identify() {
+        return "<compundstatm> on line " + lineNum;
+    }
+
+    @Override void prettyPrint() {
+        Main.log.prettyPrint("begin ");
+        st.prettyPrint();
+        Main.log.prettyPrintLn(" end");
+        Main.log.prettyIndent();
+    }
 }

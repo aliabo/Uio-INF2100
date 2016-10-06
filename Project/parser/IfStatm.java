@@ -16,10 +16,6 @@ public class IfStatm extends Statement {
         super(lNum);
     }
 
-    @Override public String identify() {
-        return "<ifstatm> on line " + lineNum;
-    }
-
     public static IfStatm parse(Scanner s) {
         enterParser("IfStatm");
 
@@ -37,6 +33,10 @@ public class IfStatm extends Statement {
 
         leaveParser("IfStatm");
         return ifS;
+    }
+
+    @Override public String identify() {
+        return "<ifstatm> on line " + lineNum;
     }
 
     @Override void prettyPrint(){
