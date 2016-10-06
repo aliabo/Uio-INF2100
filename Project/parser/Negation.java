@@ -8,7 +8,6 @@ public class Negation extends Factor {
 
 	Factor f;
 
-
 	Negation(int lNum) {
 		super(lNum);
 	}
@@ -23,7 +22,7 @@ public class Negation extends Factor {
 		Negation n = new Negation(s.curLineNum());
 			
 		s.skip(notToken);
-		n.f = Expression.parse(s);
+		n.f = Factor.parse(s);
 			
 		leaveParser("negation");
 		return n;
@@ -33,5 +32,6 @@ public class Negation extends Factor {
 		
 		Main.log.prettyPrint("not ");
 		f.prettyPrint();
+		Main.log.prettyPrintLn("");
 	}
 }

@@ -25,7 +25,7 @@ public class FuncCall extends Factor {
 		enterParser("func-call");
 		FuncCall fc = new FuncCall(s.curLineNum());
 		s.test(nameToken);
-		fc.name = s.curToken;
+		fc.name = s.curToken.id;
 		s.readNextToken();
 		
 		if(s.curToken.kind == leftParToken){

@@ -2,11 +2,12 @@ package parser;
 import main.*;
 import scanner.*;
 import static scanner.TokenKind.*;
+import java.util.ArrayList;
 
 // <term> ::= <factor> (<factor-operator> <factor>)*
 public class Term extends PascalSyntax{
 
-	ArrayList<Factor> factrorList;
+	ArrayList<Factor> factorList;
 	ArrayList<FactorOperator> factorOprList;
 
 	Term(int lNum) {

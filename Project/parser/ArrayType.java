@@ -19,6 +19,20 @@ public class ArrayType extends Type{
 		return "<array-type> on line " + lineNum;
 	}
 
+	/**
+     	* Parser method to declare the language, explained as a rail-diagram; array-type
+     	*
+     	* {@link package.main.log.enterParser} Make a note that the parser has started parsing a non-terminal.
+     	*
+     	* --> (array) --> ( [ ) --> [constant] --> ( .. ) --> [constant] --> ( ] ) --> (of) --> [type]
+     	*
+     	* {@link package.main.log.enterParser} Make a note that the parser has finished parsing a non-terminal.
+     	*
+     	* @param s     is the Scanner object, of the token that the is the scanners current Token read,
+     	*              s.skip(non-terminal), send it to specific parser [terminal]
+     	*
+     	* @return a  object ArrayType
+     	*/
 	public static ArrayType parse(Scanner s) {
          
 		enterParser("array-type");
@@ -35,6 +49,13 @@ public class ArrayType extends Type{
 		return a;
 	}
 
+ 	/**
+     	* Abstract code beautifiers, inherited from PascalSyntax --> Statement --> IfStatm
+     	*
+     	* Calls the logFile {@link package.main.log.prettyPrint}, an formatting conventions
+     	* that adjust positioning and spacing (indent style), to make the content easier for other
+     	* programmers to view, read, and understand.
+     	*/
 	@Override void prettyPrint() {
 		Main.log.prettyPrint("array ["); 
 		c1.prettyPrint();

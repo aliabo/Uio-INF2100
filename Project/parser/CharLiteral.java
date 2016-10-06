@@ -1,4 +1,7 @@
 package parser;
+import main.*;
+import scanner.*;
+import static scanner.TokenKind.*;
 
 public class CharLiteral extends UnsignedConstant {
 
@@ -17,10 +20,10 @@ public class CharLiteral extends UnsignedConstant {
 		enterParser("char-literal");
 		CharLiteral cl = new CharLiteral(s.curLineNum());
 		s.test(charValToken);
-		cl.c = s.curToken;
+		cl.c = s.curToken.id.charAt(0);
 		s.readNextToken();
 		leaveParser("char-literal");
-		return n;
+		return cl;
 	}
 
 	@Override void prettyPrint() {

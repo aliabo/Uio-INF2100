@@ -22,7 +22,7 @@ public class Variable extends Factor {
 		enterParser("variable");
 		Variable v = new Variable(s.curLineNum());
 		s.test(nameToken);
-		v.name = s.curToken;
+		v.name = s.curToken.id;
 		s.readNextToken();
 		if(s.curToken.kind == leftBracketToken){
 			s.skip(leftBracketToken);

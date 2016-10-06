@@ -28,7 +28,7 @@ public class SimpleExpr extends PascalSyntax{
 		SimpleExpr se = new SimpleExpr(s.curLineNum());
 		if(s.curToken.kind == addToken || s.curToken.kind == subtractToken)
 			se.pOpr = PrefixOperator.parse(s);
-		termList.add(Term.parse(s));
+		se.termList.add(Term.parse(s));
 		while(s.curToken.kind == addToken || s.curToken.kind == subtractToken
 		        || s.curToken.kind == orToken){
 			

@@ -6,7 +6,7 @@ import static scanner.TokenKind.*;
 // <factor-operator> ::= '*' | 'div' | 'mod' | 'and'
 public class FactorOperator extends Operator {
 
-	TokenKind k;
+	String k;
 
 	FactorOperator(int lNum) {
 		super(lNum);
@@ -23,23 +23,23 @@ public class FactorOperator extends Operator {
 		
 		switch(s.curToken.kind){
 			case multiplyToken:
-				f.k = multiplyToken;
+				f.k = "*";
 				s.skip(multiplyToken);break;
 			case divToken:
-				f.k = divToken;
+				f.k = "div";
 				s.skip(divToken);break;
 			case modToken:
-				f.k = modToken;
+				f.k = "mod";
 				s.skip(modToken);break;
 			case andToken:
-				f.k = andToken;
+				f.k = "and";
 				s.skip(andToken);break;
 			default:
 				s.skip(multiplyToken);
 		}
 		
 		leaveParser("factor-operator");
-		return se;
+		return f;
 	}
 
 	@Override void prettyPrint() {

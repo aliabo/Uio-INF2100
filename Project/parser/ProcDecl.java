@@ -29,7 +29,7 @@ public class ProcDecl extends PascalDecl{
 		p.progBlock = Block.parse(s);
 		s.skip(semicolonToken);
 		leaveParser("proc-decl");
-		return f;
+		return p;
 	}
        
         public @Override void prettyPrint() {
