@@ -10,9 +10,9 @@ import java.util.ArrayList;
 
 public class Block extends PascalSyntax {
 
-        //ConstDeclPart cDeclPart = null;
-        //VarDeclPart vDeclPart = null;
-        //ArrayList<ProcDecl> pfDecl = new ArrayList<>();
+        ConstDeclPart cDeclPart = null;
+        VarDeclPart vDeclPart = null;
+        ArrayList<ProcDecl> pfDecl = new ArrayList<>();
         StatmList sList;
         //PascalSyntac context = null; //TODO Check if needed
 
@@ -30,7 +30,7 @@ public class Block extends PascalSyntax {
                 Block b = new Block(s.curLineNum());
                 //TODO check if ERORR Switch without break to continue to next possible solution
                 switch (s.curToken.kind) {
-		/*	case constToken:
+			case constToken:
 				b.cDelPart = ConstDeclPart.parse(s);
 			case varToken:
 				b.vDeclPart = VarDeclPart.parse(s);
@@ -47,7 +47,7 @@ public class Block extends PascalSyntax {
 						s.test(beginToken); break;
 				} 
                         }
-		*/		
+		
 			default://This should be
 				s.test(beginToken); break;
 		}
@@ -59,11 +59,11 @@ public class Block extends PascalSyntax {
 	}
        
         @Override void prettyPrint() {
-		/*if(cDeclPart != null) cDeclPart.prettyprint();
+		if(cDeclPart != null) cDeclPart.prettyprint();
                 if(vDeclPart != null) vDeclPart.prettyprint();
                 for(ProcDecl p: pfDecl){
 			p.prettyprint();
-                } */
+                }
                 Main.log.prettyPrintLn("begin"); 
                 Main.log.prettyIndent();
                 sList.prettyPrint();

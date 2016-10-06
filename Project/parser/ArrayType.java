@@ -44,5 +44,4 @@ public class ArrayType extends Type{
 		type.prettyPrint();
                 Main.log.prettyPrintLn(""); 
 	}
-
 }
