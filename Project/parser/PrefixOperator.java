@@ -6,7 +6,7 @@ import static scanner.TokenKind.*;
 //<prefix-operator> ::= '+' | '-' 
 public class PrefixOperator extends Operator {
 
-	TokenKind k;
+	String k;
 
 	PrefixOperator(int lNum){
  		super(lNum);
@@ -20,19 +20,20 @@ public class PrefixOperator extends Operator {
 		enterParser("prefix-operator");
                 PrefixOperator p = new PrefixOperator(s.curLineNum());
 
- 		if(s.curToken.kind == addToken)
-			p.k = addToken;
+ 		if(s.curToken.kind == addToken){
+			p.k = "+";
 			s.skip(addToken);
+		}
                 else{
-			p.k = subtractToken;
-			s.skip(subtractToken)
+			p.k = "-";
+			s.skip(subtractToken);
 		} 
 		leaveParser("prefix-operator");
 		return p;
 	}
        
         @Override void prettyPrint(){
-                prettyPrint(k);
+                Main.log.prettyPrint(k);
 	}
 
 }

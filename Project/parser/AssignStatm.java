@@ -3,11 +3,12 @@ import main.*;
 import scanner.*;
 import static scanner.TokenKind.*;
 
-
+// --> [variable] --> ( := ) --> [expression]
 class AssignStatm extends Statement {
 
     private Variable var = null;
     private Expression ex = null;
+
 
     AssignStatm(int lNum) {
         super(lNum);
@@ -28,13 +29,13 @@ class AssignStatm extends Statement {
      * @return a  object ArrayType
      */
     public static AssignStatm parse(Scanner s) {
-        enterParser("assignstatm");
+        enterParser("assign-statm");
         AssignStatm as = new AssignStatm(s.curLineNum());
 
-        as.var = new Variable.parse(s);
+        as.var = Variable.parse(s);
         s.skip(assignToken);
-        as.ex = new Expression.parse(s);
-
+        as.ex = Expression.parse(s);
+	leaveParser("assign-statm");
         return as;
     }
 
@@ -44,15 +45,16 @@ class AssignStatm extends Statement {
      * Calls the logFile {@link package.main.log.prettyPrint}, an formatting conventions
      * that adjust positioning and spacing (indent style), to make the content easier for other
      * programmers to view, read, and understand.
-     */
+     */    
     @Override void prettyPrint() {
-        var.prettyprint();
-        Main.log.prettyPrint(" :=");
+        var.prettyPrint();
+        main.Main.log.prettyPrint(" :=");
         ex.prettyPrint();
     }
 
-    @Override
-    public String identify() {
-        return "<assignstatm> on line " + lineNum;
+    @Override public String identify() {
+        return "<assign-statm> on line " + lineNum;
     }
+
+
 }

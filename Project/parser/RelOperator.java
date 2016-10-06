@@ -43,10 +43,9 @@ public class RelOperator extends Operator {
 			default:
 				s.skip(equalToken);
 		}
-        }
-
-        leaveParser("rel-operator");
-        return ro;
+	
+        	leaveParser("rel-operator");
+        	return ro;
 	}
 
 	void prettyPrint(){

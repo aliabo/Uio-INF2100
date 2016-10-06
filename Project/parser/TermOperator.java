@@ -6,7 +6,7 @@ import static scanner.TokenKind.*;
 //<term-operator> ::= '+' | '-' | 'or'
 public class TermOperator extends Operator {
 
-	TokenKind k;
+	String k;
 
 	TermOperator(int lNum){
  		super(lNum);
@@ -20,15 +20,16 @@ public class TermOperator extends Operator {
 		enterParser("term-operator");
                 TermOperator to = new TermOperator(s.curLineNum());
 
- 		if(s.curToken.kind == addToken)
-			to.k = addToken;
+ 		if(s.curToken.kind == addToken){
+			to.k = "+";
 			s.skip(addToken);
-                else if (s.curToken.kind == subtractToken){
-			to.k = subtractToken;
+		
+		}else if (s.curToken.kind == subtractToken){
+			to.k = "-";
 			s.skip(subtractToken);
 		}
 		else{
-			to.k = orToken;
+			to.k = "or";
 			s.skip(orToken);
 		} 
 		leaveParser("term-operator");
@@ -36,6 +37,6 @@ public class TermOperator extends Operator {
 	}
        
         @Override void prettyPrint(){
-                prettyPrint(k);
+                Main.log.prettyPrint(k);
 	}
 }

@@ -3,13 +3,16 @@ import main.*;
 import scanner.*;
 import static scanner.TokenKind.*;
 
-class IfStatm extends Statement {
+// ? == 0 or 1
+// (if) --> [expression] --> (then) --> [statment] --> ? (else) --> [statment] -->
 
-    private Statement stat1 = null;
-    private Statement stat2 = null;
-    private Expression exp = null;
+public class IfStatm extends Statement {
 
-    private IfStatm(int lNum) {
+    Statement stat1 = null;
+    Statement stat2 = null;
+    Expression exp = null;
+
+    IfStatm(int lNum) {
         super(lNum);
     }
 
@@ -35,6 +38,7 @@ class IfStatm extends Statement {
         IfStatm ifS = new IfStatm(s.curLineNum());
         s.skip(ifToken);
         ifS.exp = Expression.parse(s);
+
         s.skip(thenToken);
         ifS.stat1 = Statement.parse(s);
 
@@ -47,6 +51,10 @@ class IfStatm extends Statement {
         return ifS;
     }
 
+    @Override public String identify() {
+        return "<ifstatm> on line " + lineNum;
+    }
+
     /**
      * Abstract code beautifiers, inherited from PascalSyntax --> Statement --> IfStatm
      *
@@ -56,7 +64,7 @@ class IfStatm extends Statement {
      */
     @Override void prettyPrint(){
         Main.log.prettyPrint("If ");
-        //exp.prettyPrint()
+        exp.prettyPrint()
         Main.log.prettyPrint(" then");
         stat1.prettyPrint();
 
@@ -64,9 +72,5 @@ class IfStatm extends Statement {
             Main.log.prettyPrint(" else");
             stat2.prettyPrint();
         }
-    }
-
-    @Override public String identify() {
-        return "<ifstatm> on line " + lineNum;
     }
 }

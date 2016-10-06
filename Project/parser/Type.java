@@ -23,7 +23,7 @@ public abstract class Type extends PascalSyntax{
 			case nameToken:
 				type = TypeName.parse(s); break;
 			case arrayToken:
-				uc = ArrayType.parse(s); break;
+				type = ArrayType.parse(s); break;
 			default:
 				s.testError("nameToken");break;
 		}

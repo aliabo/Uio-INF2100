@@ -1,4 +1,7 @@
 package parser;
+import main.*;
+import scanner.*;
+import static scanner.TokenKind.*;
 
 // <var-decl> ::= <name> ':' <type> ';'
 public class VarDecl extends PascalDecl{
@@ -22,7 +25,7 @@ public class VarDecl extends PascalDecl{
 		vDecl.type = Type.parse(s);
 		s.skip(semicolonToken);
 		leaveParser("var-decl");
-		return cDecl;
+		return vDecl;
 	}
        
         public @Override void prettyPrint() {

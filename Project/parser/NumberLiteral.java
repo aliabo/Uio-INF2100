@@ -5,7 +5,7 @@ import static scanner.TokenKind.*;
 
 public class NumberLiteral extends UnsignedConstant {
 
-	int num;
+	String num;
 
 	NumberLiteral(int lNum) {
 		super(lNum);
@@ -20,7 +20,7 @@ public class NumberLiteral extends UnsignedConstant {
 		enterParser("number-literal");
 		NumberLiteral n = new NumberLiteral(s.curLineNum());
 		s.test(intValToken);
-		n.num = s.curToken;
+		n.num = s.curToken.id;
 		s.readNextToken();
 		leaveParser("number-literal");
 		return n;

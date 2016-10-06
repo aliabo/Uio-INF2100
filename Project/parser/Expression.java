@@ -30,7 +30,7 @@ public class Expression extends PascalSyntax {
 	   s.curToken.kind == greaterToken ||s.curToken.kind == greaterEqualToken) {
             
 		ex.rO = RelOperator.parse(s);
-		ex.sE2 = Statement.parse(s);
+		ex.sE2 = SimpleExpr.parse(s);
         }
 
         leaveParser("expression");

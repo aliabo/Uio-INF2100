@@ -6,9 +6,9 @@ import static scanner.TokenKind.*;
 
 // ? = 0 or 1
 // --> [name] --> ? ( ( ) --> [expression] --> ( , )
-class ProCallStatm extends Statement {
+class ProcCallStatm extends Statement {
 
-    ProCallStatm(int lNum) {
+    ProcCallStatm(int lNum) {
         super(lNum);
     }
 
@@ -17,13 +17,13 @@ class ProCallStatm extends Statement {
 
 
     @Override public String identify() {
-        return "<procallstatm> on line " + lineNum;
+        return "<proc-call-statm> on line " + lineNum;
     }
 
-    public static ProCallStatm parse(Scanner s) {
-        enterParser("procallstatm");
+    public static ProcCallStatm parse(Scanner s) {
+        enterParser("proc-call-statm");
         s.test(nameToken);
-        ProCallStatm pc = new ProCallStatm(s.curLineNum());
+        ProcCallStatm pc = new ProcCallStatm(s.curLineNum());
         s.readNextToken();
 
         if(s.curToken.kind == leftBracketToken) {
@@ -37,7 +37,7 @@ class ProCallStatm extends Statement {
             s.skip(rightBracketToken);
         }
         //pc.name = TypeName.parse(s);
-        leaveParser("procallstatm");
+        leaveParser("proc-call-statm");
         return pc;
     }
 

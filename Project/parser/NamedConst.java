@@ -20,14 +20,14 @@ public class NamedConst extends UnsignedConstant {
 		enterParser("named-const");
 		NamedConst n = new NamedConst(s.curLineNum());
 		s.test(nameToken);
-		n.name = s.curToken;
+		n.name = s.curToken.id;
 		s.readNextToken();
 		leaveParser("named-const");
 		return n;
 	}
 
 	@Override void prettyPrint() {
-		prettyPrint(name);
+		Main.log.prettyPrint(name);
 	}
 
 }
