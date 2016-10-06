@@ -3,47 +3,60 @@ import main.*;
 import scanner.*;
 import static scanner.TokenKind.*;
 
-// <factor-operator> ::= '*' | 'div' | 'mod' | 'and'
 public class FactorOperator extends Operator {
 
-	String k;
+    private String k;
 
-	FactorOperator(int lNum) {
-		super(lNum);
-	}
+    FactorOperator(int lNum) {
+        super(lNum);
+    }
 
-	@Override public String identify() {
-		return "<factor-operator> on line " + lineNum;
-	}
+    /**
+     * Parser method to declare the language, explained as a rail-diagram; Factor operator
+     *
+     * {@link package.main.log.enterParser} Make a note that the parser has started parsing a non-terminal.
+     *
+     * --> ( * ) | ( div ) | ( mod ) | ( and )
+     * FACTOR operator can be one of this, we need to check our curToken, if found we break
+     * and s.skip(non-terminal)
+     *
+     * {@link package.main.log.enterParser} Make a note that the parser has finished parsing a non-terminal.
+     *
+     * @param s     is the Scanner object, of the token that the is the scanners current Token read,
+     *              s.skip(non-terminal), send it to specific parser [terminal]
+     *
+     * @return f  object Factor operator
+     */
+    public static FactorOperator parse(Scanner s) {
+        enterParser("factor-operator");
+        FactorOperator f = new FactorOperator(s.curLineNum());
 
-	public static FactorOperator parse(Scanner s) {
-         
-		enterParser("factor-operator");
-		FactorOperator f = new FactorOperator(s.curLineNum());
-		
-		switch(s.curToken.kind){
-			case multiplyToken:
-				f.k = "*";
-				s.skip(multiplyToken);break;
-			case divToken:
-				f.k = "div";
-				s.skip(divToken);break;
-			case modToken:
-				f.k = "mod";
-				s.skip(modToken);break;
-			case andToken:
-				f.k = "and";
-				s.skip(andToken);break;
-			default:
-				s.skip(multiplyToken);
-		}
-		
-		leaveParser("factor-operator");
-		return f;
-	}
+        switch(s.curToken.kind){
+            case multiplyToken:
+                f.k = "*";
+                s.skip(multiplyToken);break;
+            case divToken:
+                f.k = "div";
+                s.skip(divToken);break;
+            case modToken:
+                f.k = "mod";
+                s.skip(modToken);break;
+            case andToken:
+                f.k = "and";
+                s.skip(andToken);break;
+            default:
+                s.skip(multiplyToken);
+        }
 
-	@Override void prettyPrint() {
+        leaveParser("factor-operator");
+        return f;
+    }
 
-		Main.log.prettyPrint(k);
-	}
+    @Override void prettyPrint() {
+        Main.log.prettyPrint(k);
+    }
+
+    @Override public String identify() {
+        return "<factor-operator> on line " + lineNum;
+    }
 }

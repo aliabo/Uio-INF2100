@@ -3,16 +3,29 @@ import main.*;
 import scanner.*;
 import static scanner.TokenKind.*;
 
-// --> (Begin) --> [Statmlist] --> (End)
 class CompoundStatm extends Statement{
+
+    private StatmList st;
 
     CompoundStatm(int lNum) {
         super(lNum);
     }
 
-    private StatmList st;
-
-    public static Statement parse(Scanner s) {
+    /**
+     * Parser method to declare the language, explained as a rail-diagram; CompundStatm
+     *
+     * {@link package.main.log.enterParser} Make a note that the parser has started parsing a non-terminal.
+     *
+     * --> (array) --> [Statmlist] --> (end)
+     *
+     * {@link package.main.log.enterParser} Make a note that the parser has finished parsing a non-terminal.
+     *
+     * @param s     is the Scanner object, of the token that the is the scanners current Token read,
+     *              s.skip(non-terminal), send it to specific parser [terminal]
+     *
+     * @return cs  object CopundStatm
+     */
+    public static CompoundStatm parse(Scanner s) {
         enterParser("compundStatm");
         CompoundStatm cs = new CompoundStatm(s.curLineNum());
 
@@ -24,14 +37,21 @@ class CompoundStatm extends Statement{
         return cs;
     }
 
-    @Override public String identify() {
-        return "<compundstatm> on line " + lineNum;
-    }
-
+    /**
+     * Abstract code beautifiers, inherited from PascalSyntax --> Statement
+     *
+     * Calls the logFile {@link package.main.log.prettyPrint}, an formatting conventions
+     * that adjust positioning and spacing (indent style), to make the content easier for other
+     * programmers to view, read, and understand.
+     */
     @Override void prettyPrint() {
         Main.log.prettyPrint("begin ");
         st.prettyPrint();
         Main.log.prettyPrintLn(" end");
         Main.log.prettyIndent();
+    }
+
+    @Override public String identify() {
+        return "<compundstatm> on line " + lineNum;
     }
 }

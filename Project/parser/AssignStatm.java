@@ -3,8 +3,7 @@ import main.*;
 import scanner.*;
 import static scanner.TokenKind.*;
 
-// --> [variable] --> ( := ) --> [expression]
-class AssignStatm extends Statement {
+public class AssignStatm extends Statement {
 
     private Variable var = null;
     private Expression ex = null;
@@ -15,7 +14,7 @@ class AssignStatm extends Statement {
     }
 
     /**
-     * Parser method to declare the language, explained as a rail-diagram; assign statm
+     * Parser method to declare the language, explained as a rail-diagram; Assign statm
      *
      * {@link package.main.log.enterParser} Make a note that the parser has started parsing a non-terminal.
      *
@@ -26,7 +25,7 @@ class AssignStatm extends Statement {
      * @param s     is the Scanner object, of the token that the is the scanners current Token read,
      *              s.skip(non-terminal), send it to specific parser [terminal]
      *
-     * @return a  object ArrayType
+     * @return as  object AssignStatm
      */
     public static AssignStatm parse(Scanner s) {
         enterParser("assign-statm");
@@ -35,12 +34,13 @@ class AssignStatm extends Statement {
         as.var = Variable.parse(s);
         s.skip(assignToken);
         as.ex = Expression.parse(s);
-	leaveParser("assign-statm");
+
+	    leaveParser("assign-statm");
         return as;
     }
 
     /**
-     * Abstract code beautifiers, inherited from PascalSyntax --> Statement --> Assignstatm
+     * Abstract code beautifiers, inherited from PascalSyntax --> Statement
      *
      * Calls the logFile {@link package.main.log.prettyPrint}, an formatting conventions
      * that adjust positioning and spacing (indent style), to make the content easier for other
@@ -48,7 +48,7 @@ class AssignStatm extends Statement {
      */    
     @Override void prettyPrint() {
         var.prettyPrint();
-        main.Main.log.prettyPrint(" :=");
+        Main.log.prettyPrint(" :=");
         ex.prettyPrint();
     }
 
