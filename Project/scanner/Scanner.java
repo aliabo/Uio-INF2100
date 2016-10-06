@@ -40,15 +40,15 @@ public class Scanner {
 	/**
 	 * The control method, that being called when want to read next line
 	 * Use of methods:
-	 * if end of line update with new line:			{@link #reachedEndOfLine}
-	 * we skip spaces and tabs: 				{@link #skipSpaces}
-	 * select the tokens from the source line: 		{@link #selectTokenText}
-	 * remove comments if found: 				{@link #removeComments}
+	 * if end of line update with new line:				{@link #reachedEndOfLine}
+	 * we skip spaces and tabs: 						{@link #skipSpaces}
+	 * select the tokens from the source line: 			{@link #selectTokenText}
+	 * remove comments if found: 						{@link #removeComments}
 	 * check if there is 2 not-slitted Tokens like i: 	{@link #checkTwoTokens}
-	 * Check so that symbols is not present: 		{@link #checkIllegalSymbols}
-	 * First call to readNextToken:				{@link #firstCallToReadNextToken}
-	 * Second call to readNextToken: 			{@link #secoundCallToReadNextToken}
-	 * If still tokens, log, else, e-o-f:			{@link #logEndOfToken}
+	 * Check so that symbols is not present: 			{@link #checkIllegalSymbols}
+	 * First call to readNextToken:						{@link #firstCallToReadNextToken}
+	 * Second call to readNextToken: 					{@link #secoundCallToReadNextToken}
+	 * If still tokens, log, else, e-o-f:				{@link #logEndOfToken}
 	 *<p>
 	 */
 	public void readNextToken() {
@@ -127,34 +127,48 @@ public class Scanner {
 		return sourceLine.charAt(sourcePos);
 	}
 
-	// A method to select the part of line that contains a token
+	/**
+	 * TA method to select the part of line that contains a token
+	 * As long as their is no space and no new line we look for token
+	 *
+	 * <p>
+	 * @param s				String to
+	 * @param lineLength    to update current lineLength
+	 * @return boolean 		the updated String value
+	 */
 	private String selectTokenText(String s, int lineLength){
 		while(!containsToken(s) && moreToRead(lineLength) && charAtPositionIs() != ' '){
-			s = removeComments(s,lineLength);
+			s = removeComments(s, lineLength);
 			lineLength = currentLineLength();
-			// seeking token
 			if(charAtPositionIs() != ' ' && charAtPositionIs() != '\n' ){
-
-				if(charAtPositionIs() == '\''){// reading 'c'
-					try{
-						if(s.equals("")){//s dont contain something before
-							if(sourcePos + 4 < lineLength)
-								if(sourceLine.substring(sourcePos,sourcePos + 4).equals("''''")){//''''
-									s += sourceLine.substring(sourcePos,sourcePos + 3);
-									sourcePos += 4;
-									return s;
-								}
-							s += sourceLine.substring(sourcePos,sourcePos + 3);
-							sourcePos += 3;
-						}
-						return s;
-					}catch(Exception e){scannerError("Illegal char literal!");}
+				if(charAtPositionIs() == '\''){
+					return readingChar(lineLength, s);
 				}
 				s += Character.toLowerCase(sourceLine.charAt(sourcePos));
 				sourcePos++;
 			}
 		}
 		return s;
+	}
+
+	private String readingChar(int lineLength, String s){
+		String out = s;
+		try{
+			if(s.equals("")){
+				if(sourcePos + 4 < lineLength)
+					if(sourceLine.substring(sourcePos,sourcePos + 4).equals("''''")){//''''
+						s += sourceLine.substring(sourcePos,sourcePos + 3);
+						sourcePos += 4;
+						out = s;
+					}
+				s += sourceLine.substring(sourcePos,sourcePos + 3);
+				sourcePos += 3;
+			}
+			out = s;
+		}catch(Exception e){
+			scannerError("Illegal char literal!");
+		}
+		return out;
 	}
 
 	/**
@@ -249,7 +263,7 @@ public class Scanner {
 	 * A method to check if 2 tokens are included in one word
 	 * <p>
 	 * This method checks if the incoming string s length is bigger then 1
-	 * and:			{@link #containsToken}
+	 * and:	{@link #containsToken}
 	 * and s not a char
 	 * if the sourchPos is bigger then 1; move the cursor before the tokens last position
 	 *
@@ -444,7 +458,7 @@ public class Scanner {
 	 * This method checks for int
 	 * Scanner error; {@link #scannerError}
 	 *
-	 * @param  	s	the location of the token, relative to the s argument
+	 * @param  	s		the location of the token, relative to the s argument
 	 * @return  token	the token of the specified token
 	 */
 	private Token tryCatchInt(Token token, String s){
@@ -462,7 +476,7 @@ public class Scanner {
 	 * This method checks for char
 	 * Scanner error; {@link #scannerError}
 	 *
-	 * @param  	s	the location of the token, relative to the s argument
+	 * @param  	s		the location of the token, relative to the s argument
 	 * @return  token	the token of the specified token
 	 */
 	private Token tryCatchChar(Token token, String s){

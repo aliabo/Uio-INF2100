@@ -2,15 +2,12 @@ package parser;
 
 public class CharLiteral extends UnsignedConstant {
 
-	char c;
+	private char c;
 
 	CharLiteral(int lNum) {
 		super(lNum);
 	}
 
-	@Override public String identify() {
-		return "<char-literal> on line " + lineNum;
-	}
 
 	public static CharLiteral parse(Scanner s) {
          
@@ -24,8 +21,11 @@ public class CharLiteral extends UnsignedConstant {
 	}
 
 	@Override void prettyPrint() {
-	
 		Main.log.prettyPrint("'" + c + "'");		
+	}
+
+	@Override public String identify() {
+		return "<char-literal> on line " + lineNum;
 	}
 
 }
