@@ -15,7 +15,7 @@ abstract class Statement extends PascalSyntax {
 		enterParser("statement");
 		Statement st = null;
 		switch (s.curToken.kind) {
-			/*case beginToken:
+			case beginToken:
 				st = CompoundStatm.parse(s); break;
 			case ifToken:
 				st = IfStatm.parse(s); break;
@@ -30,7 +30,7 @@ abstract class Statement extends PascalSyntax {
 						
 				} break;
 			case whileToken:
-				st = WhileStatm.parse(s); break;*/
+				st = WhileStatm.parse(s); break;
 			default:
 				st = EmptyStatm.parse(s); break;
 		}

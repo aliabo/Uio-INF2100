@@ -1,17 +1,19 @@
 package parser;
-import scanner.Scanner;
+import main.*;
+import scanner.*;
+import static scanner.TokenKind.*;
 
 // ? = 0 or 1
-// --> [Simple expres] --> ? [rel opr] --> [simple expres]
+// --> [Simple expres] --> ?( [rel opr] --> [simple expres])
 public class Expression extends PascalSyntax {
 
     Expression(int lNum) {
         super(lNum);
     }
 
-    //SimpleExpr sE1 = null;
-    //SimpleExpr sE2 = null;
-    //RelOperator rO = null;
+    SimpleExpr sE1 = null;
+    SimpleExpr sE2 = null;
+    RelOperator rO = null;
 
     @Override public String identify() {
         return "<expression> on line " + lineNum;
@@ -21,11 +23,14 @@ public class Expression extends PascalSyntax {
         enterParser("Expression");
 
         Expression ex = new Expression(s.curLineNum());
-        //ex.sE1 = SimpleExpr.parse(s);
+        ex.sE1 = SimpleExpr.parse(s);
 
-        if(s.curToken.kind == elseToken) {
-            s.skip(elseToken);
-            ifS.stat2 = Statement.parse(s);
+        if(s.curToken.kind == equalToken || s.curToken.kind == notEqualToken ||
+	   s.curToken.kind == lessToken ||s.curToken.kind == lessEqualToken ||
+	   s.curToken.kind == greaterToken ||s.curToken.kind == greaterEqualToken) {
+            
+		ex.rO = RelOperator.parse(s);
+		ex.sE2 = Statement.parse(s);
         }
 
         leaveParser("expression");
@@ -33,6 +38,10 @@ public class Expression extends PascalSyntax {
     }
 
     void prettyPrint(){
-
+	sE1.prettyPrint();
+	if(rO != null){
+		rO.prettyPrint();
+		sE2.prettyPrint();
+	}
     }
 }

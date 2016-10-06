@@ -1,5 +1,6 @@
 package parser;
-import scanner.Scanner;
+import main.*;
+import scanner.*;
 import static scanner.TokenKind.*;
 
 // --> [variable] --> ( := ) --> [expression]

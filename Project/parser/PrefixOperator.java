@@ -21,10 +21,10 @@ public class PrefixOperator extends Operator {
                 PrefixOperator p = new PrefixOperator(s.curLineNum());
 
  		if(s.curToken.kind == addToken)
-			k = addtoken;
+			p.k = addToken;
 			s.skip(addToken);
                 else{
-			k = subtractToken;
+			p.k = subtractToken;
 			s.skip(subtractToken)
 		} 
 		leaveParser("prefix-operator");
