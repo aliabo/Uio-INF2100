@@ -33,7 +33,7 @@ public class ConstDeclPart extends PascalSyntax{
 	 * @return cdPart  object ConstDeclPart
 	 */
 	public static ConstDeclPart parse(Scanner s) {
-		enterParser("const-decl-part");
+		enterParser("const decl part");
 		ConstDeclPart cdPart = new ConstDeclPart(s.curLineNum());
 
 		s.skip(constToken);
@@ -41,7 +41,7 @@ public class ConstDeclPart extends PascalSyntax{
 			cdPart.cDeclList.add(ConstDecl.parse(s));
 		}while(s.curToken.kind == nameToken);
 
-		leaveParser("const-decl-part");
+		leaveParser("const decl part");
 		return cdPart;
 	}
 
@@ -53,12 +53,14 @@ public class ConstDeclPart extends PascalSyntax{
 	 * programmers to view, read, and understand.
 	 */
 	@Override void prettyPrint() {
-		Main.log.prettyPrint("const ");
+		Main.log.prettyPrintLn("const ");
+		Main.log.prettyIndent();
 		for(ConstDecl c: cDeclList)
 			c.prettyPrint();
+		Main.log.prettyOutdent();
 	}
 
 	@Override public String identify() {
-		return "<const-decl-part> on line " + lineNum;
+		return "<const decl part> on line " + lineNum;
 	}
 }

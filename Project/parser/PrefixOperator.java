@@ -29,7 +29,7 @@ public class PrefixOperator extends Operator {
 	 * @return n  object PrefixOperator
 	 */
 	public static PrefixOperator parse(Scanner s) {
-		enterParser("prefix-operator");
+		enterParser("prefix operator");
 		PrefixOperator p = new PrefixOperator(s.curLineNum());
 
 		if(s.curToken.kind == addToken){
@@ -41,7 +41,7 @@ public class PrefixOperator extends Operator {
 			s.skip(subtractToken);
 		}
 
-		leaveParser("prefix-operator");
+		leaveParser("prefix operator");
 		return p;
 	}
 
@@ -50,7 +50,7 @@ public class PrefixOperator extends Operator {
 	}
 
 	@Override public String identify() {
-		return "<prefix-operator> on line " + lineNum;
+		return "<prefix operator> on line " + lineNum;
 	}
 
 }

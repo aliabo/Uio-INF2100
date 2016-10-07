@@ -37,7 +37,7 @@ public class FuncDecl extends ProcDecl{
 	 * @return f  object FuncDecl
 	 */
 	public static FuncDecl parse(Scanner s) {
-		enterParser("func-decl");
+		enterParser("func decl");
 		s.skip(functionToken);
 		s.test(nameToken);
 		FuncDecl f = new FuncDecl(s.curToken.id, s.curLineNum());
@@ -51,7 +51,7 @@ public class FuncDecl extends ProcDecl{
 		f.progBlock = Block.parse(s);
 
 		s.skip(semicolonToken);
-		leaveParser("func-decl");
+		leaveParser("func decl");
 		return f;
 	}
 
@@ -81,6 +81,6 @@ public class FuncDecl extends ProcDecl{
 	//abstract void checkWhetherValue(PascalSyntax where);
 
 	@Override public String identify() {
-		return "<func-decl> " + name + " on line " + lineNum;
+		return "<func decl> " + name + " on line " + lineNum;
 	}
 }

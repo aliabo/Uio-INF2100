@@ -13,24 +13,24 @@ public class VarDecl extends PascalDecl{
 	}
 
 	@Override public String identify() {
-		return "<var-decl> " + name + " on line " + lineNum;
+		return "<var decl> " + name + " on line " + lineNum;
 	}
 
 	public static VarDecl parse(Scanner s) {
-		enterParser("var-decl");
+		enterParser("var decl");
 		s.test(nameToken);
 		VarDecl vDecl = new VarDecl(s.curToken.id, s.curLineNum());
 		s.readNextToken();
 		s.skip(colonToken);
 		vDecl.type = Type.parse(s);
 		s.skip(semicolonToken);
-		leaveParser("var-decl");
+		leaveParser("var decl");
 		return vDecl;
 	}
        
         public @Override void prettyPrint() {
-		Main.log.prettyPrint(name + " : "); 
+		Main.log.prettyPrint(name + ": "); 
 		type.prettyPrint();
-                Main.log.prettyPrintLn(" ;"); 
+                Main.log.prettyPrintLn(";"); 
 	}
 }

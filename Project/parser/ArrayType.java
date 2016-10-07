@@ -30,7 +30,7 @@ public class ArrayType extends Type{
 	 */
 	public static ArrayType parse(Scanner s) {
 
-		enterParser("array-type");
+		enterParser("array type");
 		ArrayType a = new ArrayType(s.curLineNum());
 		s.skip(arrayToken);
 		s.skip(leftBracketToken);
@@ -40,7 +40,7 @@ public class ArrayType extends Type{
 		s.skip(rightBracketToken);
 		s.skip(ofToken);
 		a.type = Type.parse(s);
-		leaveParser("array-type");
+		leaveParser("array type");
 		return a;
 	}
 
@@ -62,6 +62,6 @@ public class ArrayType extends Type{
 	}
 
 	@Override public String identify() {
-		return "<array-type> on line " + lineNum;
+		return "<array type> on line " + lineNum;
 	}
 }

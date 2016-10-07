@@ -34,5 +34,6 @@ class WhileStatm extends Statement {
 		Main.log.prettyPrintLn(" do");
 		Main.log.prettyIndent();
 		body.prettyPrint();
+		Main.log.prettyOutdent();
 	}
 }

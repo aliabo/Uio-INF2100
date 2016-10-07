@@ -29,16 +29,15 @@ public class ConstDecl extends PascalDecl{
 	 * @return cDecl  object ConstDecl
 	 */
 	public static ConstDecl parse(Scanner s) {
-		enterParser("const-decl");
+		enterParser("const decl");
 		s.test(nameToken);
 		ConstDecl cDecl = new ConstDecl(s.curToken.id, s.curLineNum());
-
 		s.readNextToken();
 		s.skip(equalToken);
 		cDecl.con = Constant.parse(s);
 		s.skip(semicolonToken);
 
-		leaveParser("const-decl");
+		leaveParser("const decl");
 		return cDecl;
 	}
 
@@ -56,7 +55,7 @@ public class ConstDecl extends PascalDecl{
 	}
 
 	@Override public String identify() {
-		return "<const-decl> " + name + " on line " + lineNum;
+		return "<const decl> " + name + " on line " + lineNum;
 	}
 
 	//abstract void checkWhetherAssignable(PascalSyntax where);

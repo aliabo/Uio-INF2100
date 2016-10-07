@@ -26,14 +26,14 @@ class CompoundStatm extends Statement{
      * @return cs  object CopundStatm
      */
     public static CompoundStatm parse(Scanner s) {
-        enterParser("compundStatm");
+        enterParser("compound statm");
         CompoundStatm cs = new CompoundStatm(s.curLineNum());
 
         s.skip(beginToken);
         cs.st = StatmList.parse(s);
         s.skip(endToken);
 
-        leaveParser("compundStatm");
+        leaveParser("compound statm");
         return cs;
     }
 
@@ -45,13 +45,15 @@ class CompoundStatm extends Statement{
      * programmers to view, read, and understand.
      */
     @Override void prettyPrint() {
-        Main.log.prettyPrint("begin ");
+        Main.log.prettyPrintLn("begin");
+	Main.log.prettyIndent();
         st.prettyPrint();
-        Main.log.prettyPrintLn(" end");
-        Main.log.prettyIndent();
+	Main.log.prettyOutdent();
+	Main.log.prettyPrintLn("");
+        Main.log.prettyPrint("end");
     }
 
     @Override public String identify() {
-        return "<compundstatm> on line " + lineNum;
+        return "<compound statm> on line " + lineNum;
     }
 }

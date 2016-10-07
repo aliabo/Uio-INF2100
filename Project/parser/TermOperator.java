@@ -13,11 +13,11 @@ public class TermOperator extends Operator {
         }
 
 	@Override public String identify() {
-		return "<term-operator> on line " + lineNum;
+		return "<term opr> on line " + lineNum;
 	}
 
 	public static TermOperator parse(Scanner s) {
-		enterParser("term-operator");
+		enterParser("term opr");
                 TermOperator to = new TermOperator(s.curLineNum());
 
  		if(s.curToken.kind == addToken){
@@ -32,11 +32,11 @@ public class TermOperator extends Operator {
 			to.k = "or";
 			s.skip(orToken);
 		} 
-		leaveParser("term-operator");
+		leaveParser("term opr");
 		return to;
 	}
        
         @Override void prettyPrint(){
-                Main.log.prettyPrint(k);
+                Main.log.prettyPrint(" " + k + " ");
 	}
 }

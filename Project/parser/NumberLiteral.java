@@ -31,14 +31,14 @@ public class NumberLiteral extends UnsignedConstant {
 	 * @return n  object NumberLiteral
 	 */
 	public static NumberLiteral parse(Scanner s) {
-		enterParser("number-literal");
+		enterParser("number literal");
 		NumberLiteral n = new NumberLiteral(s.curLineNum());
 
 		s.test(intValToken);
 		n.num = s.curToken.intVal;
 		s.readNextToken();
 
-		leaveParser("number-literal");
+		leaveParser("number literal");
 		return n;
 	}
 
@@ -47,6 +47,6 @@ public class NumberLiteral extends UnsignedConstant {
 	}
 
 	@Override public String identify() {
-		return "<number-literal> on line " + lineNum;
+		return "<number literal> on line " + lineNum;
 	}
 }

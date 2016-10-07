@@ -27,14 +27,14 @@ public class NamedConst extends UnsignedConstant {
 	 * @return n  object UnsignedConstant
 	 */
 	public static UnsignedConstant parse(Scanner s) {
-		enterParser("named-const");
+		enterParser("named const");
 		NamedConst n = new NamedConst(s.curLineNum());
 
 		s.test(nameToken);
 		n.name = s.curToken.id;
 		s.readNextToken();
 
-		leaveParser("named-const");
+		leaveParser("named const");
 		return n;
 	}
 
@@ -43,6 +43,6 @@ public class NamedConst extends UnsignedConstant {
 	}
 
 	@Override public String identify() {
-		return "<named-const> on line " + lineNum;
+		return "<named const> on line " + lineNum;
 	}
 }

@@ -57,7 +57,6 @@ public class Scanner {
 		int lineLength = currentLineLength();
 		while (nextToken == null){
 			lineLength = reachedEndOfLine(lineLength);
-
 			skipSpaces(lineLength);
 			temp = selectTokenText(temp,lineLength);
 			temp = removeComments(temp,lineLength);
@@ -71,7 +70,6 @@ public class Scanner {
 			}else if(moreToRead(lineLength)) {
 				temp = secoundCallToReadNextToken(lineLength, temp);
 			}
-
 			logEndOfToken();
 		}
 	}
@@ -137,10 +135,11 @@ public class Scanner {
 	 * @return boolean 		the updated String value
 	 */
 	private String selectTokenText(String s, int lineLength){
-		while(!containsToken(s) && moreToRead(lineLength) && charAtPositionIs() != ' '){
+		while(!containsToken(s) && moreToRead(lineLength) && charAtPositionIs() != ' '
+	              && charAtPositionIs() != '\t'){
 			s = removeComments(s, lineLength);
 			lineLength = currentLineLength();
-			if(charAtPositionIs() != ' ' && charAtPositionIs() != '\n' ){
+			if(charAtPositionIs() != ' ' && charAtPositionIs() != '\n' && charAtPositionIs() != '\t'){
 				if(charAtPositionIs() == '\''){
 					return readingChar(lineLength, s);
 				}

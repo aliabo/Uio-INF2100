@@ -30,7 +30,6 @@ public class EmptyStatm extends Statement{
 	}
 
 	@Override void prettyPrint() {
-		Main.log.prettyPrintLn("");
 	}
 
 	@Override public String identify() {

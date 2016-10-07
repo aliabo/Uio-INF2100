@@ -30,7 +30,7 @@ public class IfStatm extends Statement {
      * @return ifS  object IfStatm
      */
     public static IfStatm parse(Scanner s) {
-        enterParser("IfStatm");
+        enterParser("if statm");
 
         IfStatm ifS = new IfStatm(s.curLineNum());
         s.skip(ifToken);
@@ -44,7 +44,7 @@ public class IfStatm extends Statement {
             ifS.stat2 = Statement.parse(s);
         }
 
-        leaveParser("IfStatm");
+        leaveParser("if statm");
         return ifS;
     }
 
@@ -68,6 +68,6 @@ public class IfStatm extends Statement {
     }
 
     @Override public String identify() {
-        return "<ifstatm> on line " + lineNum;
+        return "<if statm> on line " + lineNum;
     }
 }

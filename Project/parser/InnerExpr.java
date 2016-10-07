@@ -27,14 +27,14 @@ public class InnerExpr extends Factor {
 	 * @return iExp  object InnerExpr
 	 */
 	public static InnerExpr parse(Scanner s) {
-		enterParser("inner-expr");
+		enterParser("inner expr");
 		InnerExpr iExp = new InnerExpr(s.curLineNum());
 
 		s.skip(leftParToken);
 		iExp.exp = Expression.parse(s);
 		s.skip(rightParToken);
 
-		leaveParser("inner-expr");
+		leaveParser("inner expr");
 		return iExp;
 	}
 
@@ -45,6 +45,6 @@ public class InnerExpr extends Factor {
 	}
 
 	@Override public String identify() {
-		return "<inner-expr> on line " + lineNum;
+		return "<inner expr> on line " + lineNum;
 	}
 }

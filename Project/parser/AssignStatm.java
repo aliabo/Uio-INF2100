@@ -28,14 +28,14 @@ public class AssignStatm extends Statement {
      * @return as  object AssignStatm
      */
     public static AssignStatm parse(Scanner s) {
-        enterParser("assign-statm");
+        enterParser("assign statm");
         AssignStatm as = new AssignStatm(s.curLineNum());
 
         as.var = Variable.parse(s);
         s.skip(assignToken);
         as.ex = Expression.parse(s);
 
-	    leaveParser("assign-statm");
+	    leaveParser("assign statm");
         return as;
     }
 
@@ -48,12 +48,12 @@ public class AssignStatm extends Statement {
      */    
     @Override void prettyPrint() {
         var.prettyPrint();
-        Main.log.prettyPrint(" :=");
+        Main.log.prettyPrint(" := ");
         ex.prettyPrint();
     }
 
     @Override public String identify() {
-        return "<assign-statm> on line " + lineNum;
+        return "<assign statm> on line " + lineNum;
     }
 
 

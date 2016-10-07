@@ -14,11 +14,11 @@ public class RelOperator extends Operator {
 	}
 
 	@Override public String identify() {
-		return "<rel-operator> on line " + lineNum;
+		return "<rel operator> on line " + lineNum;
 	}
 
 	public static RelOperator parse(Scanner s) {
-		enterParser("rel-operator");
+		enterParser("rel opr");
 
 		RelOperator ro = new RelOperator(s.curLineNum());
 		switch(s.curToken.kind){
@@ -44,11 +44,11 @@ public class RelOperator extends Operator {
 				s.skip(equalToken);
 		}
 	
-        	leaveParser("rel-operator");
+        	leaveParser("rel opr");
         	return ro;
 	}
 
 	void prettyPrint(){
-		Main.log.prettyPrint(str);
+		Main.log.prettyPrint(" "+ str + " ");
     	}
 }
