@@ -99,7 +99,7 @@ public class Block extends PascalSyntax {
 		Main.log.prettyIndent();
 		sList.prettyPrint();
 		Main.log.prettyOutdent();
-		Main.log.prettyPrintLn("end");
+		Main.log.prettyPrint("end");
 	}
 
 	@Override public String identify() {

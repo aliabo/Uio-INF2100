@@ -8,12 +8,13 @@ import static scanner.TokenKind.*;
 // --> [name] --> ? ( ( ) --> [expression] --> ( , )
 class ProcCallStatm extends Statement {
 
+    private ArrayList<Expression> exList = new ArrayList<>();
+    private String name;
+
+
     ProcCallStatm(int lNum) {
         super(lNum);
     }
-
-    private ArrayList<Expression> exList = new ArrayList<>();
-    private TypeName name;
 
     /**
      * Parser method to declare the language, explained as a rail-diagram; ProcCallStatm
@@ -41,23 +42,25 @@ class ProcCallStatm extends Statement {
      * @return pc  object ProcCallStatm
      */
     public static ProcCallStatm parse(Scanner s) {
-        enterParser("proc-call-statm");
+        enterParser("proc call");
         s.test(nameToken);
         ProcCallStatm pc = new ProcCallStatm(s.curLineNum());
+	pc.name = s.curToken.id;
         s.readNextToken();
-
-        if(s.curToken.kind == leftBracketToken) {
-            s.skip(leftBracketToken);
+	
+        if(s.curToken.kind == leftParToken) {
+	    
+            s.skip(leftParToken);
             pc.exList.add(Expression.parse(s));
 
             while(s.curToken.kind == commaToken){
                 s.skip(commaToken);
                 pc.exList.add(Expression.parse(s));
             }
-            s.skip(rightBracketToken);
+            s.skip(rightParToken);
         }
         //pc.name = TypeName.parse(s);
-        leaveParser("proc-call-statm");
+        leaveParser("proc call");
         return pc;
     }
 
@@ -73,26 +76,21 @@ class ProcCallStatm extends Statement {
      * programmers to view, read, and understand.
      */
     @Override void prettyPrint() {
-        Main.log.prettyPrint(name + " ");
+        Main.log.prettyPrint(name);
         if (exList != null) {
-            //Main.log.prettyPrint(" (");
+            Main.log.prettyPrint("(");
             exList.get(0).prettyPrint();
             exList.remove(0);
 
-            if(exList.size() == 0){
-                //print a new line
-                Main.log.prettyPrintLn("");
-            }
-
             for(Expression ex: exList){
-                Main.log.prettyPrintLn(",");
+                Main.log.prettyPrint(",");
                 ex.prettyPrint();
             }
-            //Main.log.prettyPrint(") ");
+            Main.log.prettyPrint(")");
         }
     }
 
     @Override public String identify() {
-        return "<proc-call-statm> on line " + lineNum;
+        return "<proc call> on line " + lineNum;
     }
 }

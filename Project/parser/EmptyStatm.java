@@ -1,6 +1,6 @@
 package parser;
 import scanner.*;
-
+import main.Main;
 public class EmptyStatm extends Statement{
 
 	EmptyStatm(int lNum){
@@ -23,17 +23,17 @@ public class EmptyStatm extends Statement{
 	 * @return a  object EmptyStatm
 	 */
 	public static EmptyStatm parse(Scanner s) {
-		enterParser("empty-statm");
+		enterParser("empty statm");
 
-		leaveParser("empty-statm");
+		leaveParser("empty statm");
 		return new EmptyStatm(s.curLineNum());
 	}
 
 	@Override void prettyPrint() {
-
+		Main.log.prettyPrintLn("");
 	}
 
 	@Override public String identify() {
-		return "<empty-statm> on line " + lineNum;
+		return "<empty statm> on line " + lineNum;
 	}
 }

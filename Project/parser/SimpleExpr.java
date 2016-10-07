@@ -19,12 +19,12 @@ public class SimpleExpr extends PascalSyntax{
 	}
 
 	@Override public String identify() {
-		return "<simple-expr> on line " + lineNum;
+		return "<simple expr> on line " + lineNum;
 	}
 
 	public static SimpleExpr parse(Scanner s) {
          
-		enterParser("simple-expr");
+		enterParser("simple expr");
 		SimpleExpr se = new SimpleExpr(s.curLineNum());
 		if(s.curToken.kind == addToken || s.curToken.kind == subtractToken)
 			se.pOpr = PrefixOperator.parse(s);
@@ -36,7 +36,7 @@ public class SimpleExpr extends PascalSyntax{
 			se.termList.add(Term.parse(s));
 		}
 		
-		leaveParser("simple-expr");
+		leaveParser("simple expr");
 		return se;
 	}
 

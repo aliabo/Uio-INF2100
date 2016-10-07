@@ -46,8 +46,12 @@ public abstract class Factor extends PascalSyntax {
                         leaveParser("factor");
                         return f;
                 }
-            default:
-                f = Variable.parse(s); break;
+            case charValToken:
+                f = UnsignedConstant.parse(s); break;
+	    case intValToken:
+		f = UnsignedConstant.parse(s); break;
+	    default:
+		f = Variable.parse(s); //consider assign as default
         }
         leaveParser("factor");
         return f;

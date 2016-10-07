@@ -30,14 +30,15 @@ public class CharLiteral extends UnsignedConstant {
 	 * @return cl  object CharLiteral
 	 */
 	public static CharLiteral parse(Scanner s) {
-		enterParser("char-literal");
+		enterParser("char literal");
 		CharLiteral cl = new CharLiteral(s.curLineNum());
 
 		s.test(charValToken);
-		cl.c = s.curToken.id.charAt(0);
+		
+		cl.c = s.curToken.charVal;
 		s.readNextToken();
 
-		leaveParser("char-literal");
+		leaveParser("char literal");
 		return cl;
 	}
 
@@ -46,6 +47,6 @@ public class CharLiteral extends UnsignedConstant {
 	}
 
 	@Override public String identify() {
-		return "<char-literal> on line " + lineNum;
+		return "<char literal> on line " + lineNum;
 	}
 }

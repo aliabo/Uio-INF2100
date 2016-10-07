@@ -12,12 +12,12 @@ public abstract class UnsignedConstant extends Factor {
 	}
 
 	@Override public String identify() {
-		return "<unsigned-constant> on line " + lineNum;
+		return "<unsigned constant> on line " + lineNum;
 	}
 
 	public static UnsignedConstant parse(Scanner s) {
          
-		enterParser("unsigned-constant");
+		enterParser("unsigned constant");
 		UnsignedConstant uc = null;
 		switch (s.curToken.kind) {
 			case nameToken:
@@ -29,7 +29,7 @@ public abstract class UnsignedConstant extends Factor {
 			default:
 				s.testError("nameToken");
 		}
-		leaveParser("unsigned-constant");
+		leaveParser("unsigned constant");
 		return uc;
 	}
 

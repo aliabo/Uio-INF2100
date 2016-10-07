@@ -32,7 +32,7 @@ public class Expression extends PascalSyntax {
      * @return ex  object Expression
      */
     public static Expression parse(Scanner s) {
-        enterParser("Expression");
+        enterParser("expression");
         Expression ex = new Expression(s.curLineNum());
         ex.sE1 = SimpleExpr.parse(s);
 

@@ -16,11 +16,11 @@ public class StatmList extends PascalSyntax{
     }
 
     @Override public String identify() {
-        return "<statm-list> on line " + lineNum;
+        return "<statm list> on line " + lineNum;
     }
 
     public static StatmList parse(Scanner s) {
-        enterParser("statm-list");
+        enterParser("statm list");
         StatmList sl = new StatmList(s.curLineNum());
 
         sl.stList.add(Statement.parse(s));
@@ -30,7 +30,7 @@ public class StatmList extends PascalSyntax{
             sl.stList.add(Statement.parse(s));
         }
 
-        leaveParser("statm-list");
+        leaveParser("statm list");
         return sl;
     }
 
