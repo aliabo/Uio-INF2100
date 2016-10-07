@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 abstract class Statement extends PascalSyntax {
 
+	
 	Statement(int lNum) {
 		super(lNum);
 	}
@@ -20,14 +21,17 @@ abstract class Statement extends PascalSyntax {
 			case ifToken:
 				st = IfStatm.parse(s); break;
 			case nameToken:
+				//TODO check!!!
 				switch (s.nextToken.kind) {
 					case assignToken:
 						st = AssignStatm.parse(s); break;
-					case leftParToken:
-                                                st = ProcCallStatm.parse(s); break;
+					case leftBracketToken:
+						st = AssignStatm.parse(s); break;
+ 
 					default:
-                                                s.testError(":="); //consider assign as default
-						
+						st = ProcCallStatm.parse(s);
+						leaveParser("statement");
+						return st;						
 				} break;
 			case whileToken:
 				st = WhileStatm.parse(s); break;

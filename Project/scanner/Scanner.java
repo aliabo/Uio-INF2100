@@ -179,7 +179,10 @@ public class Scanner {
 	 */
 	private boolean containsToken(String s){
 		if(sourcePos < sourceLine.length())
-                if(!isLetterAZ(sourceLine.charAt(sourcePos)) && !isDigit(sourceLine.charAt(sourcePos)))
+			// a token is a part of a name
+			if(sourcePos > 0)
+               			if(isLetterAZ(sourceLine.charAt(sourcePos)) && isLetterAZ(sourceLine.charAt(sourcePos-1)))
+					return false;
 			for (TokenKind k: TokenKind.values()){
 				if(s.contains(k.toString()))
 					return true;

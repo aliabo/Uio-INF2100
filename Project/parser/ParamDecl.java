@@ -5,7 +5,8 @@ import static scanner.TokenKind.*;
 
 public class ParamDecl extends PascalDecl{
 
-	private TypeName name;
+	private String name;
+	private TypeName tName;
 
 	ParamDecl(String id, int lNum) {
 		super(id, lNum);
@@ -30,21 +31,22 @@ public class ParamDecl extends PascalDecl{
 	 * @return p  object ParamDecl
 	 */
 	public static ParamDecl parse(Scanner s) {
-		enterParser("param-decl");
+		enterParser("param decl");
 		s.test(nameToken);
 		ParamDecl p = new ParamDecl(s.curToken.id, s.curLineNum());
+		p.name = s.curToken.id;
 		s.readNextToken();
 
 		s.skip(colonToken);
-		p.name = TypeName.parse(s);
+		p.tName = TypeName.parse(s);
 
-		leaveParser("param-decl");
+		leaveParser("param decl");
 		return p;
 	}
 
 	public @Override void prettyPrint() {
-		Main.log.prettyPrint(name + " : ");
-		name.prettyPrint();
+		Main.log.prettyPrint(name + ": ");
+		tName.prettyPrint();
 	}
 
 	//abstract void checkWhetherAssignable(PascalSyntax where);
@@ -53,6 +55,6 @@ public class ParamDecl extends PascalDecl{
 	//abstract void checkWhetherValue(PascalSyntax where);
 
 	@Override public String identify() {
-		return "<param-decl> " + name + " on line " + lineNum;
+		return "<param decl> " + name + " on line " + lineNum;
 	}
 }

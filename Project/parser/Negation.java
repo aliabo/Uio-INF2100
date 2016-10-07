@@ -40,7 +40,6 @@ public class Negation extends Factor {
 	@Override void prettyPrint() {
 		Main.log.prettyPrint("not ");
 		f.prettyPrint();
-		Main.log.prettyPrintLn("");
 	}
 
 	@Override public String identify() {

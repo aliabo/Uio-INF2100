@@ -52,11 +52,11 @@ public class Block extends PascalSyntax {
 				b.cDeclPart = ConstDeclPart.parse(s);
 			case varToken:
 				b.vDeclPart = VarDeclPart.parse(s);
-
+			default:
 				// funcDecl og procDecl in a while
 				while(s.curToken.kind != beginToken){
 					switch(s.curToken.kind){
-
+					
 						case functionToken:
 							b.pfDecl.add(FuncDecl.parse(s)); break;
 						case procedureToken:
@@ -65,9 +65,7 @@ public class Block extends PascalSyntax {
 							s.test(beginToken); break;
 					}
 				}
-
-			default://This should be
-				s.test(beginToken); break;
+			break;
 		}
 		s.skip(beginToken);
 		b.sList = StatmList.parse(s);

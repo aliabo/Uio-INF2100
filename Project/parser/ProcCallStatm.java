@@ -77,13 +77,14 @@ class ProcCallStatm extends Statement {
      */
     @Override void prettyPrint() {
         Main.log.prettyPrint(name);
-        if (exList != null) {
+        if (exList.size() >0) {
             Main.log.prettyPrint("(");
+	    
             exList.get(0).prettyPrint();
             exList.remove(0);
 
             for(Expression ex: exList){
-                Main.log.prettyPrint(",");
+                Main.log.prettyPrint(", ");
                 ex.prettyPrint();
             }
             Main.log.prettyPrint(")");

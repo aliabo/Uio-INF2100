@@ -36,7 +36,7 @@ public class ProcDecl extends PascalDecl{
      * @return p  object ProcDecl
      */
     public static ProcDecl parse(Scanner s) {
-        enterParser("proc-decl");
+        enterParser("proc decl");
         s.skip(procedureToken);
         s.test(nameToken);
         ProcDecl p = new ProcDecl(s.curToken.id, s.curLineNum());
@@ -48,7 +48,7 @@ public class ProcDecl extends PascalDecl{
         p.progBlock = Block.parse(s);
         s.skip(semicolonToken);
 
-        leaveParser("proc-decl");
+        leaveParser("proc decl");
         return p;
     }
 
@@ -69,6 +69,7 @@ public class ProcDecl extends PascalDecl{
         Main.log.prettyPrintLn(";");
         progBlock.prettyPrint();
         Main.log.prettyPrintLn(";");
+	Main.log.prettyPrintLn("");
 
     }
     //abstract void checkWhetherAssignable(PascalSyntax where);
@@ -77,6 +78,6 @@ public class ProcDecl extends PascalDecl{
     //abstract void checkWhetherValue(PascalSyntax where);
 
     @Override public String identify() {
-        return "<proc-decl> " + name + " on line " + lineNum;
+        return "<proc decl> " + name + " on line " + lineNum;
     }
 }
