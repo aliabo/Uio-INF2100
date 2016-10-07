@@ -22,7 +22,7 @@ public class VarDeclPart extends PascalSyntax{
 	public static VarDeclPart parse(Scanner s) {
          
 		enterParser("var-decl-part");
-		VarDeclPart v = null;
+		VarDeclPart v = new VarDeclPart(s.curLineNum());
 		s.skip(varToken);
 
 		do{

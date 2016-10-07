@@ -38,9 +38,13 @@ public abstract class Factor extends PascalSyntax {
             case nameToken:
                 switch (s.nextToken.kind) {
                     case leftParToken:
-                        f = FuncCall.parse(s); break;
+                        f = FuncCall.parse(s);
+			leaveParser("factor");
+                        return f;
                     case leftBracketToken:
-                        f = Variable.parse(s); break;
+                        f = Variable.parse(s);
+			leaveParser("factor");
+                        return f;
                     default:
                         f = Variable.parse(s); //consider assign as default
                         leaveParser("factor");
