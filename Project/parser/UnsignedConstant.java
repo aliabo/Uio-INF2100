@@ -27,7 +27,7 @@ public abstract class UnsignedConstant extends Factor {
 			case charValToken:
 				uc = CharLiteral.parse(s); break;
 			default:
-				s.testError("nameToken");
+				s.testError("value");
 		}
 		leaveParser("unsigned constant");
 		return uc;

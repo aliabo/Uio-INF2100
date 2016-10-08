@@ -49,7 +49,7 @@ class CompoundStatm extends Statement{
 	Main.log.prettyIndent();
         st.prettyPrint();
 	Main.log.prettyOutdent();
-	Main.log.prettyPrintLn("");
+	Main.log.prettyPrintLn();
         Main.log.prettyPrint("end");
     }
 

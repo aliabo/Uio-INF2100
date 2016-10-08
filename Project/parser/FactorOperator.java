@@ -28,7 +28,7 @@ public class FactorOperator extends Operator {
      * @return f  object Factor operator
      */
     public static FactorOperator parse(Scanner s) {
-        enterParser("factor operator");
+        enterParser("factor opr");
         FactorOperator f = new FactorOperator(s.curLineNum());
 
         switch(s.curToken.kind){
@@ -48,15 +48,15 @@ public class FactorOperator extends Operator {
                 s.skip(multiplyToken);
         }
 
-        leaveParser("factor operator");
+        leaveParser("factor opr");
         return f;
     }
 
     @Override void prettyPrint() {
-        Main.log.prettyPrint(k);
+        Main.log.prettyPrint(" " + k + " ");
     }
 
     @Override public String identify() {
-        return "<factor operator> on line " + lineNum;
+        return "<factor opr> on line " + lineNum;
     }
 }

@@ -79,10 +79,10 @@ public class FuncCall extends Factor {
 			expList.get(0).prettyPrint();
 			expList.remove(0);
 			for(Expression exp: expList){
-				Main.log.prettyPrint(",");
+				Main.log.prettyPrint(", ");
 				exp.prettyPrint();
 			}
-			Main.log.prettyPrintLn(")");
+			Main.log.prettyPrint(")");
 		}
 	}
 

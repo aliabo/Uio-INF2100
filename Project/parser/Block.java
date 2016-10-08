@@ -10,7 +10,7 @@ public class Block extends PascalSyntax {
 	private VarDeclPart vDeclPart = null;
 	private ArrayList<ProcDecl> pfDecl = new ArrayList<>();
 	private StatmList sList;
-	//PascalSyntac context = null; //TODO Check if needed
+	public PascalSyntax context = null; //TODO Check if needed
 
 
 	Block(int lNum){
@@ -88,16 +88,19 @@ public class Block extends PascalSyntax {
 	@Override void prettyPrint() {
 		if(cDeclPart != null)
 			cDeclPart.prettyPrint();
-		if(vDeclPart != null)
-			vDeclPart.prettyPrint();
+		if(vDeclPart != null){
+			vDeclPart.prettyPrint();	
+		}
 		for(ProcDecl p: pfDecl){
+			Main.log.prettyPrintLn("");
 			p.prettyPrint();
 		}
 		Main.log.prettyPrintLn("begin");
 		Main.log.prettyIndent();
 		sList.prettyPrint();
 		Main.log.prettyOutdent();
-		Main.log.prettyPrintLn("");
+	
+		Main.log.prettyPrintLn();
 		Main.log.prettyPrint("end");
 	}
 

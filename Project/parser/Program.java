@@ -25,7 +25,7 @@ public class Program extends PascalDecl {
 		s.readNextToken();
 		s.skip(semicolonToken);
 		p.progBlock = Block.parse(s);
-                //p.progBlock.context = p;//TODO check if needed p.progBlock.context = p;????
+                p.progBlock.context = p;//TODO check if needed p.progBlock.context = p;????
 		s.skip(dotToken);
 		leaveParser("program");
 		return p;
@@ -35,6 +35,7 @@ public class Program extends PascalDecl {
         public @Override void prettyPrint() {
 		Main.log.prettyPrintLn("program " + name + ";"); 
 		progBlock.prettyPrint();
+		
                 Main.log.prettyPrint("."); 
 	}
 }

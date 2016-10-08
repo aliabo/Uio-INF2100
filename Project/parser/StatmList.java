@@ -39,15 +39,11 @@ public class StatmList extends PascalSyntax{
         stList.get(0).prettyPrint();
         stList.remove(0);
 
-        if(stList.size() == 0){
-            //print a new line
-            Main.log.prettyPrintLn("");
-        }
-
         for(Statement st: stList ){
             Main.log.prettyPrintLn(";");
             st.prettyPrint();
         }
+	//Main.log.prettyPrintLn();
     }
 
 }

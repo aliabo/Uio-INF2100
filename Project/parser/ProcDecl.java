@@ -40,12 +40,14 @@ public class ProcDecl extends PascalDecl{
         s.skip(procedureToken);
         s.test(nameToken);
         ProcDecl p = new ProcDecl(s.curToken.id, s.curLineNum());
+	
         s.readNextToken();
 
         if(s.curToken.kind == leftParToken)
             p.pList = ParamDeclList.parse(s);
         s.skip(semicolonToken);
         p.progBlock = Block.parse(s);
+	p.progBlock.context = p;
         s.skip(semicolonToken);
 
         leaveParser("proc decl");
@@ -63,13 +65,15 @@ public class ProcDecl extends PascalDecl{
      * programmers to view, read, and understand.
      */
     public @Override void prettyPrint() {
-        Main.log.prettyPrint("procedure " + name + " ");
-        if(pList != null)
+        Main.log.prettyPrint("procedure " + name);
+        if(pList != null){
+	    Main.log.prettyPrint(" ");
             pList.prettyPrint();
+	}
         Main.log.prettyPrintLn(";");
         progBlock.prettyPrint();
         Main.log.prettyPrintLn(";");
-	Main.log.prettyPrintLn("");
+	Main.log.prettyPrintLn();
 
     }
     //abstract void checkWhetherAssignable(PascalSyntax where);

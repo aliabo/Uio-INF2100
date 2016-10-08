@@ -30,7 +30,7 @@ public class IfStatm extends Statement {
      * @return ifS  object IfStatm
      */
     public static IfStatm parse(Scanner s) {
-        enterParser("if statm");
+        enterParser("if-statm");
 
         IfStatm ifS = new IfStatm(s.curLineNum());
         s.skip(ifToken);
@@ -44,7 +44,7 @@ public class IfStatm extends Statement {
             ifS.stat2 = Statement.parse(s);
         }
 
-        leaveParser("if statm");
+        leaveParser("if-statm");
         return ifS;
     }
 
@@ -56,18 +56,24 @@ public class IfStatm extends Statement {
      * programmers to view, read, and understand.
      */
     @Override void prettyPrint(){
-        Main.log.prettyPrint("If ");
+        Main.log.prettyPrint("if ");
         exp.prettyPrint();
-        Main.log.prettyPrint(" then");
-        stat1.prettyPrint();
+        Main.log.prettyPrintLn(" then");
 
+	Main.log.prettyIndent();
+        stat1.prettyPrint();
+	Main.log.prettyOutdent();
+	Main.log.prettyPrintLn("");
+	
         if(stat2 != null){
-            Main.log.prettyPrint(" else");
+            Main.log.prettyPrintLn("else");
+	    Main.log.prettyIndent();
             stat2.prettyPrint();
+	    Main.log.prettyOutdent();
         }
     }
 
     @Override public String identify() {
-        return "<if statm> on line " + lineNum;
+        return "<if-statm> on line " + lineNum;
     }
 }

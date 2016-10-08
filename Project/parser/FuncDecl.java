@@ -6,7 +6,8 @@ import static scanner.TokenKind.*;
 public class FuncDecl extends ProcDecl{
 
 	private Block progBlock;
-	private TypeName name;
+	private TypeName tName;
+	private String name;
 	private ParamDeclList pList;
 
 	FuncDecl(String id, int lNum) {
@@ -41,12 +42,13 @@ public class FuncDecl extends ProcDecl{
 		s.skip(functionToken);
 		s.test(nameToken);
 		FuncDecl f = new FuncDecl(s.curToken.id, s.curLineNum());
+		f.name = s.curToken.id;
 		s.readNextToken();
 
 		if(s.curToken.kind == leftParToken)
 			f.pList = ParamDeclList.parse(s);
 		s.skip(colonToken);
-		f.name = TypeName.parse(s);
+		f.tName = TypeName.parse(s);
 		s.skip(semicolonToken);
 		f.progBlock = Block.parse(s);
 
@@ -68,11 +70,12 @@ public class FuncDecl extends ProcDecl{
 		Main.log.prettyPrint("function " + name + " ");
 		if(pList != null)
 			pList.prettyPrint();
-		Main.log.prettyPrint(" : ");
-		name.prettyPrint();
+		Main.log.prettyPrint(": ");
+		tName.prettyPrint();
 		Main.log.prettyPrintLn(";");
 		progBlock.prettyPrint();
 		Main.log.prettyPrintLn(";");
+		Main.log.prettyPrintLn();
 	}
 
 	//abstract void checkWhetherAssignable(PascalSyntax where);

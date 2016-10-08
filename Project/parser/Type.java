@@ -20,12 +20,11 @@ public abstract class Type extends PascalSyntax{
 		enterParser("type");
 		Type type = null;
 		switch (s.curToken.kind) {
-			case nameToken:
-				type = TypeName.parse(s); break;
+
 			case arrayToken:
 				type = ArrayType.parse(s); break;
 			default:
-				s.testError("nameToken");break;
+				type = TypeName.parse(s); break;
 		}
 		leaveParser("type");
 		return type;

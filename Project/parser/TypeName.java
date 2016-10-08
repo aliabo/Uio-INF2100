@@ -20,8 +20,11 @@ public class TypeName extends Type{
          
 		enterParser("type name");
 		TypeName t = new TypeName(s.curLineNum());
-		s.test(nameToken);
-		t.name = s.curToken.id;
+		if(s.curToken.id != null){
+			t.name = s.curToken.id;
+		}else{
+			t.name = s.curToken.kind.toString();
+		}
 		s.readNextToken();
 		leaveParser("type name");
 		return t;

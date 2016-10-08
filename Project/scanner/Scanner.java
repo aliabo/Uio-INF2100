@@ -541,7 +541,7 @@ public class Scanner {
 	}
 
 	public void testError(String message) {
-		Main.error(curLineNum(),
+		Main.error(getFileLineNum(),
 				"Expected a " + message +
 						" but found a " + curToken.kind + "!");
 	}
