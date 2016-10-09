@@ -37,9 +37,9 @@ public class Variable extends Factor {
 	@Override void prettyPrint() {
 		Main.log.prettyPrint(name);
 		if(exp != null){
-			Main.log.prettyPrint("[ ");
+			Main.log.prettyPrint("[");
 			exp.prettyPrint();
-			Main.log.prettyPrintLn(" ]");
+			Main.log.prettyPrint("]");
 		} 
 	}
 }

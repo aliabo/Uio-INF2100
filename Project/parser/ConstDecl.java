@@ -3,7 +3,6 @@ import main.*;
 import scanner.*;
 import static scanner.TokenKind.*;
 
-//TODO implement abstract from ParscalDecl
 public class ConstDecl extends PascalDecl{
 
 	private Constant con;
@@ -58,8 +57,18 @@ public class ConstDecl extends PascalDecl{
 		return "<const decl> " + name + " on line " + lineNum;
 	}
 
-	//abstract void checkWhetherAssignable(PascalSyntax where);
-	//abstract void checkWhetherFunction(PascalSyntax where);
-	//abstract void checkWhetherProcedure(PascalSyntax where);
-	//abstract void checkWhetherValue(PascalSyntax where);
+	void checkWhetherAssignable(PascalSyntax where){
+		where.error("const is not assignable!");
+
+	}
+
+	void checkWhetherFunction(PascalSyntax where){
+		where.error("const is not a function!");
+	}
+
+	void checkWhetherProcedure(PascalSyntax where){
+		where.error("const is not a procedure!");
+	}
+
+	void checkWhetherValue(PascalSyntax where){}
 }

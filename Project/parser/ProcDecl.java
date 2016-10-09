@@ -76,12 +76,19 @@ public class ProcDecl extends PascalDecl{
 	Main.log.prettyPrintLn();
 
     }
-    //abstract void checkWhetherAssignable(PascalSyntax where);
-    //abstract void checkWhetherFunction(PascalSyntax where);
-    //abstract void checkWhetherProcedure(PascalSyntax where);
-    //abstract void checkWhetherValue(PascalSyntax where);
 
     @Override public String identify() {
         return "<proc decl> " + name + " on line " + lineNum;
+    }
+
+    void checkWhetherAssignable(PascalSyntax where){
+	where.error("procedure is not assignable!");
+    }
+    void checkWhetherFunction(PascalSyntax where){
+	where.error("procedure is not a function!");
+    }
+    void checkWhetherProcedure(PascalSyntax where){}
+    void checkWhetherValue(PascalSyntax where){
+	where.error("procedure is not a value!");
     }
 }

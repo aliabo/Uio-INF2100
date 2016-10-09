@@ -59,13 +59,12 @@ public class IfStatm extends Statement {
         Main.log.prettyPrint("if ");
         exp.prettyPrint();
         Main.log.prettyPrintLn(" then");
-
 	Main.log.prettyIndent();
         stat1.prettyPrint();
 	Main.log.prettyOutdent();
-	Main.log.prettyPrintLn("");
 	
         if(stat2 != null){
+	    Main.log.prettyPrintLn();
             Main.log.prettyPrintLn("else");
 	    Main.log.prettyIndent();
             stat2.prettyPrint();

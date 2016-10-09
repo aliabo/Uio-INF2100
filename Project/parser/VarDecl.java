@@ -33,4 +33,16 @@ public class VarDecl extends PascalDecl{
 		type.prettyPrint();
                 Main.log.prettyPrintLn(";"); 
 	}
+
+	void checkWhetherAssignable(PascalSyntax where){}
+
+        void checkWhetherFunction(PascalSyntax where){
+		where.error("Variable is not a function!");
+	}
+
+        void checkWhetherProcedure(PascalSyntax where){
+		where.error("Variable is not a procedure!");
+	}
+
+        void checkWhetherValue(PascalSyntax where){}
 }

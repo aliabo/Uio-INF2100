@@ -56,9 +56,8 @@ public class ArrayType extends Type{
 		c1.prettyPrint();
 		Main.log.prettyPrint("..");
 		c2.prettyPrint();
-		Main.log.prettyPrint("] of");
+		Main.log.prettyPrint("] of ");
 		type.prettyPrint();
-		Main.log.prettyPrintLn("");
 	}
 
 	@Override public String identify() {

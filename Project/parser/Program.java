@@ -2,9 +2,8 @@ package parser;
 import main.*;
 import scanner.*;
 import static scanner.TokenKind.*;
-/* <program> ::= ’program’ <name> ’;’ <block> ’.’ */
 
-//TODO implement abstract from ParscalDecl
+/* <program> ::= ’program’ <name> ’;’ <block> ’.’ */
 public class Program extends PascalDecl {
 
 	Block progBlock;
@@ -25,17 +24,36 @@ public class Program extends PascalDecl {
 		s.readNextToken();
 		s.skip(semicolonToken);
 		p.progBlock = Block.parse(s);
-                p.progBlock.context = p;//TODO check if needed p.progBlock.context = p;????
-		s.skip(dotToken);
+                p.progBlock.context = p;
+		if(s.curToken.kind != dotToken)
+			Main.error(-1,"Expected a . but found a e-o-f!");
+		else{
+			s.readNextToken();
+		}
 		leaveParser("program");
 		return p;
 	}
-        //TODO check if needed or not
        
         public @Override void prettyPrint() {
 		Main.log.prettyPrintLn("program " + name + ";"); 
 		progBlock.prettyPrint();
 		
                 Main.log.prettyPrint("."); 
+	}
+
+	void checkWhetherAssignable(PascalSyntax where){
+		where.error("program is not assignable!");
+	}
+
+        void checkWhetherFunction(PascalSyntax where){
+		where.error("program is not a function!");
+	}
+
+        void checkWhetherProcedure(PascalSyntax where){
+		where.error("program is not a procedure!");
+	}
+
+        void checkWhetherValue(PascalSyntax where){
+		where.error("program is not a value!");
 	}
 }

@@ -49,12 +49,17 @@ public class ParamDecl extends PascalDecl{
 		tName.prettyPrint();
 	}
 
-	//abstract void checkWhetherAssignable(PascalSyntax where);
-	//abstract void checkWhetherFunction(PascalSyntax where);
-	//abstract void checkWhetherProcedure(PascalSyntax where);
-	//abstract void checkWhetherValue(PascalSyntax where);
-
 	@Override public String identify() {
 		return "<param decl> " + name + " on line " + lineNum;
 	}
+
+	void checkWhetherAssignable(PascalSyntax where){}
+        void checkWhetherFunction(PascalSyntax where){
+		where.error("parameter is not a function!");
+	}
+
+        void checkWhetherProcedure(PascalSyntax where){
+		where.error("parameter is not a procedure!");
+	}
+        void checkWhetherValue(PascalSyntax where){}
 }
