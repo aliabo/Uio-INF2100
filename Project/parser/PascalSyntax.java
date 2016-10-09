@@ -1,5 +1,4 @@
 package parser;
-
 import main.*;
 
 public abstract class PascalSyntax {

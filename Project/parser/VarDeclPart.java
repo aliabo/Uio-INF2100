@@ -4,23 +4,34 @@ import scanner.*;
 import static scanner.TokenKind.*;
 import java.util.ArrayList;
 
-// <var-decl-part> ::= 'var' <var-decl>+
 public class VarDeclPart extends PascalSyntax{
 
-	ArrayList<VarDecl> vDeclList;
-
+	private ArrayList<VarDecl> vDeclList;
 
 	VarDeclPart(int lNum) {
 		super(lNum);
 		vDeclList = new ArrayList<>();
 	}
 
-	@Override public String identify() {
-		return "<var decl part> on line " + lineNum;
-	}
-
+	/**
+	 * Parser method to declare the language, explained as a rail-diagram; Var decl Part
+	 *
+	 * {@link package.main.log.enterParser} Make a note that the parser has started parsing a non-terminal.
+	 *
+	 * 'One' == 1, in combination with '*' and '?'
+	 * '*' == or many (indicates that after this '*' symbol, it can be 0 or many terminal)
+	 *
+	 * --> ( var ) -->  One [var decl] * -->
+	 * It can be 1 or many var decl, so .skip() and while nameToken do; add to list
+	 *
+	 * {@link package.main.log.enterParser} Make a note that the parser has finished parsing a non-terminal.
+	 *
+	 * @param s     is the Scanner object, of the token that the is the scanners current Token read,
+	 *              s.skip(), send it to specific parser [non - terminal]
+	 *
+	 * @return v  object VArDeclPart
+	 */
 	public static VarDeclPart parse(Scanner s) {
-         
 		enterParser("var decl part");
 		VarDeclPart v = new VarDeclPart(s.curLineNum());
 		s.skip(varToken);
@@ -42,4 +53,7 @@ public class VarDeclPart extends PascalSyntax{
 		Main.log.prettyOutdent();		
 	}
 
+	@Override public String identify() {
+		return "<var decl part> on line " + lineNum;
+	}
 }

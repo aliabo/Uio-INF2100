@@ -3,27 +3,40 @@ import main.*;
 import scanner.*;
 import static scanner.TokenKind.*;
 
-// <variable> ::= <name> ('[' <expression> ']')?
 public class Variable extends Factor {
 
-	Expression exp;
-	String name;
+	private Expression exp;
+	private String name;
 
 	Variable(int lNum) {
 		super(lNum);
 	}
 
-	@Override public String identify() {
-		return "<variable> on line " + lineNum;
-	}
-
+	/**
+	 * Parser method to declare the language, explained as a rail-diagram; Variable
+	 *
+	 * {@link package.main.log.enterParser} Make a note that the parser has started parsing a non-terminal.
+	 *
+	 * '?' == 0 or 1 (indicates that after this '?' symbol, it can be 0 or 1 terminal)
+	 * --> [name] --> ? ( [ ) --> [expression] --> ( ] )  -->
+	 * [name], we have a special condition. readNextToken()
+	 * s.skip() parse() s.skip()
+	 *
+	 * {@link package.main.log.enterParser} Make a note that the parser has finished parsing a non-terminal.
+	 *
+	 * @param s     is the Scanner object, of the token that the is the scanners current Token read,
+	 *              s.skip(), send it to specific parser [non - terminal]
+	 *
+	 * @return v  object Variable
+	 */
 	public static Variable parse(Scanner s) {
-         
 		enterParser("variable");
 		Variable v = new Variable(s.curLineNum());
+
 		s.test(nameToken);
 		v.name = s.curToken.id;
 		s.readNextToken();
+
 		if(s.curToken.kind == leftBracketToken){
 			s.skip(leftBracketToken);
 			v.exp = Expression.parse(s);
@@ -40,6 +53,10 @@ public class Variable extends Factor {
 			Main.log.prettyPrint("[");
 			exp.prettyPrint();
 			Main.log.prettyPrint("]");
-		} 
+		}
+	}
+
+	@Override public String identify() {
+		return "<variable> on line " + lineNum;
 	}
 }

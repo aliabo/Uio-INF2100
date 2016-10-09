@@ -1,9 +1,6 @@
 package parser;
-import main.*;
 import scanner.*;
-import static scanner.TokenKind.*;
 
-//<unsigned-const> ::= <named-const> | <number-literal> | <char-literal>
 public abstract class UnsignedConstant extends Factor {
 	
 
@@ -11,14 +8,26 @@ public abstract class UnsignedConstant extends Factor {
 		super(lNum);
 	}
 
-	@Override public String identify() {
-		return "<unsigned constant> on line " + lineNum;
-	}
-
+	/**
+	 * Parser method to declare the language, explained as a rail-diagram; Unsigned Constant
+	 *
+	 * {@link package.main.log.enterParser} Make a note that the parser has started parsing a non-terminal.
+	 *
+	 * --> [name] | [numeric literal] | [char literal] -->
+	 * If any of the 3, parse() break;
+	 * or {@link package.testError}
+	 *
+	 * {@link package.main.log.enterParser} Make a note that the parser has finished parsing a non-terminal.
+	 *
+	 * @param s     is the Scanner object, of the token that the is the scanners current Token read,
+	 *              s.skip(), send it to specific parser [non - terminal]
+	 *
+	 * @return uc  object UnsignedConstant
+	 */
 	public static UnsignedConstant parse(Scanner s) {
-         
 		enterParser("unsigned constant");
 		UnsignedConstant uc = null;
+
 		switch (s.curToken.kind) {
 			case nameToken:
 				uc = NamedConst.parse(s); break;
@@ -33,7 +42,9 @@ public abstract class UnsignedConstant extends Factor {
 		return uc;
 	}
 
-	@Override void prettyPrint() {
-		
+	@Override void prettyPrint() {}
+
+	@Override public String identify() {
+		return "<unsigned constant> on line " + lineNum;
 	}
 }

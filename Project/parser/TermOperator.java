@@ -3,10 +3,9 @@ import main.*;
 import scanner.*;
 import static scanner.TokenKind.*;
 
-//<term-operator> ::= '+' | '-' | 'or'
 public class TermOperator extends Operator {
 
-    String k;
+    private String k;
 
     TermOperator(int lNum){
         super(lNum);
@@ -21,14 +20,8 @@ public class TermOperator extends Operator {
      *
      * {@link package.main.log.enterParser} Make a note that the parser has started parsing a non-terminal.
      *
-     * 'One' == 1, in combination with '*' and '?'
-     * '*' == or many (indicates that after this '*' symbol, it can be 0 or many terminal)
-     *
-     * --> One [factor] * --> One [factor opr] * -->
-     * It can be 1 or several factors
-     * while we have ( * ) | ( div ) | ( mod ) | ( and ) we know we gave a factor opr
-     * add factor opr to list, add facor
-     *
+     * --> ( + ) | ( - ) | ( or ) -->
+     * If any of this tokens we save to object name, s.skip()
      *
      * {@link package.main.log.enterParser} Make a note that the parser has finished parsing a non-terminal.
      *

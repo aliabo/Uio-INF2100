@@ -3,27 +3,40 @@ import main.*;
 import scanner.*;
 import static scanner.TokenKind.*;
 
-/*<while-statm> ::= ’while’ <expression> ’do’ <statement>*/
 class WhileStatm extends Statement {
 
-	Expression expr;
-	Statement body;
+	private Expression expr;
+	private Statement body;
 
 	WhileStatm(int lNum) {
 		super(lNum);
 	}
 
-	@Override public String identify() {
-		return "<while-statm> on line " + lineNum;
-	}
-
+	/**
+	 * Parser method to declare the language, explained as a rail-diagram; WhileStatm
+	 *
+	 * {@link package.main.log.enterParser} Make a note that the parser has started parsing a non-terminal.
+	 *
+	 * --> ( while ) --> [expression] --> ( do ) --> [statement] -->
+	 * These phrases behave well so we are used to:
+	 * s.skip() parse()
+	 *
+	 * {@link package.main.log.enterParser} Make a note that the parser has finished parsing a non-terminal.
+	 *
+	 * @param s     is the Scanner object, of the token that the is the scanners current Token read,
+	 *              s.skip(), send it to specific parser [non - terminal]
+	 *
+	 * @return iExp  object WhileStatm
+	 */
 	public static WhileStatm parse(Scanner s) {
 		enterParser("while-statm");
 		WhileStatm ws = new WhileStatm(s.curLineNum());
+
 		s.skip(whileToken);
 		ws.expr = Expression.parse(s);
 		s.skip(doToken);
 		ws.body = Statement.parse(s);
+
 		leaveParser("while-statm");
 		return ws;
 	}
@@ -35,5 +48,9 @@ class WhileStatm extends Statement {
 		Main.log.prettyIndent();
 		body.prettyPrint();
 		Main.log.prettyOutdent();
+	}
+
+	@Override public String identify() {
+		return "<while-statm> on line " + lineNum;
 	}
 }
