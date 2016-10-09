@@ -29,7 +29,7 @@ public class FuncCall extends Factor {
 	 *
 	 * Special condition, name; we use {@link package.test} if nametoken (else testError)
 	 * we also need to update, so a call for {@link package.readNextToken}
-	 * If we find a ' ( ' we s.skip(non-terminal) and add to list.Expression(can be several)
+	 * If we find a ' ( ' we s.skip() and add to list.Expression(can be several)
 	 * as long as we find a ' , '
 	 *
 	 * {@link package.main.log.enterParser} Make a note that the parser has finished parsing a non-terminal.

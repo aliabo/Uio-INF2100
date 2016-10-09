@@ -8,17 +8,32 @@ import java.util.ArrayList;
 // <statm-list> ::= <statement> (';' <statement>)*
 public class StatmList extends PascalSyntax{
 
-    ArrayList<Statement> stList = new ArrayList<>();
+    private ArrayList<Statement> stList = new ArrayList<>();
 
 
     StatmList(int lNum){
         super(lNum);
     }
 
-    @Override public String identify() {
-        return "<statm list> on line " + lineNum;
-    }
-
+    /**
+     * Parser method to declare the language, explained as a rail-diagram; Statm list
+     *
+     * {@link package.main.log.enterParser} Make a note that the parser has started parsing a non-terminal.
+     *
+     * 'One' == 1, in combination with '*' and '?'
+     * '*' == or many (indicates that after this '*' symbol, it can be 0 or many terminal)
+     *
+     * --> [statement] --> One ( ; ) --> [statement] * -->
+     * It can be 1 or several statements
+     * Save in list if after first read their is a semicolonToken s.skip() and add
+     *
+     * {@link package.main.log.enterParser} Make a note that the parser has finished parsing a non-terminal.
+     *
+     * @param s     is the Scanner object, of the token that the is the scanners current Token read,
+     *              s.skip(), send it to specific parser [non - terminal]
+     *
+     * @return sl  object StatmList
+     */
     public static StatmList parse(Scanner s) {
         enterParser("statm list");
         StatmList sl = new StatmList(s.curLineNum());
@@ -44,6 +59,10 @@ public class StatmList extends PascalSyntax{
             st.prettyPrint();
         }
 	//Main.log.prettyPrintLn();
+    }
+
+    @Override public String identify() {
+        return "<statm list> on line " + lineNum;
     }
 
 }

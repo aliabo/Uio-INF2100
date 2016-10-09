@@ -22,7 +22,7 @@ public abstract class Factor extends PascalSyntax {
      * {@link package.main.log.enterParser} Make a note that the parser has finished parsing a non-terminal.
      *
      * @param s     is the Scanner object, of the token that the is the scanners current Token read,
-     *              s.skip(non-terminal), send it to specific parser [terminal]
+     *              s.skip(), send it to specific parser [non - terminal]
      *
      * @return f  object Factor
      */

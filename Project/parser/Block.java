@@ -34,7 +34,7 @@ public class Block extends PascalSyntax {
 	 *
 	 * We need to check if curToken.kind [const-decl-part] or [var-decl-part]
 	 * While curToken is not a beginToken, we check for funcDecl og procDecl in a while, if found break (Their could be a several)
-	 * if while is finished, s.kip(non-terminal) --> parse [terminal] --> skip(non-terminal)
+	 * if while is finished, s.kip() --> parse [non-terminal] --> skip()
 	 *
 	 * {@link package.main.log.enterParser} Make a note that the parser has finished parsing a non-terminal.
 	 *

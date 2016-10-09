@@ -16,9 +16,9 @@ public class FactorOperator extends Operator {
      *
      * {@link package.main.log.enterParser} Make a note that the parser has started parsing a non-terminal.
      *
-     * --> ( * ) | ( div ) | ( mod ) | ( and )
+     * --> ( * ) | ( div ) | ( mod ) | ( and ) -->
      * FACTOR operator can be one of this, we need to check our curToken, if found we break
-     * and s.skip(non-terminal)
+     * and s.skip()
      *
      * {@link package.main.log.enterParser} Make a note that the parser has finished parsing a non-terminal.
      *
