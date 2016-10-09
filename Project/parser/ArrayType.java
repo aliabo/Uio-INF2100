@@ -20,6 +20,7 @@ public class ArrayType extends Type{
 	 * {@link package.main.log.enterParser} Make a note that the parser has started parsing a non-terminal.
 	 *
 	 * --> (array) --> ( [ ) --> [constant] --> ( .. ) --> [constant] --> ( ] ) --> (of) --> [type]
+	 * Makes an pointer to the specified object in this(ArrayType), now connected to an object
 	 *
 	 * {@link package.main.log.enterParser} Make a note that the parser has finished parsing a non-terminal.
 	 *
