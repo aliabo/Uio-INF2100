@@ -15,6 +15,7 @@ public class ProcDecl extends PascalDecl{
     /**
      * Parser method to declare the language, explained as a rail-diagram; Proc Decl
      * Procedure cant return a value
+     * This is a non-terminal representing a declaration, a subclass of PascalDecl
      *
      * {@link package.main.log.enterParser} Make a note that the parser has started parsing a non-terminal.
      *
@@ -26,7 +27,7 @@ public class ProcDecl extends PascalDecl{
      * Special condition, name; we use {@link package.test} if nametoken (else testError)
      * we also need to update, so a call for {@link package.readNextToken}
      * if we have a ' ( ' we also have a [terminal]
-     * s.skip(), [non-terminal and new [block]
+     * s.skip(), parse[non-terminal] and new [block]
      *
      * {@link package.main.log.enterParser} Make a note that the parser has finished parsing a non-terminal.
      *
@@ -40,14 +41,14 @@ public class ProcDecl extends PascalDecl{
         s.skip(procedureToken);
         s.test(nameToken);
         ProcDecl p = new ProcDecl(s.curToken.id, s.curLineNum());
-	
+
         s.readNextToken();
 
         if(s.curToken.kind == leftParToken)
             p.pList = ParamDeclList.parse(s);
         s.skip(semicolonToken);
         p.progBlock = Block.parse(s);
-	p.progBlock.context = p;
+        p.progBlock.context = p;
         s.skip(semicolonToken);
 
         leaveParser("proc decl");
@@ -67,13 +68,13 @@ public class ProcDecl extends PascalDecl{
     public @Override void prettyPrint() {
         Main.log.prettyPrint("procedure " + name);
         if(pList != null){
-	    Main.log.prettyPrint(" ");
+            Main.log.prettyPrint(" ");
             pList.prettyPrint();
-	}
+        }
         Main.log.prettyPrintLn(";");
         progBlock.prettyPrint();
         Main.log.prettyPrintLn(";");
-	Main.log.prettyPrintLn();
+        Main.log.prettyPrintLn();
 
     }
 
@@ -82,13 +83,13 @@ public class ProcDecl extends PascalDecl{
     }
 
     void checkWhetherAssignable(PascalSyntax where){
-	where.error("procedure is not assignable!");
+        where.error("procedure is not assignable!");
     }
     void checkWhetherFunction(PascalSyntax where){
-	where.error("procedure is not a function!");
+        where.error("procedure is not a function!");
     }
     void checkWhetherProcedure(PascalSyntax where){}
     void checkWhetherValue(PascalSyntax where){
-	where.error("procedure is not a value!");
+        where.error("procedure is not a value!");
     }
 }

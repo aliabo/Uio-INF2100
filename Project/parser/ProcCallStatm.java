@@ -4,8 +4,6 @@ import scanner.Scanner;
 import java.util.ArrayList;
 import static scanner.TokenKind.*;
 
-// ? = 0 or 1
-// --> [name] --> ? ( ( ) --> [expression] --> ( , )
 class ProcCallStatm extends Statement {
 
     private ArrayList<Expression> exList = new ArrayList<>();
@@ -45,11 +43,11 @@ class ProcCallStatm extends Statement {
         enterParser("proc call");
         s.test(nameToken);
         ProcCallStatm pc = new ProcCallStatm(s.curLineNum());
-	pc.name = s.curToken.id;
+        pc.name = s.curToken.id;
         s.readNextToken();
-	
+
         if(s.curToken.kind == leftParToken) {
-	    
+
             s.skip(leftParToken);
             pc.exList.add(Expression.parse(s));
 
@@ -79,7 +77,7 @@ class ProcCallStatm extends Statement {
         Main.log.prettyPrint(name);
         if (exList.size() >0) {
             Main.log.prettyPrint("(");
-	    
+
             exList.get(0).prettyPrint();
             exList.remove(0);
 

@@ -17,6 +17,7 @@ public class FuncDecl extends ProcDecl{
 	/**
 	 * Parser method to declare the language, explained as a rail-diagram; Func decl
 	 * functions always return a value
+	 * This is a non-terminal representing a declaration, a subclass of PascalDecl
 	 *
 	 * {@link package.main.log.enterParser} Make a note that the parser has started parsing a non-terminal.
 	 *
@@ -33,7 +34,7 @@ public class FuncDecl extends ProcDecl{
 	 * {@link package.main.log.enterParser} Make a note that the parser has finished parsing a non-terminal.
 	 *
 	 * @param s     is the Scanner object, of the token that the is the scanners current Token read,
-	 *              s.skip(non-terminal), send it to specific parser [terminal]
+	 *              s.skip(), send it to specific parser [non- terminal]
 	 *
 	 * @return f  object FuncDecl
 	 */

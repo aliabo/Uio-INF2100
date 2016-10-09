@@ -15,6 +15,7 @@ public class ParamDecl extends PascalDecl{
 	/**
 	 * Parser method to declare the language, explained as a rail-diagram; Param Decl
 	 * functions always return a value
+	 * This is a non-terminal representing a declaration, a subclass of PascalDecl
 	 *
 	 * {@link package.main.log.enterParser} Make a note that the parser has started parsing a non-terminal.
 	 *

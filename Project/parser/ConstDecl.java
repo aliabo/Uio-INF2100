@@ -12,7 +12,8 @@ public class ConstDecl extends PascalDecl{
 	}
 
 	/**
-	 * Parser method to declare the language, explained as a rail-diagram; array-type
+	 * Parser method to declare the language, explained as a rail-diagram; ConstDecl
+	 * This is a non-terminal representing a declaration, a subclass of PascalDecl
 	 *
 	 * {@link package.main.log.enterParser} Make a note that the parser has started parsing a non-terminal.
 	 *

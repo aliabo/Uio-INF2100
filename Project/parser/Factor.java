@@ -22,9 +22,9 @@ public abstract class Factor extends PascalSyntax {
      * {@link package.main.log.enterParser} Make a note that the parser has finished parsing a non-terminal.
      *
      * @param s     is the Scanner object, of the token that the is the scanners current Token read,
-     *              s.skip(), send it to specific parser [non - terminal]
+     *              s.skip(terminal), send it to specific parser [non - terminal]
      *
-     * @return f  object Factor
+     * @return f  object Factor (the pointer we get back by calling f = subclass.pars())
      */
     public static Factor parse(Scanner s) {
 
@@ -55,7 +55,7 @@ public abstract class Factor extends PascalSyntax {
 	    case intValToken:
 		f = UnsignedConstant.parse(s); break;
 	    default:
-		s.testError("value");; //consider assign as default
+		s.testError("value"); //consider assign as default
         }
         leaveParser("factor");
         return f;

@@ -18,13 +18,13 @@ abstract class Statement extends PascalSyntax {
 	 *
 	 * If a sentence starts with a NAMETOKEN; it can either be [assign statm], [proc call]
 	 * By looking at the next symbol;
-	 * ( := )  	Is a ⟨assign statm⟩
-	 * ( [  )  	Is also a ⟨assign statm⟩
-	 * ( (  ) 	A ⟨proc call⟩
-	 * ( ;  )	is a ⟨proc call⟩ (without parameters), end is also a ⟨proc call⟩
+	 * ( := )  	Is a (assign statm)
+	 * ( [  )  	Is also a (assign statm)
+	 * ( (  ) 	A (proc call)
+	 * ( ;  )	is a (proc call) (without parameters), end is also a (proc call)
 	 *
 	 * Semicolons is used to separate statements, so the last sentence before an end shall have no semicolon.
-	 * (But if you put a semicolon there anyway, it just means that there is an extra empty sentence before,
+	 * But if you put a semicolon there anyway, it just means that there is an extra empty sentence before,
 	 * end and it does not do anything for program execution.
 	 *
 	 * {@link package.main.log.enterParser} Make a note that the parser has finished parsing a non-terminal.
@@ -32,12 +32,12 @@ abstract class Statement extends PascalSyntax {
 	 * @param s     is the Scanner object, of the token that the is the scanners current Token read,
 	 *              s.skip(), send it to specific parser [non - terminal]
 	 *
-	 * @return st  object Statement
+	 * @return st  object Statement (the pointer we get back by calling st = subclass.pars())
 	 */
 	public static Statement parse(Scanner s) {
 
 		enterParser("statement");
-		Statement st = null;
+		Statement st;
 		switch (s.curToken.kind) {
 			case beginToken:
 				st = CompoundStatm.parse(s); break;

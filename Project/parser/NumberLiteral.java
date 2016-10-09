@@ -22,6 +22,7 @@ public class NumberLiteral extends UnsignedConstant {
 	 * --> One [digit 0 - 9] * -->
 	 * Special condition, intValToken; we use {@link package.test} if intValToken (else testError)
 	 * we also need to update, so a call for {@link package.readNextToken}
+	 * Assign intVal
 	 *
 	 * {@link package.main.log.enterParser} Make a note that the parser has finished parsing a non-terminal.
 	 *

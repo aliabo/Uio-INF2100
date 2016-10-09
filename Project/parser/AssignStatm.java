@@ -7,8 +7,7 @@ public class AssignStatm extends Statement {
 
     private Variable var = null;
     private Expression ex = null;
-
-
+    
     AssignStatm(int lNum) {
         super(lNum);
     }

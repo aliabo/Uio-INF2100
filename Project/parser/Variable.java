@@ -19,7 +19,9 @@ public class Variable extends Factor {
 	 *
 	 * '?' == 0 or 1 (indicates that after this '?' symbol, it can be 0 or 1 terminal)
 	 * --> [name] --> ? ( [ ) --> [expression] --> ( ] )  -->
-	 * [name], we have a special condition. readNextToken()
+	 * [name], we have a special condition, test first
+	 * readNextToken()
+	 * We have left ( [ )
 	 * s.skip() parse() s.skip()
 	 *
 	 * {@link package.main.log.enterParser} Make a note that the parser has finished parsing a non-terminal.

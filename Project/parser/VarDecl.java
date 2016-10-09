@@ -13,11 +13,13 @@ public class VarDecl extends PascalDecl{
 
 	/**
 	 * Parser method to declare the language, explained as a rail-diagram; Var decl
+     * This is a non-terminal representing a declaration, a subclass of PascalDecl
 	 *
 	 * {@link package.main.log.enterParser} Make a note that the parser has started parsing a non-terminal.
 	 *
 	 * --> [name] -->  ( : ) --> [type] --> ( ; ) -->
-	 * [name], we have a special condition. readNextToken()
+	 * [name], we have a special condition, need to test before we create  object
+     * readNextToken()
 	 * s.skip() parse() s.skip()
 	 *
 	 * {@link package.main.log.enterParser} Make a note that the parser has finished parsing a non-terminal.
@@ -29,8 +31,8 @@ public class VarDecl extends PascalDecl{
 	 */
 	public static VarDecl parse(Scanner s) {
 		enterParser("var decl");
-
 		s.test(nameToken);
+
 		VarDecl vDecl = new VarDecl(s.curToken.id, s.curLineNum());
 		s.readNextToken();
 		s.skip(colonToken);

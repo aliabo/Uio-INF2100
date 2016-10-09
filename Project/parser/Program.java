@@ -13,7 +13,8 @@ public class Program extends PascalDecl {
 
 	/**
 	 * Parser method to declare the language, explained as a rail-diagram; Program
-	 * Pascal 2016 program simply an [block[ with a name
+	 * Pascal 2016 program simply an [block] with a name
+	 * This is a non-terminal representing a declaration, a subclass of PascalDecl
 	 *
 	 * {@link package.main.log.enterParser} Make a note that the parser has started parsing a non-terminal.
 	 *
