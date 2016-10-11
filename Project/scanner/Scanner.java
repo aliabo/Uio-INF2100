@@ -1,7 +1,5 @@
 package scanner;
-
 import main.Main;
-import static scanner.TokenKind.*;
 import java.lang.*;
 import java.io.*;
 
@@ -31,14 +29,10 @@ public class Scanner {
 		return curToken.lineNum;
 	}
 
-	private void error(String message) {
-		Main.error("Scanner error" +
-				(getFileLineNum()>0 ? " on line "+getFileLineNum() : "") +
-				": " + message);
-	}
-
 	/**
 	 * The control method, that being called when want to read next line
+	 * Is also the control method for the whole class.
+	 * <p>
 	 * Use of methods:
 	 * if end of line update with new line:				{@link #reachedEndOfLine}
 	 * we skip spaces and tabs: 						{@link #skipSpaces}
@@ -130,18 +124,17 @@ public class Scanner {
 	 * As long as their is no space and no new line we look for token
 	 *
 	 * <p>
-	 * @param s				String to
+	 * @param s				String to update
 	 * @param lineLength    to update current lineLength
 	 * @return boolean 		the updated String value
 	 */
 	private String selectTokenText(String s, int lineLength){
-		while(!containsToken(s) && moreToRead(lineLength) && charAtPositionIs() != ' '
-	              && charAtPositionIs() != '\t'){
+		while(!containsToken(s) && moreToRead(lineLength) && charAtPositionIs() != ' ' && charAtPositionIs() != '\t'){
 			s = removeComments(s, lineLength);
 			lineLength = currentLineLength();
 			if(charAtPositionIs() != ' ' && charAtPositionIs() != '\n' && charAtPositionIs() != '\t'){
 				if(charAtPositionIs() == '\''){
-					return readingChar(lineLength, s);
+					return specialCaseOfReadingChar(lineLength, s);
 				}
 				s += Character.toLowerCase(sourceLine.charAt(sourcePos));
 				sourcePos++;
@@ -150,12 +143,21 @@ public class Scanner {
 		return s;
 	}
 
-	private String readingChar(int lineLength, String s){
+	/**
+	 * Were looking for special case of chars
+	 * Try and catch if Illegal char literal
+     *
+	 * <p>
+	 * @param s				String to update
+	 * @param lineLength    to update current lineLength
+	 * @return out 			the updated String value
+	 */
+	private String specialCaseOfReadingChar(int lineLength, String s){
 		String out = s;
 		try{
 			if(s.equals("")){
 				if(sourcePos + 4 < lineLength)
-					if(sourceLine.substring(sourcePos,sourcePos + 4).equals("''''")){//''''
+					if(sourceLine.substring(sourcePos, sourcePos + 4).equals("''''")){//''''
 						s += sourceLine.substring(sourcePos,sourcePos + 3);
 						sourcePos += 4;
 						out = s;
@@ -194,8 +196,8 @@ public class Scanner {
 	 * They are either identified as "/*" or "{"
 	 * <p>
 	 * If s contains "/*" we skip to 2 else if s contains "{" we skip 1, se more
-	 * at the use of:	 {@link #readNewLine}
-	 * if line is empty:	 {@link #noEndtestIfEmpty}
+	 * at the use of:	    {@link #readNewLine}
+	 * if line is empty:    {@link #noEndtestIfEmpty}
 	 *
 	 *
 	 * @param 	s	the location of the token, relative to the s argument
@@ -493,6 +495,20 @@ public class Scanner {
 		return token;
 	}
 
+	/**
+	 * Error message is displayed
+	 * {@link main.LogFile} for noteError
+	 * Make a note in the log file that an error has occured.
+	 * (If the log file is not in use, request is ignored.)
+	 *
+	 * @param message String to save in log
+	 */
+	private void error(String message) {
+		Main.error("Scanner error" +
+				(getFileLineNum()>0 ? " on line "+getFileLineNum() : "") +
+				": " + message);
+	}
+
 	// read next line in file
 	private void readNextLine() {
 		if (sourceFile != null) {
@@ -513,39 +529,70 @@ public class Scanner {
 			Main.log.noteSourceLine(getFileLineNum(), sourceLine);
 	}
 
-
+	/**
+	 * If sourceFile is not null, we return the lineNumber
+	 *
+	 * @return int LineNumber
+	 */
 	private int getFileLineNum() {
 		return (sourceFile!=null ? sourceFile.getLineNumber() : 0);
 	}
 
-
-	// Character test utilities:
-
+	/**
+	 * Is the incoming character an letter
+	 *
+	 * @param c		Character to check
+	 * @return		returns True if found, False otherwise
+	 */
 	private boolean isLetterAZ(char c) {
 		return 'A'<=c && c<='Z' || 'a'<=c && c<='z';
 	}
 
 
+	/**
+	 * Is the incoming character an digit
+	 *
+	 * @param c		Character to check
+	 * @return		returns True if found, False otherwise
+	 */
 	private boolean isDigit(char c) {
 		return '0'<=c && c<='9';
 	}
+
+
 	public void scannerError(String message) {
 		Main.error(curLineNum(), message);
 	}
 
 	// Parser tests:
-
+	/**
+	 * Test if incoming Token t is specified Token
+	 * We need to test, if class is a subclass of {@link parser.ParamDecl}
+	 *
+	 * @param t 	token to test
+	 */
 	public void test(TokenKind t) {
 		if (curToken.kind != t)
 			testError(t.toString());
 	}
 
+	/**
+	 * If we dont find what we are looking for in the current Token
+	 *
+	 * @param message	String of expected outcome
+	 */
 	public void testError(String message) {
 		Main.error(getFileLineNum(),
 				"Expected a " + message +
 						" but found a " + curToken.kind + "!");
 	}
 
+	/**
+	 * {@link #test}
+	 * then we do another call to readNextToken()
+	 *
+	 * @param t     token to test
+     */
 	public void skip(TokenKind t) {
 		test(t);
 		readNextToken();

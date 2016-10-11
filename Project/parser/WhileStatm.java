@@ -18,7 +18,7 @@ class WhileStatm extends Statement {
 	 * {@link package.main.log.enterParser} Make a note that the parser has started parsing a non-terminal.
 	 *
 	 * --> ( while ) --> [expression] --> ( do ) --> [statement] -->
-	 * These phrases behave well so we are used to:
+	 * These phrases behave like we are used to:
 	 * s.skip() parse()
 	 *
 	 * {@link package.main.log.enterParser} Make a note that the parser has finished parsing a non-terminal.

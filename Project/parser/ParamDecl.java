@@ -54,7 +54,7 @@ public class ParamDecl extends PascalDecl{
 		return "<param decl> " + name + " on line " + lineNum;
 	}
 
-	void checkWhetherAssignable(PascalSyntax where){}
+		void checkWhetherAssignable(PascalSyntax where){}
         void checkWhetherFunction(PascalSyntax where){
 		where.error("parameter is not a function!");
 	}

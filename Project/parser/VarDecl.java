@@ -18,7 +18,7 @@ public class VarDecl extends PascalDecl{
 	 * {@link package.main.log.enterParser} Make a note that the parser has started parsing a non-terminal.
 	 *
 	 * --> [name] -->  ( : ) --> [type] --> ( ; ) -->
-	 * [name], we have a special condition, need to test before we create  object
+	 * [name], we have a special condition, need to test before we create object
      * readNextToken()
 	 * s.skip() parse() s.skip()
 	 *

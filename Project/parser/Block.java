@@ -30,7 +30,7 @@ public class Block extends PascalSyntax {
 	 * '|' == OR (indicates that after this '|' symbol, it can be this OR the other terminal)
 	 * '*' == or many (indicates that after this '*' symbol, it can be 0 or many terminal)
 	 *
-	 * --> Z [const-decl-part] ? --> Z [var-decl-part] ? -->  Z [func-decl] * |  Z [proc-del] * --> (begin) --> [statm-list] --> 		(end) -->
+	 * --> Z [const-decl-part] ? --> Z [var-decl-part] ? -->  Z [func-decl] * |  Z [proc-del] * --> (begin) --> [statm-list] --> (end) -->
 	 *
 	 * We need to check if curToken.kind [const-decl-part] or [var-decl-part]
 	 * While curToken is not a beginToken, we check for funcDecl og procDecl in a while, if found break (Their could be a several)

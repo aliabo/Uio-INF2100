@@ -19,7 +19,8 @@ public class Variable extends Factor {
 	 *
 	 * '?' == 0 or 1 (indicates that after this '?' symbol, it can be 0 or 1 terminal)
 	 * --> [name] --> ? ( [ ) --> [expression] --> ( ] )  -->
-	 * [name], we have a special condition, test first
+	 * [name], we have a special condition, need to test
+	 * create object
 	 * readNextToken()
 	 * We have left ( [ )
 	 * s.skip() parse() s.skip()
