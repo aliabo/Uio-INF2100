@@ -3,6 +3,7 @@ import main.*;
 import scanner.*;
 import static scanner.TokenKind.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Block extends PascalSyntax {
 
@@ -11,8 +12,9 @@ public class Block extends PascalSyntax {
 	private ArrayList<ProcDecl> pfDecl = new ArrayList<>();
 	private StatmList sList;
 	public PascalSyntax context = null; //TODO Check if needed
-
-
+	private	HashMap<String,PascalDecl> decls = new HashMap<>();
+	private Block outerScope = null;
+	
 	Block(int lNum){
 		super(lNum);
 	}
@@ -74,6 +76,35 @@ public class Block extends PascalSyntax {
 		return b;
 	}
 
+	// TODO be commented; adds decels to decl : hashmap
+	void addDecl(String id, PascalDecl d) {
+		if (decls.containsKey(id))
+			d.error(id + " declared twice in same block!");
+		decls.put(id, d);
+	}
+
+	// TODO: comment: and finish this one
+	@Override void check(Block curScope, Library lib) {
+		if (constDeclPart != null) {
+			constDeclPart.check(this, lib);
+		}
+		
+	}
+
+	// TODO: comment this
+	PascalDecl findDecl(String id, PascalSyntax where) {
+		PascalDecl d = decls.get(id);
+		if (d != null) {
+			Main.log.noteBinding(id, where, d);
+			return d;
+		}
+		if (outerScope != null)
+			return outerScope.findDecl(id,where);
+		where.error("Name " + id + " is unknown!");
+		return null; // Required by the Java compiler.
+	}
+
+	
 	/**
 	 * Abstract code beautifiers, inherited from PascalSyntax --> Block
 	 *
