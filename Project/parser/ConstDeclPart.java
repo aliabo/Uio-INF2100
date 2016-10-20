@@ -39,11 +39,13 @@ public class ConstDeclPart extends PascalSyntax{
 		s.skip(constToken);
 		do{
 			cdPart.cDeclList.add(ConstDecl.parse(s));
+			cdPart.cDeclList.get(cdPart.cDeclList.size()-1).
 		}while(s.curToken.kind == nameToken);
 
 		leaveParser("const decl part");
 		return cdPart;
 	}
+
 
 	/**
 	 * Abstract code beautifiers, inherited from PascalSyntax
@@ -63,8 +65,11 @@ public class ConstDeclPart extends PascalSyntax{
 	@Override public String identify() {
 		return "<const decl part> on line " + lineNum;
 	}
-
-
-}	public void check(Block block, Library lib) {
-
+	
+	public @Override void check(Block curScope, Library lib){
+		for(ConstDecl cDecl: cDeclList)
+			cDecl.check(curScope, lib);
+		}		
 	}
+
+}	

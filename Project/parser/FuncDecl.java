@@ -7,7 +7,6 @@ public class FuncDecl extends ProcDecl{
 
 	private Block progBlock;
 	private TypeName tName;
-	private String name;
 	private ParamDeclList pList;
 
 	FuncDecl(String id, int lNum) {
@@ -43,7 +42,6 @@ public class FuncDecl extends ProcDecl{
 		s.skip(functionToken);
 		s.test(nameToken);
 		FuncDecl f = new FuncDecl(s.curToken.id, s.curLineNum());
-		f.name = s.curToken.id;
 		s.readNextToken();
 
 		if(s.curToken.kind == leftParToken)
@@ -77,6 +75,15 @@ public class FuncDecl extends ProcDecl{
 		progBlock.prettyPrint();
 		Main.log.prettyPrintLn(";");
 		Main.log.prettyPrintLn();
+	}
+
+	@Override void check(Block curScope, Library lib) {
+	
+		curScope.decls.put(name, this);	
+		if(pList != null)
+			pList.check(progBlock, lib);
+		tName.check(progBlock, lib);
+		progBlock.check(progBlock, lib);
 	}
 
 	@Override public String identify() {

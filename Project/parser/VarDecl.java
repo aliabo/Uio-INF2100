@@ -53,6 +53,10 @@ public class VarDecl extends PascalDecl{
 		return "<var decl> " + name + " on line " + lineNum;
 	}
 
+	@Override void check(Block curScope, Library lib) {
+		curScope.decls.put(name, this);
+	}
+
 	void checkWhetherAssignable(PascalSyntax where){}
 
 	void checkWhetherFunction(PascalSyntax where){

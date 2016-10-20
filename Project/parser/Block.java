@@ -13,7 +13,7 @@ public class Block extends PascalSyntax {
 	private StatmList sList;
 	public PascalSyntax context = null; //TODO Check if needed
 
-	private	HashMap<String,PascalDecl> decls = new HashMap<>();
+	public	HashMap<String,PascalDecl> decls = new HashMap<>();
 	private Block outerScope = null;
 
 	Block(int lNum){
@@ -53,17 +53,23 @@ public class Block extends PascalSyntax {
 		switch (s.curToken.kind) {
 			case constToken:
 				b.cDeclPart = ConstDeclPart.parse(s);
+				b.decls.putAll(b.cDeclPart.getDecls());
 			case varToken:
 				b.vDeclPart = VarDeclPart.parse(s);
+				b.decls.putAll(b.vDeclPart.getDecls());
 			default:
 				// funcDecl og procDecl in a while
 				while(s.curToken.kind != beginToken){
 					switch(s.curToken.kind){
 
 						case functionToken:
-							b.pfDecl.add(FuncDecl.parse(s)); break;
+							b.pfDecl.add(FuncDecl.parse(s));
+							b.decls.putAll(b.FuncPart.getDecls());
+							break;
 						case procedureToken:
-							b.pfDecl.add(ProcDecl.parse(s)); break;
+							b.pfDecl.add(ProcDecl.parse(s));
+							b.decls.putAll(b.ProcPart.getDecls());
+							break;
 						default://check if it is begin or it is wrong
 							s.test(beginToken); break;
 					}
@@ -84,11 +90,20 @@ public class Block extends PascalSyntax {
 		decls.put(id, d);
 	}
 
-	// TODO: comment: and finish this one
+	// TODO: comment: this one
 	@Override void check(Block curScope, Library lib) {
 		if (cDeclPart != null) {
 			cDeclPart.check(this, lib);
 		}
+
+		if (vDeclPart != null) {
+			vDeclPart.check(this, lib);
+		}
+
+		for(ProcDecl decl: pfDecl)
+			decl.check(this, lib);
+		}
+		sList.check(this, lib);
 	}
 
 	// TODO: comment this

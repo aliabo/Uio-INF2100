@@ -34,8 +34,8 @@ public class Main {
 	    else if (testParser)
 	         doTestParser(s);
 	    // Del 3:
-	    // else if (testChecker)
-	    //     doTestChecker(s);
+	    else if (testChecker)
+	         doTestChecker(s);
 	    // Del 4:
 	    // else
 	    //     doRunRealCompiler(s);
@@ -109,8 +109,7 @@ public class Main {
     }
     
 
-
-    /* Del 3:
+    // Del 3:
     private static void doTestChecker(Scanner s) {
 	Program prog = Program.parse(s);
 	if (s.curToken.kind != eofToken) 
@@ -121,7 +120,6 @@ public class Main {
 	library = new Library();
 	prog.check(library, library);
     }
-    */
 
 
     /* Del 4:
