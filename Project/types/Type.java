@@ -1,5 +1,4 @@
 package types;
-
 import main.*;
 import parser.PascalSyntax;
 

@@ -11,6 +11,7 @@ public class Expression extends PascalSyntax {
     private SimpleExpr sE1 = null;
     private SimpleExpr sE2 = null;
     private RelOperator rO = null;
+    protected types.Type type = null;
 
     /**
      * Parser method to declare the language, explained as a rail-diagram; Expression
@@ -54,14 +55,25 @@ public class Expression extends PascalSyntax {
      * If RelOperator is not null, we know, to prettyprint
      *
      * Calls the logFile {@link package.main.log.prettyPrint}, an formatting conventions
-     * that adjust positioning and spacing (indent style), to make the content easier for other
-     * programmers to view, read, and understand.
+     * that adjust positioning and spacing (indent style)
      */
     void prettyPrint(){
         sE1.prettyPrint();
         if(rO != null){
             rO.prettyPrint();
             sE2.prettyPrint();
+        }
+    }
+
+    @Override void check(Block curScope, Library lib) {
+        sE1.check(curScope, lib);
+        type = sE1.type;
+        if (sE2 != null) {
+            sE2.check(curScope, lib);
+            String oprName = rO.str;
+            type.checkType(rO.type, oprName + " operands", this,
+                    "Operands to " + oprName + " are of different type!");
+            type = lib.booleanType;
         }
     }
 

@@ -9,6 +9,7 @@ public class SimpleExpr extends PascalSyntax{
 	private PrefixOperator pOpr;
 	private ArrayList<Term> termList;
 	private ArrayList<TermOperator> termOprList;
+	protected types.Type type = null;
 
 	SimpleExpr(int lNum) {
 		super(lNum);

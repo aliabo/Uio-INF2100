@@ -51,6 +51,11 @@ public class AssignStatm extends Statement {
         ex.prettyPrint();
     }
 
+    @Override void check(Block curScope, Library lib) {
+        var.check(curScope, lib);
+        var.varDecl.checkWhetherAssignable(this);
+        ex.check(curScope, lib);
+
     @Override public String identify() {
         return "<assign statm> on line " + lineNum;
     }

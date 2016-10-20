@@ -6,11 +6,13 @@ import static scanner.TokenKind.*;
 public class RelOperator extends Operator {
 
 
-    private String str = null;
+    protected String str = null;
+    protected types.Type type = null;
 
     RelOperator(int lNum) {
         super(lNum);
     }
+
 
     /**
      * Parser method to declare the language, explained as a rail-diagram; Rel operator
@@ -62,6 +64,11 @@ public class RelOperator extends Operator {
 
     void prettyPrint(){
         Main.log.prettyPrint(" "+ str + " ");
+    }
+
+    @Override
+    void check(Block curScope, Library lib) {
+
     }
 
     @Override public String identify() {

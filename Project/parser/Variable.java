@@ -7,6 +7,8 @@ public class Variable extends Factor {
 
 	private Expression exp;
 	private String name;
+	protected VarDecl varDecl;
+    protected types.Type type;
 
 	Variable(int lNum) {
 		super(lNum);
@@ -59,7 +61,17 @@ public class Variable extends Factor {
 		}
 	}
 
-	@Override public String identify() {
+
+    @Override void check(Block curScope, Library lib) {
+        this.check(curScope, lib);
+        if(exp != null) {
+            type = exp.type;
+            varDecl.check(curScope, lib);
+        }
+    }
+
+
+    @Override public String identify() {
 		return "<variable> on line " + lineNum;
 	}
 }

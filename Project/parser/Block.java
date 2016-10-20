@@ -12,9 +12,10 @@ public class Block extends PascalSyntax {
 	private ArrayList<ProcDecl> pfDecl = new ArrayList<>();
 	private StatmList sList;
 	public PascalSyntax context = null; //TODO Check if needed
+
 	private	HashMap<String,PascalDecl> decls = new HashMap<>();
 	private Block outerScope = null;
-	
+
 	Block(int lNum){
 		super(lNum);
 	}
@@ -58,7 +59,7 @@ public class Block extends PascalSyntax {
 				// funcDecl og procDecl in a while
 				while(s.curToken.kind != beginToken){
 					switch(s.curToken.kind){
-					
+
 						case functionToken:
 							b.pfDecl.add(FuncDecl.parse(s)); break;
 						case procedureToken:
@@ -67,7 +68,7 @@ public class Block extends PascalSyntax {
 							s.test(beginToken); break;
 					}
 				}
-			break;
+				break;
 		}
 		s.skip(beginToken);
 		b.sList = StatmList.parse(s);
@@ -85,10 +86,9 @@ public class Block extends PascalSyntax {
 
 	// TODO: comment: and finish this one
 	@Override void check(Block curScope, Library lib) {
-		if (constDeclPart != null) {
-			constDeclPart.check(this, lib);
+		if (cDeclPart != null) {
+			cDeclPart.check(this, lib);
 		}
-		
 	}
 
 	// TODO: comment this
@@ -104,7 +104,7 @@ public class Block extends PascalSyntax {
 		return null; // Required by the Java compiler.
 	}
 
-	
+
 	/**
 	 * Abstract code beautifiers, inherited from PascalSyntax --> Block
 	 *
@@ -120,7 +120,7 @@ public class Block extends PascalSyntax {
 		if(cDeclPart != null)
 			cDeclPart.prettyPrint();
 		if(vDeclPart != null){
-			vDeclPart.prettyPrint();	
+			vDeclPart.prettyPrint();
 		}
 		for(ProcDecl p: pfDecl){
 			Main.log.prettyPrintLn("");
@@ -130,7 +130,7 @@ public class Block extends PascalSyntax {
 		Main.log.prettyIndent();
 		sList.prettyPrint();
 		Main.log.prettyOutdent();
-	
+
 		Main.log.prettyPrintLn();
 		Main.log.prettyPrint("end");
 	}
