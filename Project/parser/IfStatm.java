@@ -72,6 +72,15 @@ public class IfStatm extends Statement {
         }
     }
 
+	@Override void check(Block curScope, Library lib) {
+		exp.check(curScope, lib);
+		exp.type.checkType(lib.booleanType, "while-test", this,
+				"If-test is not Boolean.");
+		stat1.check(curScope, lib);
+		if(stat2 != null)
+			stat2.check(curScope, lib);
+	}
+
     @Override public String identify() {
         return "<if-statm> on line " + lineNum;
     }

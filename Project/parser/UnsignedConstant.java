@@ -3,6 +3,8 @@ import scanner.*;
 
 public abstract class UnsignedConstant extends Factor {
 	
+	types.Type type;
+	public int constVal; 
 
 	UnsignedConstant(int lNum) {
 		super(lNum);
@@ -40,6 +42,10 @@ public abstract class UnsignedConstant extends Factor {
 		}
 		leaveParser("unsigned constant");
 		return uc;
+	}
+
+	@Override void check(Block curScope, Library lib){
+		
 	}
 
 	@Override void prettyPrint() {}

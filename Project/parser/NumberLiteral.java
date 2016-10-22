@@ -6,6 +6,7 @@ import static scanner.TokenKind.*;
 public class NumberLiteral extends UnsignedConstant {
 
 	private int num;
+	int constVal;
 
 	NumberLiteral(int lNum) {
 		super(lNum);
@@ -41,6 +42,10 @@ public class NumberLiteral extends UnsignedConstant {
 
 		leaveParser("number literal");
 		return n;
+	}
+
+	@Override void check(Block curScope, Library lib){
+		constVal = num;
 	}
 
 	@Override void prettyPrint() {

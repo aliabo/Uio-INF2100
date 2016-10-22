@@ -54,7 +54,8 @@ public class VarDecl extends PascalDecl{
 	}
 
 	@Override void check(Block curScope, Library lib) {
-		curScope.decls.put(name, this);
+		curScope.addDecl(name, this);
+		type.check(curScope, lib);
 	}
 
 	void checkWhetherAssignable(PascalSyntax where){}

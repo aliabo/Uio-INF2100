@@ -61,8 +61,15 @@ public class StatmList extends PascalSyntax{
 	//Main.log.prettyPrintLn();
     }
 
+    @Override void check(Block curScope, Library lib){
+	for(Statement stmt : stList)
+		stmt.check(curScope, lib);
+    }	
+
     @Override public String identify() {
         return "<statm list> on line " + lineNum;
     }
+
+    
 
 }

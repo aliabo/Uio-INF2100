@@ -79,7 +79,7 @@ public class FuncDecl extends ProcDecl{
 
 	@Override void check(Block curScope, Library lib) {
 	
-		curScope.decls.put(name, this);	
+		curScope.addDecl(name, this);
 		if(pList != null)
 			pList.check(progBlock, lib);
 		tName.check(progBlock, lib);

@@ -7,8 +7,8 @@ import static scanner.TokenKind.*;
 class ProcCallStatm extends Statement {
 
     private ArrayList<Expression> exList = new ArrayList<>();
-    private String name;
-
+    String procName;
+    ProcDecl procRef;
 
     ProcCallStatm(int lNum) {
         super(lNum);
@@ -43,7 +43,7 @@ class ProcCallStatm extends Statement {
         enterParser("proc call");
         s.test(nameToken);
         ProcCallStatm pc = new ProcCallStatm(s.curLineNum());
-        pc.name = s.curToken.id;
+        pc.procName = s.curToken.id;
         s.readNextToken();
 
         if(s.curToken.kind == leftParToken) {
@@ -74,7 +74,7 @@ class ProcCallStatm extends Statement {
      * programmers to view, read, and understand.
      */
     @Override void prettyPrint() {
-        Main.log.prettyPrint(name);
+        Main.log.prettyPrint(procName);
         if (exList.size() >0) {
             Main.log.prettyPrint("(");
 
@@ -86,6 +86,14 @@ class ProcCallStatm extends Statement {
                 ex.prettyPrint();
             }
             Main.log.prettyPrint(")");
+        }
+    }
+
+    @Override void check(Block curScope, Library lib) {
+	PascalDecl d = curScope.findDecl(procName,this);	
+	procRef = (ProcDecl)d;
+	for(Expression exp: exList){
+                exp.check(curScope, lib);
         }
     }
 

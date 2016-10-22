@@ -86,6 +86,8 @@ public class FuncCall extends Factor {
 		}
 	}
 
+	@Override void check(Block curScope, Library lib){}
+
 	@Override public String identify() {
 		return "<func call> on line " + lineNum;
 	}

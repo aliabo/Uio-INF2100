@@ -53,8 +53,14 @@ public class ParamDecl extends PascalDecl{
 	@Override public String identify() {
 		return "<param decl> " + name + " on line " + lineNum;
 	}
+	
+	@Override void check(Block curScope, Library lib) {
+	
+		curScope.addDecl(name, this);
+		tName.check(curScope, lib);
+        }
 
-		void checkWhetherAssignable(PascalSyntax where){}
+	void checkWhetherAssignable(PascalSyntax where){}
         void checkWhetherFunction(PascalSyntax where){
 		where.error("parameter is not a function!");
 	}

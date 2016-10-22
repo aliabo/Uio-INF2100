@@ -42,6 +42,8 @@ public class NamedConst extends UnsignedConstant {
 		Main.log.prettyPrint(name);
 	}
 
+	@Override void check(Block curScope, Library lib){}
+
 	@Override public String identify() {
 		return "<named constant> on line " + lineNum;
 	}

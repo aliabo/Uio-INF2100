@@ -6,6 +6,7 @@ import static scanner.TokenKind.*;
 public class ConstDecl extends PascalDecl{
 
 	private Constant con;
+	int constVal;
 
 	ConstDecl(String id, int lNum) {
 		super(id, lNum);
@@ -55,7 +56,7 @@ public class ConstDecl extends PascalDecl{
 	}
 
 	@Override void check(Block curScope, Library lib) {
-		curScope.decls.put(name, this);
+		curScope.addDecl(name, this);
 	}
 
 	@Override public String identify() {

@@ -1,8 +1,19 @@
-class Library extends Block{
+package parser;
 
-	Library(int lNum){
+public class Library extends Block{
 
-		super(lnum)
+	types.ArrayType arrayType;
+	types.BoolType booleanType;
+	types.CharType charType;
+	types.IntType integerType;
+
+	public Library(int lNum){
+
+		super(lNum);
+	}
+
+	public Library(){
+		super(0);
 	}
 
 }

@@ -53,10 +53,8 @@ public class Block extends PascalSyntax {
 		switch (s.curToken.kind) {
 			case constToken:
 				b.cDeclPart = ConstDeclPart.parse(s);
-				b.decls.putAll(b.cDeclPart.getDecls());
 			case varToken:
 				b.vDeclPart = VarDeclPart.parse(s);
-				b.decls.putAll(b.vDeclPart.getDecls());
 			default:
 				// funcDecl og procDecl in a while
 				while(s.curToken.kind != beginToken){
@@ -64,11 +62,9 @@ public class Block extends PascalSyntax {
 
 						case functionToken:
 							b.pfDecl.add(FuncDecl.parse(s));
-							b.decls.putAll(b.FuncPart.getDecls());
 							break;
 						case procedureToken:
 							b.pfDecl.add(ProcDecl.parse(s));
-							b.decls.putAll(b.ProcPart.getDecls());
 							break;
 						default://check if it is begin or it is wrong
 							s.test(beginToken); break;
@@ -100,7 +96,7 @@ public class Block extends PascalSyntax {
 			vDeclPart.check(this, lib);
 		}
 
-		for(ProcDecl decl: pfDecl)
+		for(ProcDecl decl: pfDecl){
 			decl.check(this, lib);
 		}
 		sList.check(this, lib);

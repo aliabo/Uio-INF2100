@@ -29,6 +29,8 @@ public class EmptyStatm extends Statement{
 		return new EmptyStatm(s.curLineNum());
 	}
 
+	@Override void check(Block curScope, Library lib) {}
+
 	@Override void prettyPrint() {
 	}
 

@@ -44,6 +44,8 @@ public class InnerExpr extends Factor {
 		Main.log.prettyPrint(")");
 	}
 
+	@Override void check(Block curScope, Library lib){}
+
 	@Override public String identify() {
 		return "<inner expr> on line " + lineNum;
 	}

@@ -39,7 +39,7 @@ public class ConstDeclPart extends PascalSyntax{
 		s.skip(constToken);
 		do{
 			cdPart.cDeclList.add(ConstDecl.parse(s));
-			cdPart.cDeclList.get(cdPart.cDeclList.size()-1).
+			cdPart.cDeclList.get(cdPart.cDeclList.size()-1);
 		}while(s.curToken.kind == nameToken);
 
 		leaveParser("const decl part");
@@ -68,8 +68,7 @@ public class ConstDeclPart extends PascalSyntax{
 	
 	public @Override void check(Block curScope, Library lib){
 		for(ConstDecl cDecl: cDeclList)
-			cDecl.check(curScope, lib);
-		}		
+			cDecl.check(curScope, lib);		
 	}
 
 }	

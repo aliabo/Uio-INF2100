@@ -5,7 +5,7 @@ import static scanner.TokenKind.*;
 
 public class PrefixOperator extends Operator {
 
-	private String k;
+	public String k;
 
 	PrefixOperator(int lNum){
 		super(lNum);
@@ -48,6 +48,8 @@ public class PrefixOperator extends Operator {
 	@Override void prettyPrint(){
 		Main.log.prettyPrint(" " +k + " ");
 	}
+
+	@Override void check(Block curScope, Library lib){}
 
 	@Override public String identify() {
 		return "<prefix opr> on line " + lineNum;

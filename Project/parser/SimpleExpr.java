@@ -83,6 +83,8 @@ public class SimpleExpr extends PascalSyntax{
 		}
 	}
 
+	@Override void check(Block curScope, Library lib){}//TODO
+
 	@Override public String identify() {
 		return "<simple expr> on line " + lineNum;
 	}

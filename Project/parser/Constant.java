@@ -4,8 +4,11 @@ import static scanner.TokenKind.*;
 
 public class Constant extends PascalSyntax{
 
-	PrefixOperator pOp = null;
-	UnsignedConstant uc;
+	public PrefixOperator pOp = null;
+	public UnsignedConstant uConst;
+	int constVal;
+	public types.Type type;
+
 
 	Constant(int lNum){
 		super(lNum);
@@ -32,7 +35,7 @@ public class Constant extends PascalSyntax{
 
 		if(s.curToken.kind == addToken || s.curToken.kind == subtractToken)
 			c.pOp = PrefixOperator.parse(s);
-		c.uc = UnsignedConstant.parse(s);
+		c.uConst = UnsignedConstant.parse(s);
 		leaveParser("constant");
 		return c;
 	}
@@ -50,10 +53,31 @@ public class Constant extends PascalSyntax{
 		if(pOp != null){
 			pOp.prettyPrint();
 		}
-		uc.prettyPrint();
+		uConst.prettyPrint();
 	}
 
 	@Override public String identify() {
 		return "<constant> on line " + lineNum;
 	}
+	
+	@Override void check(Block curScope, Library lib) {
+		uConst.check(curScope, lib);
+		type = uConst.type;
+		constVal = uConst.constVal;
+		if (pOp != null) {
+			String oprName = pOp.k;
+			uConst.type.checkType(lib.integerType, "Prefix "+oprName, this,
+			"Prefix + or - may only be applied to Integers.");
+		if (pOp.k.equals( "-" ))
+			constVal = -constVal;
+		}
+	}
+
+	/*
+	@Override void check(Block curScope, Library lib){
+	 	if (uc instanceof NumberLiteral)
+			type = new IntType();
+		else if (uc instanceof CharLiteral)
+			type = new CharType();
+	}*/
 }

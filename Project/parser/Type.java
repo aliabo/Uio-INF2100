@@ -3,6 +3,7 @@ import scanner.*;
 
 public abstract class Type extends PascalSyntax{
 
+	types.Type type;
 
 	Type(int lNum) {
 		super(lNum);
@@ -39,6 +40,8 @@ public abstract class Type extends PascalSyntax{
 	}
 
 	@Override void prettyPrint() {}
+
+	@Override void check(Block curScope, Library lib){}
 
 	@Override public String identify() {
 		return "<type> on line " + lineNum;

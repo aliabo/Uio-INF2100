@@ -68,6 +68,11 @@ public class ParamDeclList extends PascalSyntax{
         Main.log.prettyPrint(")");
     }
 
+    @Override void check(Block curScope, Library lib){
+	for(ParamDecl pDecl : pList)
+		pDecl.check(curScope, lib);
+    }
+
     @Override public String identify() {
         return "<param decl list> on line " + lineNum;
     }

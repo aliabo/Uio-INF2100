@@ -37,6 +37,9 @@ public class Negation extends Factor {
 		return n;
 	}
 
+	@Override void check(Block curScope, Library lib){}
+
+
 	@Override void prettyPrint() {
 		Main.log.prettyPrint("not ");
 		f.prettyPrint();

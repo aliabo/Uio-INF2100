@@ -64,6 +64,8 @@ public class Term extends PascalSyntax{
 			factorList.remove(0);
 		}
 	}
+	
+	@Override void check(Block curScope, Library lib){}
 
 	@Override public String identify() {
 		return "<term> on line " + lineNum;

@@ -62,15 +62,9 @@ public class Program extends PascalDecl {
 
 
 	public @Override void check(Block curScope, Library lib){
-		block.decls.put(name,this);
-		block.check(curScope,lib);		
+		curScope.addDecl(name, this);
+		progBlock.check(curScope,lib);		
 	}
-	/*
-	public HashMap getDecls(){
-		HashMap<String,PascalDecl> decl = new HashMap<>();
-		decl.put(name,this);
-		return decl;
-	}*/
 
 	@Override public String identify() {
 		return "<program> " + name + " on line " + lineNum;

@@ -4,7 +4,7 @@ import scanner.*;
 
 public class TypeName extends Type{
 
-    private String name;
+    public String name;
 
     TypeName(int lNum) {
         super(lNum);
@@ -43,6 +43,12 @@ public class TypeName extends Type{
 
     @Override void prettyPrint() {
         Main.log.prettyPrint(name);
+    }
+
+    @Override void check(Block curScope, Library lib){
+
+	//type = new TypeDecl(name, lineNum);
+	//Main.log.noteBinding(name, this, lib);
     }
 
     @Override public String identify() {

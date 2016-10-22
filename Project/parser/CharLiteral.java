@@ -6,6 +6,7 @@ import static scanner.TokenKind.*;
 public class CharLiteral extends UnsignedConstant {
 
 	private char c;
+	int constVal;
 
 	CharLiteral(int lNum) {
 		super(lNum);
@@ -41,6 +42,8 @@ public class CharLiteral extends UnsignedConstant {
 		leaveParser("char literal");
 		return cl;
 	}
+
+	@Override void check(Block curScope, Library lib){}
 
 	@Override void prettyPrint() {
 		Main.log.prettyPrint("'" + c + "'");		

@@ -8,6 +8,7 @@ public class ArrayType extends Type{
 	private Constant c1;
 	private Constant c2;
 	private Type type;
+	private types.Type arrayType;
 
 
 	ArrayType(int lNum) {
@@ -59,6 +60,13 @@ public class ArrayType extends Type{
 		c2.prettyPrint();
 		Main.log.prettyPrint("] of ");
 		type.prettyPrint();
+	}
+
+	@Override void check(Block curScope, Library lib){
+		c1.check(curScope, lib);
+		c2.check(curScope, lib);
+		type.check(curScope, lib);
+		arrayType = new types.ArrayType(type.type, c1.type, c1.uConst.constVal, c2.uConst.constVal);
 	}
 
 	@Override public String identify() {

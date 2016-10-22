@@ -69,9 +69,10 @@ abstract class Statement extends PascalSyntax {
 		return "<statement> on line " + lineNum;
 	}
 
+	
+	@Override void check(Block curScope, Library lib){}
+	
 	@Override void prettyPrint() {}
-
-	@Override abstract void check(Block curScope, Library lib);
 
 
 }

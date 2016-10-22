@@ -53,6 +53,10 @@ class CompoundStatm extends Statement{
         Main.log.prettyPrint("end");
     }
 
+    @Override void check(Block curScope, Library lib) {
+	st.check(curScope, lib);
+    }	
+
     @Override public String identify() {
         return "<compound statm> on line " + lineNum;
     }

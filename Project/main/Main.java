@@ -117,7 +117,7 @@ public class Main {
 	if (log.doLogPrettyPrint)
 	    prog.prettyPrint();
 	
-	library = new Library();
+	Library library = new Library();
 	prog.check(library, library);
     }
 

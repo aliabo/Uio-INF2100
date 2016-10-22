@@ -50,6 +50,8 @@ public class TermOperator extends Operator {
         return to;
     }
 
+    @Override void check(Block curScope, Library lib){}
+
     @Override void prettyPrint(){
         Main.log.prettyPrint(" " + k + " ");
     }
