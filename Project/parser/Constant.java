@@ -44,6 +44,7 @@ public class Constant extends PascalSyntax{
 	 * Abstract code beautifiers, inherited from PascalSyntax
 	 *
 	 * If the object of PrefixOperator is null, we know not to ad an PrefixOperator
+	 * --> ? [prefix opr] ? --> [unsigned constant]-->
 	 *
 	 * Calls the logFile {@link package.main.log.prettyPrint}, an formatting conventions
 	 * that adjust positioning and spacing (indent style), to make the content easier for other

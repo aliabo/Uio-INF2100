@@ -49,6 +49,8 @@ public class ArrayType extends Type{
 	/**
 	 * Abstract code beautifiers, inherited from PascalSyntax --> Type
 	 *
+	 * --> (array) --> ( [ ) --> [constant] --> ( .. ) --> [constant] --> ( ] ) --> (of) --> [type]
+	 *
 	 * Calls the logFile {@link package.main.log.prettyPrint}, an formatting conventions
 	 * that adjust positioning and spacing (indent style), to make the content easier for other
 	 * programmers to view, read, and understand.

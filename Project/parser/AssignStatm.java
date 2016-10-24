@@ -41,6 +41,8 @@ public class AssignStatm extends Statement {
     /**
      * Abstract code beautifiers, inherited from PascalSyntax --> Statement
      *
+     * --> [variable] --> ( := ) --> [expression]
+     *
      * Calls the logFile {@link package.main.log.prettyPrint}, an formatting conventions
      * that adjust positioning and spacing (indent style), to make the content easier for other
      * programmers to view, read, and understand.
@@ -52,7 +54,6 @@ public class AssignStatm extends Statement {
     }
 
     @Override void check(Block curScope, Library lib) {
-	
         var.check(curScope, lib);
         var.varDecl.checkWhetherAssignable(this);
         ex.check(curScope, lib);
