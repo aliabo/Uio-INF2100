@@ -1,0 +1,44 @@
+   1: /* Dette er en test paa diverse *odde* kommentarer. 
+   2:    Det er faktisk lovlig. 
+   3:  
+   4: /* Dette er en del av samme kommentar, 
+   5:    men naa er det slutt. */ 
+   6:  
+   7: program Kommentar; 
+Scanner: program token on line 7
+Scanner: name token on line 7: kommentar
+Scanner: ; token on line 7
+   8: var type: integer; 
+Scanner: var token on line 8
+Scanner: name token on line 8: type
+Scanner: : token on line 8
+Scanner: name token on line 8: integer
+Scanner: ; token on line 8
+   9: begin  
+Scanner: begin token on line 9
+  10:    type := -{NB! negativt}1; 
+Scanner: name token on line 10: type
+Scanner: := token on line 10
+Scanner: - token on line 10
+Scanner: number token on line 10: 1
+Scanner: ; token on line 10
+  11:    write('t', /* som er kortform av "type" */ '=', type, 
+Scanner: name token on line 11: write
+Scanner: ( token on line 11
+Scanner: char token on line 11: 't'
+Scanner: , token on line 11
+Scanner: char token on line 11: '='
+Scanner: , token on line 11
+Scanner: name token on line 11: type
+Scanner: , token on line 11
+  12: 	 {og saa linjeskift til slutt:} EoL) 
+Scanner: name token on line 12: eol
+Scanner: ) token on line 12
+  13: end {Hovedprogrammet}.  
+Scanner: end token on line 13
+Scanner: . token on line 13
+  14:  
+  15: { Det er lov aa ha kommentarer _etter_ programmet ogsaa, 
+  16:   baade /*...*/-kommentarer og de med kroellparenteser. 
+  17: } 
+Scanner: e-o-f token
