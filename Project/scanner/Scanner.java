@@ -158,9 +158,10 @@ public class Scanner {
 			if(s.equals("")){
 				if(sourcePos + 4 < lineLength)
 					if(sourceLine.substring(sourcePos, sourcePos + 4).equals("''''")){//''''
-						s += sourceLine.substring(sourcePos,sourcePos + 3);
+						s += sourceLine.substring(sourcePos,sourcePos + 4);
 						sourcePos += 4;
 						out = s;
+                                                return out;
 					}
 				s += sourceLine.substring(sourcePos,sourcePos + 3);
 				sourcePos += 3;
@@ -218,7 +219,7 @@ public class Scanner {
 				    if(charAtPositionIs() == '/' && sourceLine.charAt(sourcePos-1) == '*')
                                         success = true;
                                 }else{
-                                     sourcePos++;
+                                      sourcePos++;
                                 }
 			}
 			if (!success){
