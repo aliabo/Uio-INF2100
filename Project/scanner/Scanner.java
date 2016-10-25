@@ -91,14 +91,14 @@ public class Scanner {
 			}
 		}
 	}
-	
+
 	/**
 	 * Test if still more to read
 	 * <p>
 	 * @return boolean 		True if empty, False otherwise
 	 */
 	private boolean moreToRead(int lineLength){
-	 	return sourcePos < lineLength;
+		return sourcePos < lineLength;
 	}
 
 	/**
@@ -120,8 +120,9 @@ public class Scanner {
 	}
 
 	/**
-	 * TA method to select the part of line that contains a token
+	 * The method to select the part of line that contains a token
 	 * As long as their is no space and no new line we look for token
+	 * if the line starts with a \' we are handleing char literals
 	 *
 	 * <p>
 	 * @param s				String to update
@@ -132,6 +133,7 @@ public class Scanner {
 		while(!containsToken(s) && moreToRead(lineLength) && charAtPositionIs() != ' ' && charAtPositionIs() != '\t'){
 			s = removeComments(s, lineLength);
 			lineLength = currentLineLength();
+
 			if(charAtPositionIs() != ' ' && charAtPositionIs() != '\n' && charAtPositionIs() != '\t'){
 				if(charAtPositionIs() == '\''){
 					return specialCaseOfReadingChar(lineLength, s);
@@ -144,9 +146,12 @@ public class Scanner {
 	}
 
 	/**
-	 * Were looking for special case of chars
+	 * Were looking for special case of chars. if source pos + 4 < linelength
+	 * it can still contains special case of char literal
+	 * {@link #ifCharIsFoundHandleIt} , we check each time while line not at end
+	 *
 	 * Try and catch if Illegal char literal
-     *
+	 *
 	 * <p>
 	 * @param s				String to update
 	 * @param lineLength    to update current lineLength
@@ -156,12 +161,9 @@ public class Scanner {
 		String out = s;
 		try{
 			if(s.equals("")){
-				if(sourcePos + 4 < lineLength)
-					if(sourceLine.substring(sourcePos, sourcePos + 4).equals("''''")){//''''
-						s += sourceLine.substring(sourcePos,sourcePos + 3);
-						sourcePos += 4;
-						out = s;
-					}
+				if(sourcePos + 4 < lineLength){
+					return ifCharIsFoundHandleIt(s);
+				}
 				s += sourceLine.substring(sourcePos,sourcePos + 3);
 				sourcePos += 3;
 			}
@@ -170,6 +172,21 @@ public class Scanner {
 			scannerError("Illegal char literal!");
 		}
 		return out;
+	}
+
+	/**
+	 * if char value, function to handle it.
+	 * We update string and return directly
+	 *
+	 * <p>
+	 * @param s				String to update
+	 * @return s 			the Pascal2016 char value
+	 */
+	private String ifCharIsFoundHandleIt(String s) {
+		if (sourceLine.substring(sourcePos, sourcePos + 4).equals("''''"))
+			s += sourceLine.substring(sourcePos, sourcePos + 3);
+		sourcePos += 4;
+		return s; // return directly if found, and source pos += 4
 	}
 
 	/**
@@ -182,12 +199,12 @@ public class Scanner {
 		if(sourcePos < sourceLine.length())
 			// a token is a part of a name
 			if(sourcePos > 0)
-               			if(isLetterAZ(sourceLine.charAt(sourcePos)) && isLetterAZ(sourceLine.charAt(sourcePos-1)))
+				if(isLetterAZ(sourceLine.charAt(sourcePos)) && isLetterAZ(sourceLine.charAt(sourcePos-1)))
 					return false;
-			for (TokenKind k: TokenKind.values()){
-				if(s.contains(k.toString()))
-					return true;
-			}
+		for (TokenKind k: TokenKind.values()){
+			if(s.contains(k.toString()))
+				return true;
+		}
 		return false;
 	}
 
@@ -218,11 +235,12 @@ public class Scanner {
 
 		} else if (s.contains("{")){
 			nrOfCharToRemove = 1;
-			s = s.substring(0,s.length() - nrOfCharToRemove);
+			s = s.substring(0, s.length() - nrOfCharToRemove);
 			while((!sourceLineEmpty()) && (charAtPositionIs() != '}')){
-				sourcePos++;
-				lineLength = readNewLine(lineLength, nrOfCharToRemove);
-			}
+					sourcePos++;
+					lineLength = readNewLine(lineLength, nrOfCharToRemove);
+
+				}
 			// error  */
 			noEndtestIfEmpty();
 		}
@@ -592,7 +610,7 @@ public class Scanner {
 	 * then we do another call to readNextToken()
 	 *
 	 * @param t     token to test
-     */
+	 */
 	public void skip(TokenKind t) {
 		test(t);
 		readNextToken();
