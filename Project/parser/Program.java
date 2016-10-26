@@ -62,6 +62,7 @@ public class Program extends PascalDecl {
 
 
 	public @Override void check(Block curScope, Library lib){
+		progBlock.outerScope = lib;
 		curScope.addDecl(name, this);
 		progBlock.check(curScope,lib);		
 	}

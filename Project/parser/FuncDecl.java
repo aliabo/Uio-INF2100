@@ -91,7 +91,6 @@ public class FuncDecl extends ProcDecl{
 	}
 
 	void checkWhetherAssignable(PascalSyntax where){
-		where.error("function is not assignable!");
 	}
 
         void checkWhetherFunction(PascalSyntax where){}

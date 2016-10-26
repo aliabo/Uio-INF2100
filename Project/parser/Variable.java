@@ -61,7 +61,7 @@ public class Variable extends Factor {
 		}
 	}
 
-
+//TODO fix this
     @Override void check(Block curScope, Library lib) {
 	PascalDecl d = curScope.findDecl(name,this);
 	varDecl = d;

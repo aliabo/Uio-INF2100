@@ -14,7 +14,7 @@ public class Block extends PascalSyntax {
 	public PascalSyntax context = null; //TODO Check if needed
 
 	public	HashMap<String,PascalDecl> decls = new HashMap<>();
-	private Block outerScope = null;
+	public Block outerScope = null;
 
 	Block(int lNum){
 		super(lNum);

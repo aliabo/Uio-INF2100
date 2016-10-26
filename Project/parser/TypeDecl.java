@@ -1,9 +1,13 @@
 package parser;
 public class TypeDecl extends PascalDecl{
-
+        types.Type type;
 	TypeDecl(String id, int lNum) {
 		super(id, lNum);
-	}
+	}/*
+	TypeDecl(String id/*,types.Type type){
+		/*this.type = type;
+		this.name = id;
+	}*/
 	void checkWhetherAssignable(PascalSyntax where){
 		where.error("type is not assignable!");
 	}
