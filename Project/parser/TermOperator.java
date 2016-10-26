@@ -5,7 +5,7 @@ import static scanner.TokenKind.*;
 
 public class TermOperator extends Operator {
 
-    private String k;
+    public String str;
 
     TermOperator(int lNum){
         super(lNum);
@@ -35,15 +35,15 @@ public class TermOperator extends Operator {
         TermOperator to = new TermOperator(s.curLineNum());
 
         if(s.curToken.kind == addToken){
-            to.k = "+";
+            to.str = "+";
             s.skip(addToken);
 
         }else if (s.curToken.kind == subtractToken){
-            to.k = "-";
+            to.str = "-";
             s.skip(subtractToken);
         }
         else{
-            to.k = "or";
+            to.str = "or";
             s.skip(orToken);
         }
         leaveParser("term opr");
@@ -53,6 +53,6 @@ public class TermOperator extends Operator {
     @Override void check(Block curScope, Library lib){}
 
     @Override void prettyPrint(){
-        Main.log.prettyPrint(" " + k + " ");
+        Main.log.prettyPrint(" " + str + " ");
     }
 }

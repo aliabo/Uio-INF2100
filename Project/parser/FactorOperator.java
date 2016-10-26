@@ -5,7 +5,7 @@ import static scanner.TokenKind.*;
 
 public class FactorOperator extends Operator {
 
-    private String k;
+    public String str;
 
     FactorOperator(int lNum) {
         super(lNum);
@@ -34,16 +34,16 @@ public class FactorOperator extends Operator {
 
         switch(s.curToken.kind){
             case multiplyToken:
-                f.k = "*";
+                f.str = "*";
                 s.skip(multiplyToken);break;
             case divToken:
-                f.k = "div";
+                f.str = "div";
                 s.skip(divToken);break;
             case modToken:
-                f.k = "mod";
+                f.str = "mod";
                 s.skip(modToken);break;
             case andToken:
-                f.k = "and";
+                f.str = "and";
                 s.skip(andToken);break;
             default:
                 s.skip(multiplyToken);
@@ -54,7 +54,7 @@ public class FactorOperator extends Operator {
     }
 
     @Override void prettyPrint() {
-        Main.log.prettyPrint(" " + k + " ");
+        Main.log.prettyPrint(" " + str + " ");
     }
 
     @Override void check(Block curScope, Library lib){}

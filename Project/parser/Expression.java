@@ -71,7 +71,7 @@ public class Expression extends PascalSyntax {
         if (sE2 != null) {
             sE2.check(curScope, lib);
             String oprName = rO.str;
-            type.checkType(rO.type, oprName + " operands", this,
+            type.checkType(sE2.type, oprName + " operands", this,
                     "Operands to " + oprName + " are of different type!");
             type = lib.booleanType;
         }

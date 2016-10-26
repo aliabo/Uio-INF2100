@@ -7,6 +7,7 @@ public class Term extends PascalSyntax{
 
 	private ArrayList<Factor> factorList;
 	private ArrayList<FactorOperator> factorOprList;
+        protected types.Type type = null;
 
 	Term(int lNum) {
 		super(lNum);
@@ -56,16 +57,25 @@ public class Term extends PascalSyntax{
 	@Override void prettyPrint() {
 
 		factorList.get(0).prettyPrint();
-		factorList.remove(0);
-		while(factorOprList.size()>0){
-			factorOprList.get(0).prettyPrint();
-			factorList.get(0).prettyPrint();
-			factorOprList.remove(0);
-			factorList.remove(0);
+		for(int i = 0 ; i < factorOprList.size();i++){
+			factorOprList.get(i).prettyPrint();
+			factorList.get(i+1).prettyPrint();
 		}
 	}
 	
-	@Override void check(Block curScope, Library lib){}
+	@Override void check(Block curScope, Library lib){
+		
+		Factor f = factorList.get(0);
+                f.check(curScope, lib);
+        	type = f.type;
+        	for(int i = 0; i < factorOprList.size(); i++){
+            		Factor f2 = factorList.get(i+1);
+			f2.check(curScope, lib);
+            		String oprName = factorOprList.get(i).str;
+            		type.checkType(f2.type, oprName + " operands", this,
+                    	"Operands to " + oprName + " are of different type!");
+        	}
+        }
 
 	@Override public String identify() {
 		return "<term> on line " + lineNum;

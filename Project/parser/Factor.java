@@ -3,7 +3,7 @@ import scanner.*;
 
 public abstract class Factor extends PascalSyntax {
 
-
+    protected types.Type type = null;
     Factor(int lNum) {
         super(lNum);
     }
@@ -62,6 +62,7 @@ public abstract class Factor extends PascalSyntax {
     }
 
     @Override void prettyPrint() {}
+    @Override void check(Block curScope, Library lib){}
 
     @Override public String identify() {
         return "<factor> on line " + lineNum;

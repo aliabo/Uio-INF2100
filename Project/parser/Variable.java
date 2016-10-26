@@ -7,7 +7,7 @@ public class Variable extends Factor {
 
 	private Expression exp;
 	private String name;
-	public VarDecl varDecl;
+	public PascalDecl varDecl;
    	protected types.Type type;
 
 	Variable(int lNum) {
@@ -64,7 +64,7 @@ public class Variable extends Factor {
 
     @Override void check(Block curScope, Library lib) {
 	PascalDecl d = curScope.findDecl(name,this);
-	varDecl = (VarDecl)d;
+	varDecl = d;
         if(exp != null) {
             type = exp.type;
             varDecl.check(curScope, lib);

@@ -73,17 +73,28 @@ public class SimpleExpr extends PascalSyntax{
 	@Override void prettyPrint() {
 		if(pOpr != null)
 			pOpr.prettyPrint();
+               
 		termList.get(0).prettyPrint();
-		termList.remove(0);
-		while(termOprList.size()>0){
-			termOprList.get(0).prettyPrint();
-			termList.get(0).prettyPrint();
-			termOprList.remove(0);
-			termList.remove(0);
+		for(int i = 0; i < termOprList.size(); i++){
+			termOprList.get(i).prettyPrint();
+			termList.get(i+1).prettyPrint();
 		}
 	}
 
-	@Override void check(Block curScope, Library lib){}//TODO
+	@Override void check(Block curScope, Library lib){
+		
+		Term t = termList.get(0);
+                t.check(curScope, lib);
+        	type = t.type;
+        	for(int i = 0; i < termOprList.size(); i++){
+            		Term t2 = termList.get(i+1);
+			t2.check(curScope, lib);
+            		String oprName = termOprList.get(i).str;
+            		type.checkType(t2.type, oprName + " operands", this,
+                    	"Operands to " + oprName + " are of different type!");
+            		type = lib.integerType;
+        	}
+        }
 
 	@Override public String identify() {
 		return "<simple expr> on line " + lineNum;

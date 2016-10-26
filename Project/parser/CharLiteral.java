@@ -43,7 +43,10 @@ public class CharLiteral extends UnsignedConstant {
 		return cl;
 	}
 
-	@Override void check(Block curScope, Library lib){}
+	@Override void check(Block curScope, Library lib){
+
+		type = lib.charType;
+        }
 
 	@Override void prettyPrint() {
 		Main.log.prettyPrint("'" + c + "'");		

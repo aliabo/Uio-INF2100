@@ -3,7 +3,7 @@ import scanner.*;
 
 public abstract class UnsignedConstant extends Factor {
 	
-	types.Type type;
+	protected types.Type type = null;
 	public int constVal; 
 
 	UnsignedConstant(int lNum) {
