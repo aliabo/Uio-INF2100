@@ -91,14 +91,14 @@ public class Scanner {
 			}
 		}
 	}
-
+	
 	/**
 	 * Test if still more to read
 	 * <p>
 	 * @return boolean 		True if empty, False otherwise
 	 */
 	private boolean moreToRead(int lineLength){
-		return sourcePos < lineLength;
+	 	return sourcePos < lineLength;
 	}
 
 	/**
@@ -146,7 +146,7 @@ public class Scanner {
 	/**
 	 * Were looking for special case of chars
 	 * Try and catch if Illegal char literal
-	 *
+     *
 	 * <p>
 	 * @param s				String to update
 	 * @param lineLength    to update current lineLength
@@ -161,7 +161,7 @@ public class Scanner {
 						s += sourceLine.substring(sourcePos,sourcePos + 4);
 						sourcePos += 4;
 						out = s;
-						return out;
+                                                return out;
 					}
 				s += sourceLine.substring(sourcePos,sourcePos + 3);
 				sourcePos += 3;
@@ -183,12 +183,12 @@ public class Scanner {
 		if(sourcePos < sourceLine.length())
 			// a token is a part of a name
 			if(sourcePos > 0)
-				if(isLetterAZ(sourceLine.charAt(sourcePos)) && isLetterAZ(sourceLine.charAt(sourcePos-1)))
+               			if(isLetterAZ(sourceLine.charAt(sourcePos)) && isLetterAZ(sourceLine.charAt(sourcePos-1)))
 					return false;
-		for (TokenKind k: TokenKind.values()){
-			if(s.contains(k.toString()))
-				return true;
-		}
+			for (TokenKind k: TokenKind.values()){
+				if(s.contains(k.toString()))
+					return true;
+			}
 		return false;
 	}
 
@@ -198,6 +198,7 @@ public class Scanner {
 	 * <p>
 	 * If s contains "/*" we skip to 2 else if s contains "{" we skip 1, se more
 	 * at the use of:	    {@link #readNewLine}
+	 * if line is empty:    {@link #noEndtestIfEmpty}
 	 *
 	 *
 	 * @param 	s	the location of the token, relative to the s argument
@@ -206,43 +207,43 @@ public class Scanner {
 	 */
 	private String removeComments(String s, int lineLength){
 		int nrOfCharToRemove;
-		boolean success = false;
+                boolean success = false;
 		if (s.contains("/*")){
 			nrOfCharToRemove = 2;
 			s = s.substring(0,s.length() - nrOfCharToRemove);
 			while((!sourceLineEmpty()) && moreToRead(lineLength) && ((charAtPositionIs() != '/') || (sourceLine.charAt(sourcePos-1) != '*'))){
-				sourcePos++;
+                                sourcePos++;
 				lineLength = readNewLine(lineLength, nrOfCharToRemove);
 
 				if(sourcePos>0){
-					if(charAtPositionIs() == '/' && sourceLine.charAt(sourcePos-1) == '*')
-						success = true;
-				}else{
-					sourcePos++;
-				}
+				    if(charAtPositionIs() == '/' && sourceLine.charAt(sourcePos-1) == '*')
+                                        success = true;
+                                }else{
+                                      sourcePos++;
+                                }
 			}
 			if (!success){
 				scannerError("No end for comment starting on line " + curLineNum() + "!");
-			}else{
+                        }else{
 				sourcePos++;
-			}
+                        }
 
 		} else if (s.contains("{")){
 			nrOfCharToRemove = 1;
 			s = s.substring(0, s.length() - nrOfCharToRemove);
 			while((!sourceLineEmpty()) && moreToRead(lineLength) && (charAtPositionIs() != '}')){
-				sourcePos++;
+                                sourcePos++;
 				lineLength = readNewLine(lineLength, nrOfCharToRemove);
-				if(charAtPositionIs() == '}')
-					success = true;
-
+                                if(charAtPositionIs() == '}')
+                                    success = true;
+                                
 			}
 			// error  */
-			if (!success){
+                        if (!success){
 				scannerError("No end for comment starting on line " + curLineNum() + "!");
-			}else{
+                        }else{
 				sourcePos++;
-			}
+                        }
 		}
 		return s;
 	}
@@ -264,8 +265,8 @@ public class Scanner {
 				readNextLine();
 				lineLength = currentLineLength();
 			}
-			if (sourceLineEmpty())
-				lineLength = 0;
+                        if (sourceLineEmpty())
+                           lineLength = 0;
 		}
 		return lineLength;
 	}
@@ -599,7 +600,7 @@ public class Scanner {
 	 * then we do another call to readNextToken()
 	 *
 	 * @param t     token to test
-	 */
+     */
 	public void skip(TokenKind t) {
 		test(t);
 		readNextToken();
