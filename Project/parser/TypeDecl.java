@@ -1,13 +1,19 @@
 package parser;
 public class TypeDecl extends PascalDecl{
-        types.Type type;
+        
+        PascalDecl decl = null;
+	types.Type type = null;
+
 	TypeDecl(String id, int lNum) {
 		super(id, lNum);
-	}/*
-	TypeDecl(String id/*,types.Type type){
-		/*this.type = type;
-		this.name = id;
-	}*/
+	}
+
+
+
+	void setDecl(PascalDecl decl){
+
+		this.decl = decl;
+	}
 	void checkWhetherAssignable(PascalSyntax where){
 		where.error("type is not assignable!");
 	}
@@ -27,7 +33,17 @@ public class TypeDecl extends PascalDecl{
 	public @Override void prettyPrint() {
 	}
 
-	@Override public String identify() {return "";}
+	public void setType(types.Type type){
+		this.type = type;
+	}
+	@Override public String identify() {
+		if (decl != null){
+        		return name + " " + decl.name + " in the library";
+		}
+		else{
+			return type.identify() +  " in the library";	
+		}
+        }
 
 	@Override void check(Block curScope, Library lib) {}
 }

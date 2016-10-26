@@ -8,7 +8,7 @@ class ProcCallStatm extends Statement {
 
     private ArrayList<Expression> exList = new ArrayList<>();
     String procName;
-    ProcDecl procRef;
+    PascalDecl procRef;
 
     ProcCallStatm(int lNum) {
         super(lNum);
@@ -91,7 +91,7 @@ class ProcCallStatm extends Statement {
 
     @Override void check(Block curScope, Library lib) {
 	PascalDecl d = curScope.findDecl(procName, this);
-	procRef = (ProcDecl)d;
+	procRef = d;
 	for(Expression exp: exList){
                 exp.check(curScope, lib);
         }
