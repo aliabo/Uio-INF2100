@@ -9,7 +9,7 @@ public class SimpleExpr extends PascalSyntax{
 	private PrefixOperator pOpr;
 	private ArrayList<Term> termList;
 	private ArrayList<TermOperator> termOprList;
-	protected types.Type type = null;
+	public types.Type type = null;
 
 	SimpleExpr(int lNum) {
 		super(lNum);
@@ -86,13 +86,20 @@ public class SimpleExpr extends PascalSyntax{
 		Term t = termList.get(0);
                 t.check(curScope, lib);
         	type = t.type;
+		//checking that term is integer if there is a prefix operator
+		if(pOpr != null)
+			type.checkType(lib.integerType, pOpr.k + " operands", this,
+                    	"Operands to " + pOpr.k + " are of different type!");
+            		type = lib.integerType;
         	for(int i = 0; i < termOprList.size(); i++){
             		Term t2 = termList.get(i+1);
 			t2.check(curScope, lib);
             		String oprName = termOprList.get(i).str;
-            		type.checkType(t2.type, oprName + " operands", this,
+            		type.checkType(lib.integerType,"left " + oprName + " operand", this,
                     	"Operands to " + oprName + " are of different type!");
-            		type = lib.integerType;
+			
+			t2.type.checkType(lib.integerType,"right " + oprName + " operand", this,
+                    	"Operands to " + oprName + " are of different type!");
         	}
         }
 

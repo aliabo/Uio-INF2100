@@ -60,7 +60,10 @@ public class ConstDecl extends PascalDecl{
 	}
 
 	@Override public String identify() {
-		return "<const decl> " + name + " on line " + lineNum;
+		if(lineNum == 0)//defined in the library
+			return "<const decl> " + name + " in the Library";
+        	else
+			return "<const decl> " + name + " on line " + lineNum;
 	}
 
 	void checkWhetherAssignable(PascalSyntax where){ where.error("const is not assignable!");}

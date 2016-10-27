@@ -5,8 +5,8 @@ import static scanner.TokenKind.*;
 
 public class VarDecl extends PascalDecl{
 
-	private Type type;
-
+	private Type t;
+	public types.Type type;
 	VarDecl(String id, int lNum) {
 		super(id, lNum);
 	}
@@ -36,7 +36,7 @@ public class VarDecl extends PascalDecl{
 		VarDecl vDecl = new VarDecl(s.curToken.id, s.curLineNum());
 		s.readNextToken();
 		s.skip(colonToken);
-		vDecl.type = Type.parse(s);
+		vDecl.t = Type.parse(s);
 		s.skip(semicolonToken);
 
 		leaveParser("var decl");
@@ -45,7 +45,7 @@ public class VarDecl extends PascalDecl{
 
 	public @Override void prettyPrint() {
 		Main.log.prettyPrint(name + ": ");
-		type.prettyPrint();
+		t.prettyPrint();
 		Main.log.prettyPrintLn(";");
 	}
 
@@ -55,7 +55,8 @@ public class VarDecl extends PascalDecl{
 
 	@Override void check(Block curScope, Library lib) {
 		curScope.addDecl(name, this);
-		type.check(curScope, lib);
+		t.check(curScope, lib);
+		type = t.type;
 	}
 
 	void checkWhetherAssignable(PascalSyntax where){}

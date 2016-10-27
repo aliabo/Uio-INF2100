@@ -7,6 +7,7 @@ public class AssignStatm extends Statement {
 
     private Variable var = null;
     private Expression ex = null;
+    private types.Type type = null;
     
     AssignStatm(int lNum) {
         super(lNum);
@@ -55,10 +56,13 @@ public class AssignStatm extends Statement {
 
     @Override void check(Block curScope, Library lib) {
         var.check(curScope, lib);
+	type = var.type;
         var.varDecl.checkWhetherAssignable(this);
         ex.check(curScope, lib);
-	
+	type.checkType(ex.type, ":=", this,
+                       var.identify()+ " "+ ex.identify() +" are of different type!");	
     }
+
     @Override public String identify() {
         return "<assign statm> on line " + lineNum;
     }

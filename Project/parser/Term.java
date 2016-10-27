@@ -7,7 +7,7 @@ public class Term extends PascalSyntax{
 
 	private ArrayList<Factor> factorList;
 	private ArrayList<FactorOperator> factorOprList;
-        protected types.Type type = null;
+        public types.Type type = null;
 
 	Term(int lNum) {
 		super(lNum);

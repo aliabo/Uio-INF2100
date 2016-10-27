@@ -88,7 +88,10 @@ public class ProcDecl extends PascalDecl{
     }
 
     @Override public String identify() {
-        return "<proc decl> " + name + " on line " + lineNum;
+	if(lineNum == 0)//defined in the library
+		return "<proc decl> " + name + " in the Library";
+        else
+		return "<proc decl> " + name + " on line " + lineNum;
     }
 
     void checkWhetherAssignable(PascalSyntax where){

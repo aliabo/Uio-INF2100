@@ -11,7 +11,7 @@ public class Expression extends PascalSyntax {
     private SimpleExpr sE1 = null;
     private SimpleExpr sE2 = null;
     private RelOperator rO = null;
-    protected types.Type type = null;
+    public types.Type type = null;
 
     /**
      * Parser method to declare the language, explained as a rail-diagram; Expression

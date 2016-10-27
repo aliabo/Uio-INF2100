@@ -3,7 +3,6 @@ import scanner.*;
 
 public abstract class UnsignedConstant extends Factor {
 	
-	protected types.Type type = null;
 	public int constVal; 
 
 	UnsignedConstant(int lNum) {
@@ -45,7 +44,6 @@ public abstract class UnsignedConstant extends Factor {
 	}
 
 	@Override void check(Block curScope, Library lib){
-		
 	}
 
 	@Override void prettyPrint() {}

@@ -7,20 +7,24 @@ import java.util.HashMap;
 
 public class Library extends Block{
 
-	types.ArrayType arrayType;
-	types.BoolType booleanType;
-	types.CharType charType;
-	types.IntType integerType;
-        ConstDecl trueType;
-        ConstDecl falseType;
-        ConstDecl eolType;
-        ProcDecl writeType;
+	public types.ArrayType arrayType;
+	public types.BoolType booleanType;
+	public types.CharType charType;
+	public types.IntType integerType;
+        public ConstDecl trueType;
+        public ConstDecl falseType;
+        public ConstDecl eolType;
+        public ProcDecl writeType;
+
+
 	public Library(int lNum){
 
 		super(lNum);
 	}
 
+	// Needed to set all in the TypeDecl class to override indetify as declared in library
 	public Library(){
+		
 		super(0);
 		writeType = new ProcDecl("write",0);
 		TypeDecl tDecl = new TypeDecl("<proc decl>",0);
@@ -43,17 +47,17 @@ public class Library extends Block{
 		addDecl("eol",tDecl);
 		
 		booleanType = new types.BoolType();
-		tDecl = new TypeDecl("boolean",0);
+		tDecl = new TypeDecl("<type decl> boolean",0);
 		tDecl.setType(booleanType);
 		addDecl("boolean",tDecl);
 
 		integerType = new types.IntType();
-		tDecl = new TypeDecl("integer",0);
+		tDecl = new TypeDecl("<type decl> integer",0);
 		tDecl.setType(integerType);
 		addDecl("integer",tDecl);
 		
 		charType = new types.CharType();
-		tDecl = new TypeDecl("char",0);
+		tDecl = new TypeDecl("<type decl> char",0);
 		tDecl.setType(charType);
 		addDecl("char",tDecl);
 /*

@@ -41,7 +41,7 @@ public class TypeDecl extends PascalDecl{
         		return name + " " + decl.name + " in the library";
 		}
 		else{
-			return type.identify() +  " in the library";	
+			return name +  " in the library";	
 		}
         }
 

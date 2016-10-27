@@ -3,7 +3,11 @@ import scanner.*;
 
 public abstract class Factor extends PascalSyntax {
 
-    protected types.Type type = null;
+    public types.Type type;
+    public VarDecl varDecl = null;
+    public ConstDecl constDecl = null;
+    public TypeDecl typeDecl = null;
+
     Factor(int lNum) {
         super(lNum);
     }

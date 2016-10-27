@@ -3,7 +3,7 @@ import scanner.*;
 
 public abstract class Type extends PascalSyntax{
 
-	types.Type type;
+	public types.Type type;
 
 	Type(int lNum) {
 		super(lNum);
@@ -27,21 +27,22 @@ public abstract class Type extends PascalSyntax{
 	public static Type parse(Scanner s) {
 
 		enterParser("type");
-		Type type = null;
+		Type t = null;
 		switch (s.curToken.kind) {
 
 			case arrayToken:
-				type = ArrayType.parse(s); break;
+				t = ArrayType.parse(s); break;
 			default:
-				type = TypeName.parse(s); break;
+				t = TypeName.parse(s); break;
 		}
 		leaveParser("type");
-		return type;
+		return t;
 	}
 
 	@Override void prettyPrint() {}
 
-	@Override void check(Block curScope, Library lib){}
+	@Override void check(Block curScope, Library lib){
+	}
 
 	@Override public String identify() {
 		return "<type> on line " + lineNum;
