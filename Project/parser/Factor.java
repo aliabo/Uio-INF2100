@@ -64,7 +64,8 @@ public abstract class Factor extends PascalSyntax {
     }
 
     @Override void prettyPrint() {}
-    @Override void check(Block curScope, Library lib){}
+    @Override void check(Block curScope, Library lib){
+    }
 
     @Override public String identify() {
         return "<factor> on line " + lineNum;

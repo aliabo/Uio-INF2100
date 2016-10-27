@@ -8,7 +8,7 @@ public class AssignStatm extends Statement {
     private Variable var = null;
     private Expression ex = null;
     private types.Type type = null;
-    
+
     AssignStatm(int lNum) {
         super(lNum);
     }
@@ -35,7 +35,7 @@ public class AssignStatm extends Statement {
         s.skip(assignToken);
         as.ex = Expression.parse(s);
 
-	    leaveParser("assign statm");
+        leaveParser("assign statm");
         return as;
     }
 
@@ -47,7 +47,7 @@ public class AssignStatm extends Statement {
      * Calls the logFile {@link package.main.log.prettyPrint}, an formatting conventions
      * that adjust positioning and spacing (indent style), to make the content easier for other
      * programmers to view, read, and understand.
-     */    
+     */
     @Override void prettyPrint() {
         var.prettyPrint();
         Main.log.prettyPrint(" := ");
@@ -56,11 +56,11 @@ public class AssignStatm extends Statement {
 
     @Override void check(Block curScope, Library lib) {
         var.check(curScope, lib);
-	type = var.type;
+        type = var.type;
         var.varRef.checkWhetherAssignable(this);
         ex.check(curScope, lib);
-	type.checkType(ex.type, ":=", this,
-                       var.identify()+ " "+ ex.identify() +" are of different type!");	
+        type.checkType(ex.type, ":=", this,
+                var.identify()+ " "+ ex.identify() +" are of different type!");
     }
 
     @Override public String identify() {

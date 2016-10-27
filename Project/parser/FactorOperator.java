@@ -6,6 +6,7 @@ import static scanner.TokenKind.*;
 public class FactorOperator extends Operator {
 
     public String str;
+    public types.Type type = null;
 
     FactorOperator(int lNum) {
         super(lNum);
@@ -57,7 +58,9 @@ public class FactorOperator extends Operator {
         Main.log.prettyPrint(" " + str + " ");
     }
 
-    @Override void check(Block curScope, Library lib){}
+    @Override void check(Block curScope, Library lib){
+
+    }
 
 
     @Override public String identify() {

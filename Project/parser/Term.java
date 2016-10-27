@@ -7,7 +7,7 @@ public class Term extends PascalSyntax{
 
 	private ArrayList<Factor> factorList;
 	private ArrayList<FactorOperator> factorOprList;
-        public types.Type type = null;
+	public types.Type type = null;
 
 	Term(int lNum) {
 		super(lNum);
@@ -55,30 +55,30 @@ public class Term extends PascalSyntax{
 
 	// While list is not empty, pretty print, reduce
 	@Override void prettyPrint() {
-
 		factorList.get(0).prettyPrint();
 		for(int i = 0 ; i < factorOprList.size();i++){
 			factorOprList.get(i).prettyPrint();
 			factorList.get(i+1).prettyPrint();
 		}
 	}
-	
+
 	@Override void check(Block curScope, Library lib){
-		
+
 		Factor f = factorList.get(0);
-                f.check(curScope, lib);
-        	type = f.type;
-        	for(int i = 0; i < factorOprList.size(); i++){
-            		Factor f2 = factorList.get(i+1);
+		f.check(curScope, lib);
+		type = f.type;
+		for(int i = 0; i < factorOprList.size(); i++){
+			Factor f2 = factorList.get(i+1);
 			f2.check(curScope, lib);
-            		String oprName = factorOprList.get(i).str;
-            		type.checkType(f2.type,"left " + oprName + " operand", this,
-                    	"Operands to " + oprName + " are of different type!");
+			String oprName = factorOprList.get(i).str;
+
+			type.checkType(f2.type,"left " + oprName + " operand", this,
+					"Operands to " + oprName + " are of different type!");
 			f2.type.checkType(type,"right " + oprName + " operand", this,
-                    	"Operands to " + oprName + " are of different type!");
+					"Operands to " + oprName + " are of different type!");
 			type = f2.type;
-        	}
-        }
+		}
+	}
 
 	@Override public String identify() {
 		return "<term> on line " + lineNum;

@@ -59,19 +59,19 @@ public class Variable extends Factor {
 		}
 	}
 
-//TODO fix this
-    @Override void check(Block curScope, Library lib) {
-	varRef = curScope.findDecl(name,this);
-	type = varRef.type;
-	
-	if(exp != null) {
-            type = exp.type;
-        }
+	//TODO fix this
+	@Override void check(Block curScope, Library lib) {
+		varRef = curScope.findDecl(name,this);
+		type = varRef.type;
 
-    }
+		if(exp != null) {
+			type = exp.type;
+		}
+
+	}
 
 
-    @Override public String identify() {
+	@Override public String identify() {
 		return "<variable> on line " + lineNum;
 	}
 }

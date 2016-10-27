@@ -73,7 +73,7 @@ public class SimpleExpr extends PascalSyntax{
 	@Override void prettyPrint() {
 		if(pOpr != null)
 			pOpr.prettyPrint();
-               
+
 		termList.get(0).prettyPrint();
 		for(int i = 0; i < termOprList.size(); i++){
 			termOprList.get(i).prettyPrint();
@@ -82,27 +82,30 @@ public class SimpleExpr extends PascalSyntax{
 	}
 
 	@Override void check(Block curScope, Library lib){
-		
 		Term t = termList.get(0);
-                t.check(curScope, lib);
-        	type = t.type;
+		t.check(curScope, lib);
+		type = t.type;
 		//checking that term is integer if there is a prefix operator
 		if(pOpr != null)
-			type.checkType(lib.integerType, pOpr.k + " operands", this,
-                    	"Operands to " + pOpr.k + " are of different type!");
-            		type = lib.integerType;
-        	for(int i = 0; i < termOprList.size(); i++){
-            		Term t2 = termList.get(i+1);
+			type.checkType(lib.integerType, "prefix " + pOpr.k + " operand", this,
+					"Operands to " + pOpr.k + " are of different type!");
+		//set to boolean type, for or operator
+		type = lib.booleanType;
+		for(int i = 0; i < termOprList.size(); i++){
+			Term t2 = termList.get(i+1);
 			t2.check(curScope, lib);
-            		String oprName = termOprList.get(i).str;
-            		type.checkType(t2.type,"left " + oprName + " operand", this,
-                    	"Operands to " + oprName + " are of different type!");
-			
+			String oprName = termOprList.get(i).str;
+
+			type.checkType(t2.type,"left " + oprName + " operand", this,
+					"Operands to " + oprName + " are of different type!");
+
 			t2.type.checkType(type,"right " + oprName + " operand", this,
-                    	"Operands to " + oprName + " are of different type!");
+					"Operands to " + oprName + " are of different type!");
+
 			type = t2.type;
-        	}
-        }
+
+		}
+	}
 
 	@Override public String identify() {
 		return "<simple expr> on line " + lineNum;

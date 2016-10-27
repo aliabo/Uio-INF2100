@@ -6,6 +6,7 @@ import static scanner.TokenKind.*;
 public class NamedConst extends UnsignedConstant {
 
 	private String name;
+	types.Type type = null;
 
 	NamedConst(int lNum) {
 		super(lNum);
