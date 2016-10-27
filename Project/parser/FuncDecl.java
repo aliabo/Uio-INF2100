@@ -7,7 +7,7 @@ public class FuncDecl extends ProcDecl{
 
 	private Block progBlock;
 	private TypeName tName;
-	private ParamDeclList pList;
+	public ParamDeclList pList;
 
 	FuncDecl(String id, int lNum) {
 		super(id, lNum);
@@ -78,11 +78,12 @@ public class FuncDecl extends ProcDecl{
 	}
 
 	@Override void check(Block curScope, Library lib) {
-	
+		progBlock.outerScope = curScope;
 		curScope.addDecl(name, this);
 		if(pList != null)
 			pList.check(progBlock, lib);
 		tName.check(progBlock, lib);
+		type = tName.type;
 		progBlock.check(progBlock, lib);
 	}
 

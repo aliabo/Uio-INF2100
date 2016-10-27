@@ -58,6 +58,7 @@ public class ParamDecl extends PascalDecl{
 	
 		curScope.addDecl(name, this);
 		tName.check(curScope, lib);
+		type = tName.type;
         }
 
 	void checkWhetherAssignable(PascalSyntax where){}

@@ -8,6 +8,7 @@ public class FuncCall extends Factor {
 
 	private String name;
 	private ArrayList<Expression> expList;
+        private FuncDecl funcRef = null;
 
 	FuncCall(int lNum) {
 		super(lNum);
@@ -86,7 +87,19 @@ public class FuncCall extends Factor {
 		}
 	}
 
-	@Override void check(Block curScope, Library lib){}
+	@Override void check(Block curScope, Library lib){
+
+		funcRef = (FuncDecl)curScope.findDecl(name,this);
+		funcRef.checkWhetherFunction(this);
+		for(int i = 0; i < expList.size(); i++){
+			// checking that parameters has same type as in declaration of function
+			Expression funcCallParam = expList.get(i);
+			ParamDecl funcDeclParam = funcRef.pList.pList.get(i);
+			funcCallParam.check(curScope,lib);
+			funcCallParam.type.checkType(funcDeclParam.type,"param #" + (i+1), this,
+                    	"Parameter is not as function declaration!");
+		}
+	}
 
 	@Override public String identify() {
 		return "<func call> on line " + lineNum;

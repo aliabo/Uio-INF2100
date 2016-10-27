@@ -90,8 +90,8 @@ class ProcCallStatm extends Statement {
     }
 
     @Override void check(Block curScope, Library lib) {
-	PascalDecl d = curScope.findDecl(procName, this);
-	procRef = d;
+	procRef = curScope.findDecl(procName, this);
+	procRef.checkWhetherProcedure(this);
 	for(Expression exp: exList){
                 exp.check(curScope, lib);
         }

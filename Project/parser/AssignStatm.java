@@ -57,7 +57,7 @@ public class AssignStatm extends Statement {
     @Override void check(Block curScope, Library lib) {
         var.check(curScope, lib);
 	type = var.type;
-        var.varDecl.checkWhetherAssignable(this);
+        var.varRef.checkWhetherAssignable(this);
         ex.check(curScope, lib);
 	type.checkType(ex.type, ":=", this,
                        var.identify()+ " "+ ex.identify() +" are of different type!");	

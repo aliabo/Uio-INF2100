@@ -2,7 +2,6 @@ package parser;
 public class TypeDecl extends PascalDecl{
         
         PascalDecl decl = null;
-	types.Type type = null;
 
 	TypeDecl(String id, int lNum) {
 		super(id, lNum);
@@ -15,19 +14,31 @@ public class TypeDecl extends PascalDecl{
 		this.decl = decl;
 	}
 	void checkWhetherAssignable(PascalSyntax where){
-		where.error("type is not assignable!");
+		where.error(name + "type is not assignable!");
 	}
 
         void checkWhetherFunction(PascalSyntax where){
-		where.error("type is not function!");
+		where.error(name + " is not function!");
 	}
 
         void checkWhetherProcedure(PascalSyntax where){
-		where.error("type is not a procedure!");
+		if(decl != null)
+			decl.checkWhetherProcedure(where);
+		else
+			where.error(decl.name + " is not procedure!");
 	}
 
         void checkWhetherValue(PascalSyntax where){
-		where.error("type is not a value!");
+		if(decl != null){
+			if(decl instanceof ProcDecl){
+				where.error(decl.name + " is not a value!");
+			}
+		}
+		else{
+			if (type instanceof types.BoolType)
+				where.error("boolean is not a value!");
+		}
+			
 	}
 	
 	public @Override void prettyPrint() {

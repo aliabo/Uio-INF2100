@@ -95,11 +95,12 @@ public class SimpleExpr extends PascalSyntax{
             		Term t2 = termList.get(i+1);
 			t2.check(curScope, lib);
             		String oprName = termOprList.get(i).str;
-            		type.checkType(lib.integerType,"left " + oprName + " operand", this,
+            		type.checkType(t2.type,"left " + oprName + " operand", this,
                     	"Operands to " + oprName + " are of different type!");
 			
-			t2.type.checkType(lib.integerType,"right " + oprName + " operand", this,
+			t2.type.checkType(type,"right " + oprName + " operand", this,
                     	"Operands to " + oprName + " are of different type!");
+			type = t2.type;
         	}
         }
 

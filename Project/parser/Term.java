@@ -72,8 +72,11 @@ public class Term extends PascalSyntax{
             		Factor f2 = factorList.get(i+1);
 			f2.check(curScope, lib);
             		String oprName = factorOprList.get(i).str;
-            		type.checkType(f2.type, oprName + " operands", this,
+            		type.checkType(f2.type,"left " + oprName + " operand", this,
                     	"Operands to " + oprName + " are of different type!");
+			f2.type.checkType(type,"right " + oprName + " operand", this,
+                    	"Operands to " + oprName + " are of different type!");
+			type = f2.type;
         	}
         }
 

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class ParamDeclList extends PascalSyntax{
 
-    private ArrayList<ParamDecl> pList;
+    public ArrayList<ParamDecl> pList;
 
     ParamDeclList(int lNum) {
         super(lNum);

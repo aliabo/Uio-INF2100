@@ -4,9 +4,7 @@ import scanner.*;
 public abstract class Factor extends PascalSyntax {
 
     public types.Type type;
-    public VarDecl varDecl = null;
-    public ConstDecl constDecl = null;
-    public TypeDecl typeDecl = null;
+    public PascalDecl varRef = null;
 
     Factor(int lNum) {
         super(lNum);

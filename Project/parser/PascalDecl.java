@@ -3,7 +3,7 @@ package parser;
 public abstract class PascalDecl extends PascalSyntax {
     String name, progProcFuncName;
     int declLevel = 0, declOffset = 0;
-    types.Type type = null;
+    public types.Type type = null;
 
     PascalDecl(String id, int lNum) {
 	super(lNum);
