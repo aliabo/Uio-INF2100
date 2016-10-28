@@ -5,7 +5,6 @@ import scanner.*;
 public class TypeName extends Type{
 
     public String name;
-    types.Type type;
     TypeName(int lNum) {
         super(lNum);
     }
@@ -45,9 +44,9 @@ public class TypeName extends Type{
         Main.log.prettyPrint(name);
     }
 
-    @Override void check(Block curScope, Library lib) {
-        TypeDecl d = (TypeDecl) curScope.findDecl(name, this);
-        type = d.type;
+    @Override void check(Block curScope, Library lib){
+	TypeDecl d = (TypeDecl)curScope.findDecl(name,this);
+	type = d.type;
     }
 
     @Override public String identify() {

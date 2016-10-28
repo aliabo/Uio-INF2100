@@ -5,8 +5,7 @@ import static scanner.TokenKind.*;
 
 public class Negation extends Factor {
 
-	public Factor f;
-	public types.Type type = null;
+	private Factor f;
 
 	Negation(int lNum) {
 		super(lNum);
@@ -39,11 +38,6 @@ public class Negation extends Factor {
 	}
 
 	@Override void check(Block curScope, Library lib){
-		f.check(curScope, lib);
-		type = f.type;
-		f.type.checkType(type,"'not' operand", this,
-				"Operands to are of different type!");
-		type = f.type;
 	}
 
 

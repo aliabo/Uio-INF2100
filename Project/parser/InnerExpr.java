@@ -5,7 +5,7 @@ import static scanner.TokenKind.*;
 
 public class InnerExpr extends Factor {
 
-	public Expression exp;
+	private Expression exp;
 
 	InnerExpr(int lNum) {
 		super(lNum);
@@ -44,9 +44,7 @@ public class InnerExpr extends Factor {
 		Main.log.prettyPrint(")");
 	}
 
-	@Override void check(Block curScope, Library lib){
-
-	}
+	@Override void check(Block curScope, Library lib){}
 
 	@Override public String identify() {
 		return "<inner expr> on line " + lineNum;

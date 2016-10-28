@@ -6,7 +6,6 @@ import static scanner.TokenKind.*;
 public class TermOperator extends Operator {
 
     public String str;
-    public types.Type type;
 
     TermOperator(int lNum){
         super(lNum);
@@ -51,8 +50,7 @@ public class TermOperator extends Operator {
         return to;
     }
 
-    @Override void check(Block curScope, Library lib){
-    }
+    @Override void check(Block curScope, Library lib){}
 
     @Override void prettyPrint(){
         Main.log.prettyPrint(" " + str + " ");
