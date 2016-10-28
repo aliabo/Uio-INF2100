@@ -39,11 +39,13 @@ public class Library extends Block{
 		falseType = new ConstDecl("false",0);
 		tDecl = new TypeDecl("<const decl>",0);
 		tDecl.setDecl(falseType);
+		
 		addDecl("false",tDecl);
 		
 		eolType = new ConstDecl("eol",0);
 		tDecl = new TypeDecl("<const decl>",0);
 		tDecl.setDecl(eolType);
+		tDecl.setType(charType);
 		addDecl("eol",tDecl);
 		
 		booleanType = new types.BoolType();

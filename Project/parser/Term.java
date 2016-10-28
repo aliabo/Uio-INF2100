@@ -72,6 +72,8 @@ public class Term extends PascalSyntax{
             		Factor f2 = factorList.get(i+1);
 			f2.check(curScope, lib);
             		String oprName = factorOprList.get(i).str;
+			if(oprName.equals("and")) // to get the same logfile as ifi's compiler
+				oprName = "'and'";
             		type.checkType(f2.type,"left " + oprName + " operand", this,
                     	"Operands to " + oprName + " are of different type!");
 			f2.type.checkType(type,"right " + oprName + " operand", this,

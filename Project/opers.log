@@ -1,0 +1,149 @@
+Binding on line 6: boolean was declared as <type decl> boolean in the library
+Binding on line 8: write was declared as <proc decl> write in the library
+Binding on line 8: x was declared as <param decl> x on line 6
+Binding on line 8: x was declared as <param decl> x on line 6
+Type check 'not' operand on line 8: type Boolean vs type Boolean
+Binding on line 8: eol was declared as <const decl> eol in the library
+Binding on line 12: test was declared as <proc decl> test on line 6
+Binding on line 12: false was declared as <const decl> false in the library
+Type check param #1 on line 12: type Boolean vs type Boolean
+Binding on line 12: test was declared as <proc decl> test on line 6
+Binding on line 12: true was declared as <const decl> true in the library
+Type check param #1 on line 12: type Boolean vs type Boolean
+Binding on line 18: boolean was declared as <type decl> boolean in the library
+Binding on line 18: boolean was declared as <type decl> boolean in the library
+Binding on line 20: write was declared as <proc decl> write in the library
+Binding on line 20: x was declared as <param decl> x on line 18
+Binding on line 20: y was declared as <param decl> y on line 18
+Binding on line 20: x was declared as <param decl> x on line 18
+Binding on line 20: y was declared as <param decl> y on line 18
+Type check left 'and' operand on line 20: type Boolean vs type Boolean
+Type check right 'and' operand on line 20: type Boolean vs type Boolean
+Binding on line 20: eol was declared as <const decl> eol in the library
+Binding on line 21: write was declared as <proc decl> write in the library
+Binding on line 21: x was declared as <param decl> x on line 18
+Binding on line 21: y was declared as <param decl> y on line 18
+Binding on line 21: x was declared as <param decl> x on line 18
+Binding on line 21: y was declared as <param decl> y on line 18
+Type check left 'or' operand on line 21: type Boolean vs type Boolean
+Type check right 'or' operand on line 21: type Boolean vs type Boolean
+Binding on line 21: eol was declared as <const decl> eol in the library
+Binding on line 25: test was declared as <proc decl> test on line 18
+Binding on line 25: false was declared as <const decl> false in the library
+Type check param #1 on line 25: type Boolean vs type Boolean
+Binding on line 25: false was declared as <const decl> false in the library
+Type check param #2 on line 25: type Boolean vs type Boolean
+Binding on line 25: test was declared as <proc decl> test on line 18
+Binding on line 25: false was declared as <const decl> false in the library
+Type check param #1 on line 25: type Boolean vs type Boolean
+Binding on line 25: true was declared as <const decl> true in the library
+Type check param #2 on line 25: type Boolean vs type Boolean
+Binding on line 26: test was declared as <proc decl> test on line 18
+Binding on line 26: true was declared as <const decl> true in the library
+Type check param #1 on line 26: type Boolean vs type Boolean
+Binding on line 26: false was declared as <const decl> false in the library
+Type check param #2 on line 26: type Boolean vs type Boolean
+Binding on line 26: test was declared as <proc decl> test on line 18
+Binding on line 26: true was declared as <const decl> true in the library
+Type check param #1 on line 26: type Boolean vs type Boolean
+Binding on line 26: true was declared as <const decl> true in the library
+Type check param #2 on line 26: type Boolean vs type Boolean
+Binding on line 32: integer was declared as <type decl> integer in the library
+Binding on line 34: write was declared as <proc decl> write in the library
+Binding on line 34: x was declared as <param decl> x on line 32
+Binding on line 34: x was declared as <param decl> x on line 32
+Type check prefix - operand on line 34: type Integer vs type Integer
+Binding on line 34: eol was declared as <const decl> eol in the library
+Binding on line 35: write was declared as <proc decl> write in the library
+Binding on line 35: x was declared as <param decl> x on line 32
+Binding on line 35: x was declared as <param decl> x on line 32
+Type check prefix + operand on line 35: type Integer vs type Integer
+Binding on line 35: eol was declared as <const decl> eol in the library
+Binding on line 39: test was declared as <proc decl> test on line 32
+Type check param #1 on line 39: type Integer vs type Integer
+Binding on line 39: test was declared as <proc decl> test on line 32
+Type check prefix - operand on line 39: type Integer vs type Integer
+Type check param #1 on line 39: type Integer vs type Integer
+Binding on line 39: test was declared as <proc decl> test on line 32
+Type check param #1 on line 39: type Integer vs type Integer
+Binding on line 45: integer was declared as <type decl> integer in the library
+Binding on line 45: integer was declared as <type decl> integer in the library
+Binding on line 47: write was declared as <proc decl> write in the library
+Binding on line 47: x was declared as <param decl> x on line 45
+Binding on line 47: y was declared as <param decl> y on line 45
+Binding on line 47: x was declared as <param decl> x on line 45
+Binding on line 47: y was declared as <param decl> y on line 45
+Type check left + operand on line 47: type Integer vs type Integer
+Type check right + operand on line 47: type Integer vs type Integer
+Binding on line 47: eol was declared as <const decl> eol in the library
+Binding on line 48: write was declared as <proc decl> write in the library
+Binding on line 48: x was declared as <param decl> x on line 45
+Binding on line 48: y was declared as <param decl> y on line 45
+Binding on line 48: x was declared as <param decl> x on line 45
+Binding on line 48: y was declared as <param decl> y on line 45
+Type check left - operand on line 48: type Integer vs type Integer
+Type check right - operand on line 48: type Integer vs type Integer
+Binding on line 48: eol was declared as <const decl> eol in the library
+Binding on line 49: write was declared as <proc decl> write in the library
+Binding on line 49: x was declared as <param decl> x on line 45
+Binding on line 49: y was declared as <param decl> y on line 45
+Binding on line 49: x was declared as <param decl> x on line 45
+Binding on line 49: y was declared as <param decl> y on line 45
+Type check left * operand on line 49: type Integer vs type Integer
+Type check right * operand on line 49: type Integer vs type Integer
+Binding on line 49: eol was declared as <const decl> eol in the library
+Binding on line 50: y was declared as <param decl> y on line 45
+Type check <> operands on line 50: type Integer vs type Integer
+Type check if-test on line 50: type Boolean vs type Boolean
+Binding on line 51: write was declared as <proc decl> write in the library
+Binding on line 51: x was declared as <param decl> x on line 45
+Binding on line 51: y was declared as <param decl> y on line 45
+Binding on line 51: x was declared as <param decl> x on line 45
+Binding on line 51: y was declared as <param decl> y on line 45
+Type check left div operand on line 51: type Integer vs type Integer
+Type check right div operand on line 51: type Integer vs type Integer
+Binding on line 51: eol was declared as <const decl> eol in the library
+Binding on line 52: write was declared as <proc decl> write in the library
+Binding on line 52: x was declared as <param decl> x on line 45
+Binding on line 52: y was declared as <param decl> y on line 45
+Binding on line 52: x was declared as <param decl> x on line 45
+Binding on line 52: y was declared as <param decl> y on line 45
+Type check left mod operand on line 52: type Integer vs type Integer
+Type check right mod operand on line 52: type Integer vs type Integer
+Binding on line 52: eol was declared as <const decl> eol in the library
+Binding on line 57: test was declared as <proc decl> test on line 45
+Type check param #1 on line 57: type Integer vs type Integer
+Type check param #2 on line 57: type Integer vs type Integer
+Binding on line 57: test was declared as <proc decl> test on line 45
+Type check param #1 on line 57: type Integer vs type Integer
+Type check prefix - operand on line 57: type Integer vs type Integer
+Type check param #2 on line 57: type Integer vs type Integer
+Binding on line 57: test was declared as <proc decl> test on line 45
+Type check param #1 on line 57: type Integer vs type Integer
+Type check param #2 on line 57: type Integer vs type Integer
+Binding on line 58: test was declared as <proc decl> test on line 45
+Type check prefix - operand on line 58: type Integer vs type Integer
+Type check param #1 on line 58: type Integer vs type Integer
+Type check param #2 on line 58: type Integer vs type Integer
+Binding on line 58: test was declared as <proc decl> test on line 45
+Type check prefix - operand on line 58: type Integer vs type Integer
+Type check param #1 on line 58: type Integer vs type Integer
+Type check prefix - operand on line 58: type Integer vs type Integer
+Type check param #2 on line 58: type Integer vs type Integer
+Binding on line 58: test was declared as <proc decl> test on line 45
+Type check param #1 on line 58: type Integer vs type Integer
+Type check param #2 on line 58: type Integer vs type Integer
+Binding on line 59: test was declared as <proc decl> test on line 45
+Type check param #1 on line 59: type Integer vs type Integer
+Type check param #2 on line 59: type Integer vs type Integer
+Binding on line 59: test was declared as <proc decl> test on line 45
+Type check param #1 on line 59: type Integer vs type Integer
+Type check prefix - operand on line 59: type Integer vs type Integer
+Type check param #2 on line 59: type Integer vs type Integer
+Binding on line 59: test was declared as <proc decl> test on line 45
+Type check param #1 on line 59: type Integer vs type Integer
+Type check param #2 on line 59: type Integer vs type Integer
+Binding on line 64: testunaryboolean was declared as <proc decl> testunaryboolean on line 4
+Binding on line 64: testunarynumeric was declared as <proc decl> testunarynumeric on line 30
+Binding on line 65: testbinaryboolean was declared as <proc decl> testbinaryboolean on line 16
+Binding on line 65: testbinarynumeric was declared as <proc decl> testbinarynumeric on line 43

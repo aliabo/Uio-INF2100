@@ -92,13 +92,14 @@ public class FuncCall extends Factor {
 		PascalDecl d = curScope.findDecl(name,this);
 		d.checkWhetherFunction(this);
 		funcRef = (FuncDecl)d;
+		type = funcRef.type;
 		for(int i = 0; i < expList.size(); i++){
 			// checking that parameters has same type as in declaration of function
 			Expression funcCallParam = expList.get(i);
 			ParamDecl funcDeclParam = funcRef.pList.pList.get(i);
 			funcCallParam.check(curScope,lib);
 			funcCallParam.type.checkType(funcDeclParam.type,"param #" + (i+1), this,
-                    	"Parameter is not as function declaration!");
+                    	"Type of parameter is not as defined in function declaration!");
 		}
 	}
 

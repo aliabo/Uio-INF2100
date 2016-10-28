@@ -59,12 +59,16 @@ public class Variable extends Factor {
 		}
 	}
 
-//TODO fix this
     @Override void check(Block curScope, Library lib) {
 	varRef = curScope.findDecl(name,this);
-	type = varRef.type;
-	
+	if(varRef instanceof TypeDecl){//true,false
+		type = lib.booleanType;
+	}
+	else{  
+		type = varRef.type;
+	}
 	if(exp != null) {
+	    exp.check(curScope,lib); 
             type = exp.type;
         }
 

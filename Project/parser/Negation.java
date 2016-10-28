@@ -38,6 +38,10 @@ public class Negation extends Factor {
 	}
 
 	@Override void check(Block curScope, Library lib){
+		f.check(curScope,lib);
+		type = f.type;
+		type.checkType(lib.booleanType, "'not' operand", this,
+                       "not and"+ f.identify() +" are of different type!"); 
 	}
 
 

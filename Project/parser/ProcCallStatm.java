@@ -105,7 +105,7 @@ class ProcCallStatm extends Statement {
 		ParamDecl procDeclParam = procRef.pList.pList.get(i);
 		procCallParam.check(curScope,lib);
 		procCallParam.type.checkType(procDeclParam.type,"param #" + (i+1), this,
-                    	"Parameter is not as procedure declaration!");
+                    	"Type of parameter is not as defined in procedure declaration!");
 	}
     }
 

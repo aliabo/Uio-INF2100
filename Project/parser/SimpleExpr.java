@@ -87,14 +87,17 @@ public class SimpleExpr extends PascalSyntax{
                 t.check(curScope, lib);
         	type = t.type;
 		//checking that term is integer if there is a prefix operator
-		if(pOpr != null)
-			type.checkType(lib.integerType, pOpr.k + " operands", this,
+		if(pOpr != null){
+			type.checkType(lib.integerType, "prefix " + pOpr.k + " operand", this,
                     	"Operands to " + pOpr.k + " are of different type!");
             		type = lib.integerType;
+		}
         	for(int i = 0; i < termOprList.size(); i++){
             		Term t2 = termList.get(i+1);
 			t2.check(curScope, lib);
             		String oprName = termOprList.get(i).str;
+			if (oprName.equals("or"))// to get the same logfile as ifi's compiler
+				oprName = "'or'";
             		type.checkType(t2.type,"left " + oprName + " operand", this,
                     	"Operands to " + oprName + " are of different type!");
 			
