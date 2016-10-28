@@ -68,7 +68,7 @@ public class ConstDecl extends PascalDecl{
 			return "<const decl> " + name + " on line " + lineNum;
 	}
 
-	void checkWhetherAssignable(PascalSyntax where){ where.error("const is not assignable!");}
+	void checkWhetherAssignable(PascalSyntax where){ where.error("You cannot assign to a constant.");}
 
 	void checkWhetherFunction(PascalSyntax where){
 		where.error("const is not a function!");

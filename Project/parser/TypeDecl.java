@@ -7,12 +7,15 @@ public class TypeDecl extends PascalDecl{
 		super(id, lNum);
 	}
 
-
-
 	void setDecl(PascalDecl decl){
 
 		this.decl = decl;
 	}
+	
+	public void setType(types.Type type){
+		this.type = type;
+	}
+
 	void checkWhetherAssignable(PascalSyntax where){
 		where.error(name + "type is not assignable!");
 	}
@@ -44,9 +47,6 @@ public class TypeDecl extends PascalDecl{
 	public @Override void prettyPrint() {
 	}
 
-	public void setType(types.Type type){
-		this.type = type;
-	}
 	@Override public String identify() {
 		if (decl != null){
         		return name + " " + decl.name + " in the library";

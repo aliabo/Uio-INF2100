@@ -98,7 +98,7 @@ public class ProcDecl extends PascalDecl{
         where.error("procedure is not assignable!");
     }
     void checkWhetherFunction(PascalSyntax where){
-        where.error("procedure is not a function!");
+        where.error(name + "is a procedure, not a function.");
     }
     void checkWhetherProcedure(PascalSyntax where){}
     void checkWhetherValue(PascalSyntax where){

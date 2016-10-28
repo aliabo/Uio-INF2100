@@ -59,8 +59,7 @@ public class AssignStatm extends Statement {
 	type = var.type;
         var.varRef.checkWhetherAssignable(this);
         ex.check(curScope, lib);
-	type.checkType(ex.type, ":=", this,
-                       var.identify()+ " "+ ex.identify() +" are of different type!");	
+	type.checkType(ex.type, ":=", this, "Different types in assignment!");	
     }
 
     @Override public String identify() {

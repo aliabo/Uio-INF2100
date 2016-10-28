@@ -97,7 +97,7 @@ public class FuncDecl extends ProcDecl{
         void checkWhetherFunction(PascalSyntax where){}
 
         void checkWhetherProcedure(PascalSyntax where){
-		where.error("function is not a procedure!");
+		where.error(name + " is a function, not a procedure.");
 	}
 
         void checkWhetherValue(PascalSyntax where){

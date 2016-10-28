@@ -99,10 +99,10 @@ public class SimpleExpr extends PascalSyntax{
 			if (oprName.equals("or"))// to get the same logfile as ifi's compiler
 				oprName = "'or'";
             		type.checkType(t2.type,"left " + oprName + " operand", this,
-                    	"Operands to " + oprName + " are of different type!");
+                    	"Left operand to " + oprName + " is not a number!");
 			
 			t2.type.checkType(type,"right " + oprName + " operand", this,
-                    	"Operands to " + oprName + " are of different type!");
+                    	"Right operand to " + oprName + " is not a number!");
 			type = t2.type;
         	}
         }

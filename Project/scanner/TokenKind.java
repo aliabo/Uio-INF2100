@@ -111,7 +111,7 @@ public enum TokenKind {
     public static Token getToken(String s, int lineNum){
 
 	 for (TokenKind k: TokenKind.values()){
-           if(s.equals(k.toString()) &&  !s.equals("name") && !s.equals("number"))
+           if(s.equals(k.toString()) &&  !s.equals("name") && !s.equals("number") && !s.equals("char"))
 		return new Token(k,lineNum);
 	}
 	return null;

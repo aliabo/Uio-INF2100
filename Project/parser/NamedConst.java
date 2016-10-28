@@ -43,7 +43,13 @@ public class NamedConst extends UnsignedConstant {
 	}
 
 	@Override void check(Block curScope, Library lib){
-		type = lib.booleanType;
+		if (name.equals("true") || name.equals("false"))
+			type = lib.booleanType;
+		else{
+			PascalDecl d = curScope.findDecl(name,this);
+			type = d.type;
+		}
+			
         }
 
 	@Override public String identify() {

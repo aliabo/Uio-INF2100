@@ -36,7 +36,7 @@ public class Variable extends Factor {
 		enterParser("variable");
 		Variable v = new Variable(s.curLineNum());
 
-		s.test(nameToken);
+		//s.test(nameToken);
 		v.name = s.curToken.id;
 		s.readNextToken();
 
@@ -61,15 +61,19 @@ public class Variable extends Factor {
 
     @Override void check(Block curScope, Library lib) {
 	varRef = curScope.findDecl(name,this);
-	if(varRef instanceof TypeDecl){//true,false
-		type = lib.booleanType;
+
+	if(varRef.type instanceof types.ArrayType){//types.ArrayType
+		types.ArrayType a = (types.ArrayType)varRef.type; 
+		type = a.elemType;
 	}
-	else{  
+	else{
 		type = varRef.type;
 	}
 	if(exp != null) {
-	    exp.check(curScope,lib); 
-            type = exp.type;
+	    exp.check(curScope,lib);
+	    // testing index type
+	    types.ArrayType a = (types.ArrayType)varRef.type;
+	    a.indexType.checkType(exp.type,"array index",this, "array indexes are of different types"); 
         }
 
     }

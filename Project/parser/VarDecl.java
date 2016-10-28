@@ -30,7 +30,7 @@ public class VarDecl extends PascalDecl{
 	 */
 	public static VarDecl parse(Scanner s) {
 		enterParser("var decl");
-		s.test(nameToken);
+		//s.test(nameToken);
 
 		VarDecl vDecl = new VarDecl(s.curToken.id, s.curLineNum());
 		s.readNextToken();

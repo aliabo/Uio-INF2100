@@ -93,13 +93,19 @@ public class FuncCall extends Factor {
 		d.checkWhetherFunction(this);
 		funcRef = (FuncDecl)d;
 		type = funcRef.type;
-		for(int i = 0; i < expList.size(); i++){
-			// checking that parameters has same type as in declaration of function
-			Expression funcCallParam = expList.get(i);
-			ParamDecl funcDeclParam = funcRef.pList.pList.get(i);
-			funcCallParam.check(curScope,lib);
-			funcCallParam.type.checkType(funcDeclParam.type,"param #" + (i+1), this,
-                    	"Type of parameter is not as defined in function declaration!");
+		if(expList.size()!=0){
+			if(expList.size() > funcRef.pList.pList.size())
+				error("Too many parameters in call on " + funcRef.name + "!");
+	        	else if (expList.size() < funcRef.pList.pList.size())
+				error("Too few parameters in call on " + funcRef.name + "!");
+			for(int i = 0; i < expList.size(); i++){
+				// checking that parameters has same type as in declaration of function
+				Expression funcCallParam = expList.get(i);
+				ParamDecl funcDeclParam = funcRef.pList.pList.get(i);
+				funcCallParam.check(curScope,lib);
+				funcCallParam.type.checkType(funcDeclParam.type,"param #" + (i+1), this,
+                	    	"Illegal type of parameter #"+ (i+1) + "!");
+			}
 		}
 	}
 

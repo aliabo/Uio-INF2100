@@ -98,14 +98,19 @@ class ProcCallStatm extends Statement {
 		return;
 	}
 	procRef = (ProcDecl)d;
-	
-	for(int i = 0; i < expList.size(); i++){
-		// checking that parameters has same type as in declaration of function
-		Expression procCallParam = expList.get(i);
-		ParamDecl procDeclParam = procRef.pList.pList.get(i);
-		procCallParam.check(curScope,lib);
-		procCallParam.type.checkType(procDeclParam.type,"param #" + (i+1), this,
-                    	"Type of parameter is not as defined in procedure declaration!");
+	if(expList.size()!=0){
+		if(expList.size() > procRef.pList.pList.size())
+				error("Too many parameters in call on " + procRef.name + "!");
+		else if (expList.size() < procRef.pList.pList.size())
+				error("Too few parameters in call on " + procRef.name + "!");
+		for(int i = 0; i < expList.size(); i++){
+			// checking that parameters has same type as in declaration of function
+			Expression procCallParam = expList.get(i);
+			ParamDecl procDeclParam = procRef.pList.pList.get(i);
+			procCallParam.check(curScope,lib);
+			procCallParam.type.checkType(procDeclParam.type,"param #" + (i+1), this,
+                    	"Illegal type of parameter #"+ (i+1) + "!");
+		}
 	}
     }
 
