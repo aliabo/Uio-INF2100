@@ -89,8 +89,9 @@ public class FuncCall extends Factor {
 
 	@Override void check(Block curScope, Library lib){
 
-		funcRef = (FuncDecl)curScope.findDecl(name,this);
-		funcRef.checkWhetherFunction(this);
+		PascalDecl d = curScope.findDecl(name,this);
+		d.checkWhetherFunction(this);
+		funcRef = (FuncDecl)d;
 		for(int i = 0; i < expList.size(); i++){
 			// checking that parameters has same type as in declaration of function
 			Expression funcCallParam = expList.get(i);

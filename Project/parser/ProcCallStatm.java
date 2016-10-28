@@ -6,9 +6,9 @@ import static scanner.TokenKind.*;
 
 class ProcCallStatm extends Statement {
 
-    private ArrayList<Expression> exList = new ArrayList<>();
+    private ArrayList<Expression> expList = new ArrayList<>();
     String procName;
-    PascalDecl procRef;
+    ProcDecl procRef;
 
     ProcCallStatm(int lNum) {
         super(lNum);
@@ -49,11 +49,11 @@ class ProcCallStatm extends Statement {
         if(s.curToken.kind == leftParToken) {
 
             s.skip(leftParToken);
-            pc.exList.add(Expression.parse(s));
+            pc.expList.add(Expression.parse(s));
 
             while(s.curToken.kind == commaToken){
                 s.skip(commaToken);
-                pc.exList.add(Expression.parse(s));
+                pc.expList.add(Expression.parse(s));
             }
             s.skip(rightParToken);
         }
@@ -65,7 +65,7 @@ class ProcCallStatm extends Statement {
     /**
      * Abstract code beautifiers, inherited from PascalSyntax --> Statment
      *
-     * NameToken, if exlist not null we print and remove
+     * NameToken, if expList not null we print and remove
      * List is empty, new line
      * Print all in list
      *
@@ -75,13 +75,13 @@ class ProcCallStatm extends Statement {
      */
     @Override void prettyPrint() {
         Main.log.prettyPrint(procName);
-        if (exList.size() >0) {
+        if (expList.size() >0) {
             Main.log.prettyPrint("(");
 
-            exList.get(0).prettyPrint();
-            exList.remove(0);
+            expList.get(0).prettyPrint();
+            expList.remove(0);
 
-            for(Expression ex: exList){
+            for(Expression ex: expList){
                 Main.log.prettyPrint(", ");
                 ex.prettyPrint();
             }
@@ -90,11 +90,23 @@ class ProcCallStatm extends Statement {
     }
 
     @Override void check(Block curScope, Library lib) {
-	procRef = curScope.findDecl(procName, this);
-	procRef.checkWhetherProcedure(this);
-	for(Expression exp: exList){
-                exp.check(curScope, lib);
-        }
+	PascalDecl d = curScope.findDecl(procName,this);
+	d.checkWhetherProcedure(this);
+	if(d instanceof TypeDecl){// procedure write
+		for (Expression exp: expList)
+			exp.check(curScope,lib);
+		return;
+	}
+	procRef = (ProcDecl)d;
+	
+	for(int i = 0; i < expList.size(); i++){
+		// checking that parameters has same type as in declaration of function
+		Expression procCallParam = expList.get(i);
+		ParamDecl procDeclParam = procRef.pList.pList.get(i);
+		procCallParam.check(curScope,lib);
+		procCallParam.type.checkType(procDeclParam.type,"param #" + (i+1), this,
+                    	"Parameter is not as procedure declaration!");
+	}
     }
 
     @Override public String identify() {

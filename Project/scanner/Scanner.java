@@ -25,10 +25,11 @@ public class Scanner {
 		return "Scanner reading " + sourceFileName;
 	}
 
-	public int curLineNum() {
-		return curToken.lineNum;
+	public int curLineNum(){
+		if(curToken == null)
+			return getFileLineNum();
+		else return curToken.lineNum;
 	}
-
 	/**
 	 * The control method, that being called when want to read next line
 	 * Is also the control method for the whole class.
@@ -218,12 +219,10 @@ public class Scanner {
 				if(sourcePos>0){
 				    if(charAtPositionIs() == '/' && sourceLine.charAt(sourcePos-1) == '*')
                                         success = true;
-                                }else{
-                                      sourcePos++;
                                 }
 			}
 			if (!success){
-				scannerError("No end for comment starting on line " + curLineNum() + "!");
+				scannerError("No end for comment starting on line " + getFileLineNum() + "!");
                         }else{
 				sourcePos++;
                         }
@@ -240,7 +239,7 @@ public class Scanner {
 			}
 			// error  */
                         if (!success){
-				scannerError("No end for comment starting on line " + curLineNum() + "!");
+				scannerError("No end for comment starting on line " + getFileLineNum() + "!");
                         }else{
 				sourcePos++;
                         }
@@ -569,7 +568,7 @@ public class Scanner {
 
 
 	public void scannerError(String message) {
-		Main.error(curLineNum(), message);
+		Main.error(getFileLineNum(), message);
 	}
 
 	// Parser tests:

@@ -6,7 +6,7 @@ import static scanner.TokenKind.*;
 public class ProcDecl extends PascalDecl{
 
     private Block progBlock;
-    private ParamDeclList pList;
+    public ParamDeclList pList;
 
     ProcDecl(String id, int lNum) {
         super(id, lNum);
