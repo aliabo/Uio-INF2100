@@ -13,15 +13,15 @@ public abstract class Factor extends PascalSyntax {
     /**
      * Parser method to declare the language, explained as a rail-diagram; Factor
      *
-     * {@link package.main.log.enterParser} Make a note that the parser has started parsing a non-terminal.
+     * Make a note that the parser has started parsing a non-terminal.
      *
-     * --> [unsigned-constant] | [variable] | [func-call] | [inner-expr] | [negation]
+     * -- [unsigned-constant] | [variable] | [func-call] | [inner-expr] | [negation]
      * FACTOR can be one of this, we need to check our curToken, if found we break
      * In case of "not" [negation], In case of "("  [inner-expr]...
      * Thats how the language is defined
      *
      *
-     * {@link package.main.log.enterParser} Make a note that the parser has finished parsing a non-terminal.
+     * Make a note that the parser has finished parsing a non-terminal.
      *
      * @param s     is the Scanner object, of the token that the is the scanners current Token read,
      *              s.skip(terminal), send it to specific parser [non - terminal]
@@ -64,6 +64,7 @@ public abstract class Factor extends PascalSyntax {
     }
 
     @Override void prettyPrint() {}
+
     @Override void check(Block curScope, Library lib){}
 
     @Override public String identify() {

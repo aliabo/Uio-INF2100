@@ -16,16 +16,16 @@ public class Program extends PascalDecl {
 	 * Pascal 2016 program simply an [block] with a name
 	 * This is a non-terminal representing a declaration, a subclass of PascalDecl
 	 *
-	 * {@link package.main.log.enterParser} Make a note that the parser has started parsing a non-terminal.
+	 * Make a note that the parser has started parsing a non-terminal.
 	 *
-	 * --> [program] --> [name] --> ( ; ) [block] ( . ) -->
+	 * -- [program] -- [name] -- ( ; ) [block] ( . ) --
 	 *
-	 * Special condition, name; we use {@link package.test} if nametoken (else testError)
-	 * we also need to update, so a call for {@link package.readNextToken}
+	 * Special condition, name; we use package.Scanner.test if nametoken (else testError)
+	 * we also need to update, so a call for package.Scanner.readNextToken
 	 * s.skip(), [non-terminal] and new [block]
 	 * If we reach an . were in end of file
 	 *
-	 * {@link package.main.log.enterParser} Make a note that the parser has finished parsing a non-terminal.
+	 * Make a note that the parser has finished parsing a non-terminal.
 	 *
 	 * @param s     is the Scanner object, of the token that the is the scanners current Token read,
 	 *              s.skip(), send it to specific parser [non - terminal]
@@ -60,10 +60,18 @@ public class Program extends PascalDecl {
 		Main.log.prettyPrint(".");
 	}
 
-
+	/**
+	 * To check the program, we write a recursive method that traverses it
+	 * Program is the most outer binding to the library
+	 * When a program is initialized, we bind the program to its library
+	 * This is the current, blocks outer scoop.
+	 *
+	 * @param curScope	current block
+	 * @param lib		library connected
+	 */
 	public @Override void check(Block curScope, Library lib){
 		progBlock.outerScope = lib;
-		progBlock.check(curScope,lib);		
+		progBlock.check(curScope,lib);
 	}
 
 	@Override public String identify() {

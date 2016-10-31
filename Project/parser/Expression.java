@@ -16,16 +16,16 @@ public class Expression extends PascalSyntax {
     /**
      * Parser method to declare the language, explained as a rail-diagram; Expression
      *
-     * {@link package.main.log.enterParser} Make a note that the parser has started parsing a non-terminal.
+     * Make a note that the parser has started parsing a non-terminal.
      *
      * 'Z' == 0, in combination with '*' and '?'
      * '?' == 0 or 1 (indicates that after this '?' symbol, it can be 0 or 1 terminal)
-     * --> [Simple expres] --> Z [rel opr] --> [simple expres] ?
+     * -- [Simple expres] -- Z [rel opr] -- [simple expres] ?
      *
-     * If curToken is =, <>, <, <=, >, >=, we know its a real op. it can be 0 or 1
+     * If curToken is any of the bool types we know its a real op. it can be 0 or 1
      * and if real op, 1 simple expr
      *
-     * {@link package.main.log.enterParser} Make a note that the parser has finished parsing a non-terminal.
+     * Make a note that the parser has finished parsing a non-terminal.
      *
      * @param s     is the Scanner object, of the token that the is the scanners current Token read,
      *              s.skip(), send it to specific parser [non - terminal]
@@ -65,6 +65,14 @@ public class Expression extends PascalSyntax {
         }
     }
 
+    /**
+     * We recursively call the next, simpleExpr is checked, type set
+     * if next simpleExpr not null, we check, get name, checks type
+     * set boolean, we set the element type curToken is =, <>, <, etc.
+     *
+     * @param curScope current scope
+     * @param lib       connected library
+     */
     @Override void check(Block curScope, Library lib) {
         sE1.check(curScope, lib);
         type = sE1.type;

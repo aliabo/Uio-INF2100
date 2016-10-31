@@ -1,9 +1,9 @@
+/**
+ * A class to handle, and take care of predefined names
+ * Like tex. names like integer, boolean that are wrote predefined.
+ * Here is where we we deal with them
+ */
 package parser;
-import main.*;
-import scanner.*;
-import static scanner.TokenKind.*;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 public class Library extends Block{
 
@@ -11,10 +11,10 @@ public class Library extends Block{
 	public types.BoolType booleanType;
 	public types.CharType charType;
 	public types.IntType integerType;
-        public ConstDecl trueType;
-        public ConstDecl falseType;
-        public ConstDecl eolType;
-        public ProcDecl writeType;
+	public ConstDecl trueType;
+	public ConstDecl falseType;
+	public ConstDecl eolType;
+	public ProcDecl writeType;
 
 
 	public Library(int lNum){
@@ -22,9 +22,14 @@ public class Library extends Block{
 		super(lNum);
 	}
 
-	// Needed to set all in the TypeDecl class to override indetify as declared in library
+	/**
+	 * Predefined names are bonded to the library
+	 * Her we set all in the TypeDecl class to override indemnify as declared in library
+	 * The declarations and we put them outside.
+	 * And they will be found unless the user has declared something of the same name
+	 */
 	public Library(){
-		
+
 		super(0);
 		writeType = new ProcDecl("write",0);
 		TypeDecl tDecl = new TypeDecl("<proc decl>",0);
@@ -47,7 +52,7 @@ public class Library extends Block{
 		tDecl.setType(booleanType);
 		tDecl.setDecl(falseType);
 		addDecl("false",tDecl);
-		
+
 		charType = new types.CharType();
 		tDecl = new TypeDecl("<type decl> char",0);
 		tDecl.setType(charType);

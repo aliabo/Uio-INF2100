@@ -16,13 +16,13 @@ public class IfStatm extends Statement {
     /**
      * Parser method to declare the language, explained as a rail-diagram; If - Statm
      *
-     * {@link package.main.log.enterParser} Make a note that the parser has started parsing a non-terminal.
+     * Make a note that the parser has started parsing a non-terminal.
      *
      * 'Z' == 0, in combination with '*' and '?'
      * ? == 0 or 1 (indicates that after this '?' symbol, it can be 0 or 1 statement)
-     * --> (if) --> [expression] --> (then) --> [statment] --> Z (else) --> [statment] ? -->
+     * -- (if) -- [expression] -- (then) -- [statment] -- Z (else) -- [statment] ? --
      *
-     * {@link package.main.log.enterParser} Make a note that the parser has finished parsing a non-terminal.
+     * Make a note that the parser has finished parsing a non-terminal.
      *
      * @param s     is the Scanner object, of the token that the is the scanners current Token read,
      *              s.skip(), send it to specific parser [non - terminal]
@@ -49,7 +49,7 @@ public class IfStatm extends Statement {
     }
 
     /**
-     * Abstract code beautifiers, inherited from PascalSyntax --> Statement
+     * Abstract code beautifiers, inherited from PascalSyntax -- Statement
      *
      * Calls the logFile {@link package.main.log.prettyPrint}, an formatting conventions
      * that adjust positioning and spacing (indent style), to make the content easier for other
@@ -59,27 +59,27 @@ public class IfStatm extends Statement {
         Main.log.prettyPrint("if ");
         exp.prettyPrint();
         Main.log.prettyPrintLn(" then");
-	Main.log.prettyIndent();
+        Main.log.prettyIndent();
         stat1.prettyPrint();
-	Main.log.prettyOutdent();
-	
+        Main.log.prettyOutdent();
+
         if(stat2 != null){
-	    Main.log.prettyPrintLn();
+            Main.log.prettyPrintLn();
             Main.log.prettyPrintLn("else");
-	    Main.log.prettyIndent();
+            Main.log.prettyIndent();
             stat2.prettyPrint();
-	    Main.log.prettyOutdent();
+            Main.log.prettyOutdent();
         }
     }
 
-	@Override void check(Block curScope, Library lib) {
-		exp.check(curScope, lib);
-		exp.type.checkType(lib.booleanType, "if-test", this,
-				"If-test is not Boolean.");
-		stat1.check(curScope, lib);
-		if(stat2 != null)
-			stat2.check(curScope, lib);
-	}
+    @Override void check(Block curScope, Library lib) {
+        exp.check(curScope, lib);
+        exp.type.checkType(lib.booleanType, "if-test", this,
+                "If-test is not Boolean.");
+        stat1.check(curScope, lib);
+        if(stat2 != null)
+            stat2.check(curScope, lib);
+    }
 
     @Override public String identify() {
         return "<if-statm> on line " + lineNum;

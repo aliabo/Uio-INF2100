@@ -14,11 +14,11 @@ class CompoundStatm extends Statement{
     /**
      * Parser method to declare the language, explained as a rail-diagram; CompundStatm
      *
-     * {@link package.main.log.enterParser} Make a note that the parser has started parsing a non-terminal.
+     * Make a note that the parser has started parsing a non-terminal.
      *
-     * --> (array) --> [Statmlist] --> (end)
+     * -- (array) -- [Statmlist] -- (end)
      *
-     * {@link package.main.log.enterParser} Make a note that the parser has finished parsing a non-terminal.
+     * Make a note that the parser has finished parsing a non-terminal.
      *
      * @param s     is the Scanner object, of the token that the is the scanners current Token read,
      *              s.skip(), send it to specific parser [non - terminal]
@@ -46,16 +46,17 @@ class CompoundStatm extends Statement{
      */
     @Override void prettyPrint() {
         Main.log.prettyPrintLn("begin");
-	Main.log.prettyIndent();
+        Main.log.prettyIndent();
         st.prettyPrint();
-	Main.log.prettyOutdent();
-	Main.log.prettyPrintLn();
+        Main.log.prettyOutdent();
+        Main.log.prettyPrintLn();
         Main.log.prettyPrint("end");
     }
 
+    // recursive method continues to statm list
     @Override void check(Block curScope, Library lib) {
-	st.check(curScope, lib);
-    }	
+        st.check(curScope, lib);
+    }
 
     @Override public String identify() {
         return "<compound statm> on line " + lineNum;

@@ -18,19 +18,19 @@ public class FuncDecl extends ProcDecl{
 	 * functions always return a value
 	 * This is a non-terminal representing a declaration, a subclass of PascalDecl
 	 *
-	 * {@link package.main.log.enterParser} Make a note that the parser has started parsing a non-terminal.
+	 * Make a note that the parser has started parsing a non-terminal.
 	 *
 	 * Z' == 0, in combination with '*' and '?'
 	 * '?' == 0 or 1 (indicates that after this '?' symbol, it can be 0 or 1 terminal)
 	 *
-	 * --> (function) --> [name] --> Z [param decl list] ? --> ( : ) --> [type name] --> ( ; ) --> [block] --> ( ; )
+	 * -- (function) -- [name] -- Z [param decl list] ? -- ( : ) -- [type name] -- ( ; ) -- [block] -- ( ; )
 	 *
-	 * Special condition, name; we use {@link package.test} if nametoken (else testError)
-	 * we also need to update, so a call for {@link package.readNextToken}
+	 * Special condition, name; we use package.Scanner.test if nametoken (else testError)
+	 * we also need to update, so a call for package.Scanner.readNextToken
 	 * if we have a ' ( ' we also have a [terminal]
 	 * s.skip(), [non-terminal] and new block
 	 *
-	 * {@link package.main.log.enterParser} Make a note that the parser has finished parsing a non-terminal.
+	 * Make a note that the parser has finished parsing a non-terminal.
 	 *
 	 * @param s     is the Scanner object, of the token that the is the scanners current Token read,
 	 *              s.skip(), send it to specific parser [non- terminal]
@@ -57,15 +57,15 @@ public class FuncDecl extends ProcDecl{
 	}
 
 	/**
-	 * Abstract code beautifiers, inherited from PascalSyntax --> PascalDecl --> ProDecl
+	 * Abstract code beautifiers, inherited from PascalSyntax -- PascalDecl -- ProDecl
 	 *
 	 * If paramdecl is present, we print it, either way we proceed
 	 *
-	 * Calls the logFile {@link package.main.log.prettyPrint}, an formatting conventions
+	 * Calls the logFile package.main.log.prettyPrint, an formatting conventions
 	 * that adjust positioning and spacing (indent style), to make the content easier for other
 	 * programmers to view, read, and understand.
 	 */
-        public @Override void prettyPrint() {
+	public @Override void prettyPrint() {
 		Main.log.prettyPrint("function " + name + " ");
 		if(pList != null)
 			pList.prettyPrint();
@@ -77,6 +77,14 @@ public class FuncDecl extends ProcDecl{
 		Main.log.prettyPrintLn();
 	}
 
+	/**
+	 * We set the current block, and add name, and current decl
+	 * We also set typename.
+	 * Recursively call the outer block
+	 *
+	 * @param curScope 	current scope
+	 * @param lib		connected library
+	 */
 	@Override void check(Block curScope, Library lib) {
 		progBlock.outerScope = curScope;
 		curScope.addDecl(name, this);
@@ -91,16 +99,20 @@ public class FuncDecl extends ProcDecl{
 		return "<func decl> " + name + " on line " + lineNum;
 	}
 
-	void checkWhetherAssignable(PascalSyntax where){
-	}
+	/**
+	 *  In any declarations that may be left in an assignment void checkWhetherAssignable(PascalSyntax where) is lef blank
+	 *
+	 * @param where indicating where in your program type occurs
+	 */
+	void checkWhetherAssignable(PascalSyntax where){}
 
-        void checkWhetherFunction(PascalSyntax where){}
+	void checkWhetherFunction(PascalSyntax where){}
 
-        void checkWhetherProcedure(PascalSyntax where){
+	void checkWhetherProcedure(PascalSyntax where){
 		where.error(name + " is a function, not a procedure.");
 	}
 
-        void checkWhetherValue(PascalSyntax where){
+	void checkWhetherValue(PascalSyntax where){
 		where.error("function is not a value!");
 	}
 }

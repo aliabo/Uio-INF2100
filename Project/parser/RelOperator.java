@@ -17,14 +17,13 @@ public class RelOperator extends Operator {
     /**
      * Parser method to declare the language, explained as a rail-diagram; Rel operator
      *
-     * {@link package.main.log.enterParser} Make a note that the parser has started parsing a non-terminal.
+     * Make a note that the parser has started parsing a non-terminal.
      *
-     * --> ( = ) | ( <> ) | ( < ) | ( <= ) |  ( > ) | ( >= )
      * Rel operator can be one of this, we need to check our curToken, if found we break
      * and s.skip(non-terminal)
      * Save name in str, for print
      *
-     * {@link package.main.log.enterParser} Make a note that the parser has finished parsing a non-terminal.
+     * Make a note that the parser has finished parsing a non-terminal.
      *
      * @param s     is the Scanner object, of the token that the is the scanners current Token read,
      *              s.skip(), send it to specific parser [non - terminal]

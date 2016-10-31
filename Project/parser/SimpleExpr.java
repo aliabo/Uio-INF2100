@@ -3,7 +3,6 @@ import scanner.*;
 import static scanner.TokenKind.*;
 import java.util.ArrayList;
 
-// <simple-expr> ::= <prefix-operator>? <term> (<term-operator> <term>)*
 public class SimpleExpr extends PascalSyntax{
 
 	private PrefixOperator pOpr;
@@ -20,13 +19,13 @@ public class SimpleExpr extends PascalSyntax{
 	/**
 	 * Parser method to declare the language, explained as a rail-diagram; SimpleExpr
 	 *
-	 * {@link package.main.log.enterParser} Make a note that the parser has started parsing a non-terminal.
+	 * Make a note that the parser has started parsing a non-terminal.
 	 *
 	 * 'One' == 1, in combination with '*' and '?'
 	 * '?' == 0 or 1 (indicates that after this '?' symbol, it can be 0 or 1 terminal)
 	 * '*' == or many (indicates that after this '*' symbol, it can be 0 or many terminal)
 	 *
-	 * --> ? [simple-operator] --> One [term] --> [term-operator] * -->
+	 * -- ? [simple-operator] -- One [term] -- [term-operator] * --
 	 *
 	 * Check if we have a term.opr +, -
 	 * parse PrefixOp
@@ -35,7 +34,7 @@ public class SimpleExpr extends PascalSyntax{
 	 *
 	 * s.skip(), [non - terminal]
 	 *
-	 * {@link package.main.log.enterParser} Make a note that the parser has finished parsing a non-terminal.
+	 * Make a note that the parser has finished parsing a non-terminal.
 	 *
 	 * @param s     is the Scanner object, of the token that the is the scanners current Token read,
 	 *              s.skip(), send it to specific parser [non - terminal]
@@ -73,7 +72,7 @@ public class SimpleExpr extends PascalSyntax{
 	@Override void prettyPrint() {
 		if(pOpr != null)
 			pOpr.prettyPrint();
-               
+
 		termList.get(0).prettyPrint();
 		for(int i = 0; i < termOprList.size(); i++){
 			termOprList.get(i).prettyPrint();
@@ -81,31 +80,41 @@ public class SimpleExpr extends PascalSyntax{
 		}
 	}
 
+	/**
+	 * Their is always 1 term. Get first check, and set type
+	 * If its a add or sub token we nee to check, of integer type and set type as integer
+	 * Is the kind, our type should be compared with
+	 * Run the list of termoperators, get i + 1 and check, set name
+	 * To het same as the ifis compiler, we have a checl for "or"
+	 * checj type, and ad set type
+	 *
+	 * @param curScope 	current scoop
+	 * @param lib		library (bind)
+	 */
 	@Override void check(Block curScope, Library lib){
-		
 		Term t = termList.get(0);
-                t.check(curScope, lib);
-        	type = t.type;
+		t.check(curScope, lib);
+		type = t.type;
 		//checking that term is integer if there is a prefix operator
 		if(pOpr != null){
 			type.checkType(lib.integerType, "prefix " + pOpr.k + " operand", this,
-                    	"Operands to " + pOpr.k + " are of different type!");
-            		type = lib.integerType;
+					"Operands to " + pOpr.k + " are of different type!");
+			type = lib.integerType;
 		}
-        	for(int i = 0; i < termOprList.size(); i++){
-            		Term t2 = termList.get(i+1);
+		for(int i = 0; i < termOprList.size(); i++){
+			Term t2 = termList.get(i+1);
 			t2.check(curScope, lib);
-            		String oprName = termOprList.get(i).str;
+			String oprName = termOprList.get(i).str;
 			if (oprName.equals("or"))// to get the same logfile as ifi's compiler
 				oprName = "'or'";
-            		type.checkType(t2.type,"left " + oprName + " operand", this,
-                    	"Left operand to " + oprName + " is not a number!");
-			
+			type.checkType(t2.type,"left " + oprName + " operand", this,
+					"Left operand to " + oprName + " is not a number!");
+
 			t2.type.checkType(type,"right " + oprName + " operand", this,
-                    	"Right operand to " + oprName + " is not a number!");
+					"Right operand to " + oprName + " is not a number!");
 			type = t2.type;
-        	}
-        }
+		}
+	}
 
 	@Override public String identify() {
 		return "<simple expr> on line " + lineNum;

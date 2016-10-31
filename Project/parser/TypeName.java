@@ -12,13 +12,13 @@ public class TypeName extends Type{
     /**
      * Parser method to declare the language, explained as a rail-diagram; TypeName
      *
-     * {@link package.main.log.enterParser} Make a note that the parser has started parsing a non-terminal.
+     * Make a note that the parser has started parsing a non-terminal.
      *
-     * --> [name] -->
+     * -- [name] --
      * If not empty, get curToken id, else toString
      * readNextToken()
      *
-     * {@link package.main.log.enterParser} Make a note that the parser has finished parsing a non-terminal.
+     * Make a note that the parser has finished parsing a non-terminal.
      *
      * @param s     is the Scanner object, of the token that the is the scanners current Token read,
      *              s.skip(), send it to specific parser [non - terminal]
@@ -43,6 +43,14 @@ public class TypeName extends Type{
     @Override void prettyPrint() {
         Main.log.prettyPrint(name);
     }
+
+    /**
+     * Type name, Type typeDecl that inherits from pascalDeckl so
+     * that they have the same type as any other variable declarations inserted in decl HashMap
+     *
+     * @param curScope  current block
+     * @param lib       library (bind)
+     */
 
     @Override void check(Block curScope, Library lib){
 	TypeDecl d = (TypeDecl)curScope.findDecl(name,this);

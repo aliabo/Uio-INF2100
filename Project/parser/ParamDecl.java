@@ -17,14 +17,14 @@ public class ParamDecl extends PascalDecl{
 	 * functions always return a value
 	 * This is a non-terminal representing a declaration, a subclass of PascalDecl
 	 *
-	 * {@link package.main.log.enterParser} Make a note that the parser has started parsing a non-terminal.
+	 * Make a note that the parser has started parsing a non-terminal.
 	 *
-	 * --> [name] --> ( : ) --> [type-name]
+	 * -- [name] -- ( : ) -- [type-name]
 	 *
-	 * Special condition, name; we use {@link package.test} if nametoken (else testError)
-	 * we also need to update, so a call for {@link package.readNextToken}
+	 * Special condition, name; we use package.Scanner.test if nametoken (else testError)
+	 * we also need to update, so a call for package.Scanner.readNextToken
 	 *
-	 * {@link package.main.log.enterParser} Make a note that the parser has finished parsing a non-terminal.
+	 * Make a note that the parser has finished parsing a non-terminal.
 	 *
 	 * @param s     is the Scanner object, of the token that the is the scanners current Token read,
 	 *              s.skip(), send it to specific parser [non - terminal]
@@ -53,21 +53,22 @@ public class ParamDecl extends PascalDecl{
 	@Override public String identify() {
 		return "<param decl> " + name + " on line " + lineNum;
 	}
-	
+
+	// name, we add to decl list(if not already in scoop) check, and set type
 	@Override void check(Block curScope, Library lib) {
-	
 		curScope.addDecl(name, this);
 		tName.check(curScope, lib);
 		type = tName.type;
-        }
+	}
 
+	// left: it is assignable, right: value
 	void checkWhetherAssignable(PascalSyntax where){}
-        void checkWhetherFunction(PascalSyntax where){
+	void checkWhetherFunction(PascalSyntax where){
 		where.error("parameter is not a function!");
 	}
 
-        void checkWhetherProcedure(PascalSyntax where){
+	void checkWhetherProcedure(PascalSyntax where){
 		where.error("parameter is not a procedure!");
 	}
-        void checkWhetherValue(PascalSyntax where){}
+	void checkWhetherValue(PascalSyntax where){}
 }

@@ -17,15 +17,15 @@ public class ParamDeclList extends PascalSyntax{
      * Parser method to declare the language, explained as a rail-diagram; Param Decl List
      * functions always return a value
      *
-     * {@link package.main.log.enterParser} Make a note that the parser has started parsing a non-terminal.
+     * Make a note that the parser has started parsing a non-terminal.
      *
      * 'One' == 1, in combination with '*' and '?'
      * '*' == or many (indicates that after this '*' symbol, it can be 0 or many terminal)
      *
-     * --> ( '(' ) --> [param-decl] --> ( ; ) --> One [param-decl] * --> ( ')' )
+     * -- ( '(' ) -- [param-decl] -- ( ; ) -- One [param-decl] * -- ( ')' )
      * while curToken not like ')' then s,skip() parse.[non-terminal] to array list
      *
-     * {@link package.main.log.enterParser} Make a note that the parser has finished parsing a non-terminal.
+     * Make a note that the parser has finished parsing a non-terminal.
      *
      * @param s     is the Scanner object, of the token that the is the scanners current Token read,
      *              s.skip(), send it to specific parser [non - terminal]
@@ -53,7 +53,7 @@ public class ParamDeclList extends PascalSyntax{
      *
      * For all out paramdecl in list prettyprint em
      *
-     * Calls the logFile {@link package.main.log.prettyPrint}, an formatting conventions
+     * Calls the logFile package.main.log.prettyPrint, an formatting conventions
      * that adjust positioning and spacing (indent style), to make the content easier for other
      * programmers to view, read, and understand.
      */
@@ -68,6 +68,7 @@ public class ParamDeclList extends PascalSyntax{
         Main.log.prettyPrint(")");
     }
 
+    // go through list and check.
     @Override void check(Block curScope, Library lib){
 	for(ParamDecl pDecl : pList)
 		pDecl.check(curScope, lib);

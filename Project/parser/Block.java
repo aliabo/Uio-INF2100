@@ -11,7 +11,7 @@ public class Block extends PascalSyntax {
 	private VarDeclPart vDeclPart = null;
 	private ArrayList<ProcDecl> pfDecl = new ArrayList<>();
 	private StatmList sList;
-	public PascalSyntax context = null; //TODO Check if needed
+	public PascalSyntax context = null;
 
 	public	HashMap<String,PascalDecl> decls = new HashMap<>();
 	public Block outerScope = null;
@@ -26,20 +26,20 @@ public class Block extends PascalSyntax {
 	 * In Pascal in 2016 can have [block]s on top of each other in so many levels you want,
 	 * and you may have functions that are local inside other functions
 	 *
-	 * {@link package.main.log.enterParser} Make a note that the parser has started parsing a non-terminal.
+	 * Make a note that the parser has started parsing a non-terminal.
 	 *
 	 * 'Z' == 0, in combination with '*' and '?'
 	 * '?' == 0 or 1 (indicates that after this '?' symbol, it can be 0 or 1 terminal)
 	 * '|' == OR (indicates that after this '|' symbol, it can be this OR the other terminal)
 	 * '*' == or many (indicates that after this '*' symbol, it can be 0 or many terminal)
 	 *
-	 * --> Z [const-decl-part] ? --> Z [var-decl-part] ? -->  Z [func-decl] * |  Z [proc-del] * --> (begin) --> [statm-list] --> (end) -->
+	 * -- Z [const-decl-part] ? -- Z [var-decl-part] ? --  Z [func-decl] * |  Z [proc-del] * -- (begin) -- [statm-list] -- (end) --
 	 *
 	 * We need to check if curToken.kind [const-decl-part] or [var-decl-part]
 	 * While curToken is not a beginToken, we check for funcDecl og procDecl in a while, if found break (Their could be a several)
-	 * if while is finished, s.kip() --> parse [non-terminal] --> skip()
+	 * if while is finished, s.kip() -- parse [non-terminal] -- skip()
 	 *
-	 * {@link package.main.log.enterParser} Make a note that the parser has finished parsing a non-terminal.
+	 * Make a note that the parser has finished parsing a non-terminal.
 	 *
 	 * @param s     is the Scanner object, of the token that the is the scanners current Token read,
 	 *              s.skip(non-terminal), send it to specific parser [terminal]
@@ -49,7 +49,6 @@ public class Block extends PascalSyntax {
 	public static Block parse(Scanner s) {
 		enterParser("block");
 		Block b = new Block(s.curLineNum());
-		//TODO check if ERORR Switch without break to continue to next possible solution
 		switch (s.curToken.kind) {
 			case constToken:
 				b.cDeclPart = ConstDeclPart.parse(s);
@@ -79,14 +78,28 @@ public class Block extends PascalSyntax {
 		return b;
 	}
 
-	// TODO be commented; adds decels to decl : hashmap
+	/**
+	 * Block contain a list of its declarations, in the form of a HashMap<decls>
+	 * It is easy to check if any names are declared several times in the same block.
+	 * And this will then give an error message
+	 *
+	 * @param id	Key (name)
+	 * @param d		deceleration (to get bind)
+	 */
 	void addDecl(String id, PascalDecl d) {
 		if (decls.containsKey(id))
 			d.error(id + " declared twice in same block!");
 		decls.put(id, d);
 	}
 
-	// TODO: comment: this one
+	/**
+	 * If the declaration is not local, we can find it by searching in outer scopes.
+	 * Therefore Block contain a pointer Block outerScope pointing to block outside.
+	 * It can be initiated by check. {@link Program}
+	 *
+	 * @param curScope	current scope
+	 * @param lib		library (bind to scope)
+	 */
 	@Override void check(Block curScope, Library lib) {
 		if (cDeclPart != null) {
 			cDeclPart.check(this, lib);
@@ -102,7 +115,16 @@ public class Block extends PascalSyntax {
 		sList.check(this, lib);
 	}
 
-	// TODO: comment this
+	/**
+	 * A method to find the right decl.
+	 * Throws an error message of not found.
+	 *
+	 * @param id	Key (name)
+	 * @param where	Object
+	 * @return		log {@link main.LogFile} for printing
+	 * 				and return Decl object, else if not found
+	 * 				throw an error.
+	 */
 	PascalDecl findDecl(String id, PascalSyntax where) {
 		PascalDecl d = decls.get(id);
 		if (d != null) {

@@ -6,7 +6,7 @@ public class Constant extends PascalSyntax{
 
 	public PrefixOperator pOp = null;
 	public UnsignedConstant uConst;
-	int constVal;
+	private int constVal;
 	public types.Type type;
 
 
@@ -17,12 +17,12 @@ public class Constant extends PascalSyntax{
 	/**
 	 * Parser method to declare the language, explained as a rail-diagram;  Constant
 	 *
-	 * {@link package.main.log.enterParser} Make a note that the parser has started parsing a non-terminal.
+	 * Make a note that the parser has started parsing a non-terminal.
 	 *
 	 * ? == 0 or 1 (indicates that after this '?' symbol, it can be 0 or 1 statement)
-	 * --> ? [prefix opr] ? --> [unsigned constant]-->
+	 * -- ? [prefix opr] ? -- [unsigned constant]--
 	 *
-	 * {@link package.main.log.enterParser} Make a note that the parser has finished parsing a non-terminal.
+	 * Make a note that the parser has finished parsing a non-terminal.
 	 *
 	 * @param s     is the Scanner object, of the token that the is the scanners current Token read,
 	 *              s.skip(), send it to specific parser [non - terminal]
@@ -60,7 +60,16 @@ public class Constant extends PascalSyntax{
 	@Override public String identify() {
 		return "<constant> on line " + lineNum;
 	}
-	
+
+	/**
+	 * All elements of the syntax tree containing a constant
+	 * we declare an "int constVal" and this can be calculated
+	 * by check which could go through the whole tree.
+	 * Set type and constval
+	 *
+	 * @param curScope current scope
+	 * @param lib		library (bind)
+	 */
 	@Override void check(Block curScope, Library lib) {
 		uConst.check(curScope, lib);
 		type = uConst.type;
@@ -73,12 +82,4 @@ public class Constant extends PascalSyntax{
 			constVal = -constVal;
 		}
 	}
-
-	/*
-	@Override void check(Block curScope, Library lib){
-	 	if (uc instanceof NumberLiteral)
-			type = new IntType();
-		else if (uc instanceof CharLiteral)
-			type = new CharType();
-	}*/
 }

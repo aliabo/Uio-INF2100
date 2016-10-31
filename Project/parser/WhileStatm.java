@@ -15,13 +15,13 @@ class WhileStatm extends Statement {
 	/**
 	 * Parser method to declare the language, explained as a rail-diagram; WhileStatm
 	 *
-	 * {@link package.main.log.enterParser} Make a note that the parser has started parsing a non-terminal.
+	 * Make a note that the parser has started parsing a non-terminal.
 	 *
-	 * --> ( while ) --> [expression] --> ( do ) --> [statement] -->
+	 * -- ( while ) -- [expression] -- ( do ) --> [statement] --
 	 * These phrases behave like we are used to:
 	 * s.skip() parse()
 	 *
-	 * {@link package.main.log.enterParser} Make a note that the parser has finished parsing a non-terminal.
+	 * Make a note that the parser has finished parsing a non-terminal.
 	 *
 	 * @param s     is the Scanner object, of the token that the is the scanners current Token read,
 	 *              s.skip(), send it to specific parser [non - terminal]

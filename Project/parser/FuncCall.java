@@ -8,7 +8,7 @@ public class FuncCall extends Factor {
 
 	private String name;
 	private ArrayList<Expression> expList;
-        private FuncDecl funcRef = null;
+	private FuncDecl funcRef = null;
 
 	FuncCall(int lNum) {
 		super(lNum);
@@ -18,7 +18,7 @@ public class FuncCall extends Factor {
 	/**
 	 * Parser method to declare the language, explained as a rail-diagram; Func call
 	 *
-	 * {@link package.main.log.enterParser} Make a note that the parser has started parsing a non-terminal.
+	 * Make a note that the parser has started parsing a non-terminal.
 	 *
 	 * 'One' == 1, in combination with '*' and '?'
 	 *  Z' == 0, in combination with '*' and '?'
@@ -26,14 +26,14 @@ public class FuncCall extends Factor {
 	 * '|' == OR (indicates that after this '|' symbol, it can be this OR the other terminal)
 	 * '*' == or many (indicates that after this '*' symbol, it can be 0 or many terminal)
 	 *
-	 * --> [name] --> Z ( '(' ) --> ( '(' ) One [expression] ( , ) [expression] * ( ')' ) ?
+	 * -- [name] -- Z ( '(' ) -- ( '(' ) One [expression] ( , ) [expression] * ( ')' ) ?
 	 *
-	 * Special condition, name; we use {@link package.test} if nametoken (else testError)
-	 * we also need to update, so a call for {@link package.readNextToken}
+	 * Special condition, name; we use package.Scanner.test if nametoken (else testError)
+	 * we also need to update, so a call for package.Scanner.readNextToken}
 	 * If we find a ' ( ' we s.skip() and add to list.Expression(can be several)
 	 * as long as we find a ' , '
 	 *
-	 * {@link package.main.log.enterParser} Make a note that the parser has finished parsing a non-terminal.
+	 * Make a note that the parser has finished parsing a non-terminal.
 	 *
 	 * @param s     is the Scanner object, of the token that the is the scanners current Token read,
 	 *              s.skip(non-terminal), send it to specific parser [terminal]
@@ -64,11 +64,11 @@ public class FuncCall extends Factor {
 	}
 
 	/**
-	 * Abstract code beautifiers, inherited from PascalSyntax --> Factor
+	 * Abstract code beautifiers, inherited from PascalSyntax -- Factor
 	 *
 	 * If list of Expression is bigger then 0, we prettyprint, remove from list until empty
 	 *
-	 * Calls the logFile {@link package.main.log.prettyPrint}, an formatting conventions
+	 * Calls the logFile package.main.log.prettyPrint, an formatting conventions
 	 * that adjust positioning and spacing (indent style), to make the content easier for other
 	 * programmers to view, read, and understand.
 	 */
@@ -87,8 +87,17 @@ public class FuncCall extends Factor {
 		}
 	}
 
+	/**
+	 * Here the Name occurrences,  it will be be an assignment
+	 * we need to check: checkWhetherFunction(this);
+	 * Out recursive traverses the tree, and check type.
+	 * We cast back to funcdecl and set type
+	 * We check number of parameters
+	 * We want to know that parameters has same type as in declaration of function
+	 * @param curScope	current scoop
+	 * @param lib		library (bind)
+	 */
 	@Override void check(Block curScope, Library lib){
-
 		PascalDecl d = curScope.findDecl(name,this);
 		d.checkWhetherFunction(this);
 		funcRef = (FuncDecl)d;
@@ -96,15 +105,14 @@ public class FuncCall extends Factor {
 		if(expList.size()!=0){
 			if(expList.size() > funcRef.pList.pList.size())
 				error("Too many parameters in call on " + funcRef.name + "!");
-	        	else if (expList.size() < funcRef.pList.pList.size())
+			else if (expList.size() < funcRef.pList.pList.size())
 				error("Too few parameters in call on " + funcRef.name + "!");
 			for(int i = 0; i < expList.size(); i++){
-				// checking that parameters has same type as in declaration of function
 				Expression funcCallParam = expList.get(i);
 				ParamDecl funcDeclParam = funcRef.pList.pList.get(i);
 				funcCallParam.check(curScope,lib);
 				funcCallParam.type.checkType(funcDeclParam.type,"param #" + (i+1), this,
-                	    	"Illegal type of parameter #"+ (i+1) + "!");
+						"Illegal type of parameter #"+ (i+1) + "!");
 			}
 		}
 	}

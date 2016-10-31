@@ -14,14 +14,14 @@ public class FactorOperator extends Operator {
     /**
      * Parser method to declare the language, explained as a rail-diagram; Factor operator
      *
-     * {@link package.main.log.enterParser} Make a note that the parser has started parsing a non-terminal.
+     * Make a note that the parser has started parsing a non-terminal.
      *
-     * --> ( * ) | ( div ) | ( mod ) | ( and ) -->
+     * -- ( * ) | ( div ) | ( mod ) | ( and ) --
      * FACTOR operator can be one of this, we need to check our curToken, if found we break
      * and s.skip()
      * assign factor operator to object
      *
-     * {@link package.main.log.enterParser} Make a note that the parser has finished parsing a non-terminal.
+     * Make a note that the parser has finished parsing a non-terminal.
      *
      * @param s     is the Scanner object, of the token that the is the scanners current Token read,
      *              s.skip(non-terminal), send it to specific parser [terminal]

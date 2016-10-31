@@ -16,16 +16,16 @@ public class ConstDeclPart extends PascalSyntax{
 	/**
 	 * Parser method to declare the language, explained as a rail-diagram; Const Decl Part
 	 *
-	 * {@link package.main.log.enterParser} Make a note that the parser has started parsing a non-terminal.
+	 * Make a note that the parser has started parsing a non-terminal.
 	 *
 	 * 'One' == 1, in combination with '*' and '?'
 	 * '*' == or many (indicates that after this '*' symbol, it can be 0 or many terminal)
-	 * --> (const) -->  One [const decl] * -->
+	 * -- (const) -- One [const decl] * --
 	 *
 	 * Special condition, it can be 1 or several of [const decl], arrayList used to add
 	 * while we have nameToken
 	 *
-	 * {@link package.main.log.enterParser} Make a note that the parser has finished parsing a non-terminal.
+	 * Make a note that the parser has finished parsing a non-terminal.
 	 *
 	 * @param s     is the Scanner object, of the token that the is the scanners current Token read,
 	 *              s.skip(), send it to specific parser [non - terminal]
@@ -65,10 +65,11 @@ public class ConstDeclPart extends PascalSyntax{
 	@Override public String identify() {
 		return "<const decl part> on line " + lineNum;
 	}
-	
+
+	// We go through list and recursively calls search cDel in list
 	public @Override void check(Block curScope, Library lib){
 		for(ConstDecl cDecl: cDeclList)
-			cDecl.check(curScope, lib);		
+			cDecl.check(curScope, lib);
 	}
 
 }	

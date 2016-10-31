@@ -4,8 +4,6 @@ import scanner.*;
 import static scanner.TokenKind.*;
 import java.util.ArrayList;
 
-// + one or more
-// <statm-list> ::= <statement> (';' <statement>)*
 public class StatmList extends PascalSyntax{
 
     private ArrayList<Statement> stList = new ArrayList<>();
@@ -18,16 +16,16 @@ public class StatmList extends PascalSyntax{
     /**
      * Parser method to declare the language, explained as a rail-diagram; Statm list
      *
-     * {@link package.main.log.enterParser} Make a note that the parser has started parsing a non-terminal.
+     * Make a note that the parser has started parsing a non-terminal.
      *
      * 'One' == 1, in combination with '*' and '?'
      * '*' == or many (indicates that after this '*' symbol, it can be 0 or many terminal)
      *
-     * --> [statement] --> One ( ; ) --> [statement] * -->
+     * -- [statement] -- One ( ; ) -- [statement] * --
      * It can be 1 or several statements
      * Save in list if after first read their is a semicolonToken s.skip() and add
      *
-     * {@link package.main.log.enterParser} Make a note that the parser has finished parsing a non-terminal.
+     * Make a note that the parser has finished parsing a non-terminal.
      *
      * @param s     is the Scanner object, of the token that the is the scanners current Token read,
      *              s.skip(), send it to specific parser [non - terminal]
@@ -58,9 +56,9 @@ public class StatmList extends PascalSyntax{
             Main.log.prettyPrintLn(";");
             st.prettyPrint();
         }
-	//Main.log.prettyPrintLn();
     }
 
+    // Go through list of statements and recursively check
     @Override void check(Block curScope, Library lib){
 	for(Statement stmt : stList)
 		stmt.check(curScope, lib);

@@ -16,13 +16,13 @@ public class ConstDecl extends PascalDecl{
 	 * Parser method to declare the language, explained as a rail-diagram; ConstDecl
 	 * This is a non-terminal representing a declaration, a subclass of PascalDecl
 	 *
-	 * {@link package.main.log.enterParser} Make a note that the parser has started parsing a non-terminal.
+	 * Make a note that the parser has started parsing a non-terminal.
 	 *
-	 * --> (name) -->  ( = ) --> [constant] -->  ( ; ) -->
-	 * Special condition, name; we use {@link package.test} if nametoken (else testError)
-	 * we also need to update, so a call for {@link package.readNextToken}
+	 * -- (name) -- ( = ) -- [constant] --  ( ; ) --
+	 * Special condition, name; we use package.Scanner.test if nametoken (else testError)
+	 * we also need to update, so a call for package.Scanner.readNextToken
 	 *
-	 * {@link package.main.log.enterParser} Make a note that the parser has finished parsing a non-terminal.
+	 * Make a note that the parser has finished parsing a non-terminal.
 	 *
 	 * @param s     is the Scanner object, of the token that the is the scanners current Token read,
 	 *              s.skip(), send it to specific parser [non - terminal]
@@ -43,9 +43,9 @@ public class ConstDecl extends PascalDecl{
 	}
 
 	/**
-	 * Abstract code beautifiers, inherited from PascalSyntax --> PascalDecl
+	 * Abstract code beautifiers, inherited from PascalSyntax -- PascalDecl
 	 *
-	 * Calls the logFile {@link package.main.log.prettyPrint}, an formatting conventions
+	 * Calls the logFile package.main.log.prettyPrint, an formatting conventions
 	 * that adjust positioning and spacing (indent style), to make the content easier for other
 	 * programmers to view, read, and understand.
 	 */
@@ -55,6 +55,14 @@ public class ConstDecl extends PascalDecl{
 		Main.log.prettyPrintLn(";");
 	}
 
+	/**
+	 * All names occurrences will be bound to its declaration.
+	 * All elements of the syntax tree containing a constant declare an
+	 * "int constVal" and this can be calculated by check which could go
+	 * through the whole tree.
+	 * Set type to constant
+	 *
+	 */
 	@Override void check(Block curScope, Library lib) {
 		curScope.addDecl(name, this);
 		con.check(curScope, lib);
@@ -64,7 +72,7 @@ public class ConstDecl extends PascalDecl{
 	@Override public String identify() {
 		if(lineNum == 0)//defined in the library
 			return "<const decl> " + name + " in the Library";
-        	else
+		else
 			return "<const decl> " + name + " on line " + lineNum;
 	}
 

@@ -14,14 +14,14 @@ public class PrefixOperator extends Operator {
 	/**
 	 * Parser method to declare the language, explained as a rail-diagram; Prefix Operator
 	 *
-	 * {@link package.main.log.enterParser} Make a note that the parser has started parsing a non-terminal.
+	 * Make a note that the parser has started parsing a non-terminal.
 	 *
 	 * '|' == OR (indicates that after this '|' symbol, it can be this OR the other terminal)
 	 *
-	 * --> ( + ) | ( - ) -->
+	 * -- ( + ) | ( - ) --
 	 * It can + or the other, if found s.skip()
 	 *
-	 * {@link package.main.log.enterParser} Make a note that the parser has finished parsing a non-terminal.
+	 * Make a note that the parser has finished parsing a non-terminal.
 	 *
 	 * @param s     is the Scanner object, of the token that the is the scanners current Token read,
 	 *              s.skip(), send it to specific parser [non - terminal]

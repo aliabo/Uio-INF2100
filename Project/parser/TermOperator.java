@@ -18,12 +18,12 @@ public class TermOperator extends Operator {
     /**
      * Parser method to declare the language, explained as a rail-diagram; Term Operator
      *
-     * {@link package.main.log.enterParser} Make a note that the parser has started parsing a non-terminal.
+     * Make a note that the parser has started parsing a non-terminal.
      *
-     * --> ( + ) | ( - ) | ( or ) -->
+     * -- ( + ) | ( - ) | ( or ) --
      * If any of this tokens we save to object name, s.skip()
      *
-     * {@link package.main.log.enterParser} Make a note that the parser has finished parsing a non-terminal.
+     * Make a note that the parser has finished parsing a non-terminal.
      *
      * @param s     is the Scanner object, of the token that the is the scanners current Token read,
      *              s.skip(), send it to specific parser [non - terminal]

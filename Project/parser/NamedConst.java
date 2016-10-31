@@ -14,12 +14,12 @@ public class NamedConst extends UnsignedConstant {
 	/**
 	 * Parser method to declare the language, explained as a rail-diagram; NamedConstant
 	 *
-	 * {@link package.main.log.enterParser} Make a note that the parser has started parsing a non-terminal.
+	 * Make a note that the parser has started parsing a non-terminal.
 	 *
-	 * Special condition, name; we use {@link package.test} if nametoken (else testError)
-	 * we also need to update, so a call for {@link package.readNextToken}
+	 * Special condition, name; we use package.Scanner.test if nametoken (else testError)
+	 * we also need to update, so a call for package.Scanner.readNextToken
 	 *
-	 * {@link package.main.log.enterParser} Make a note that the parser has finished parsing a non-terminal.
+	 * Make a note that the parser has finished parsing a non-terminal.
 	 *
 	 * @param s     is the Scanner object, of the token that the is the scanners current Token read,
 	 *              s.skip(), send it to specific parser [non - terminal]
@@ -42,15 +42,15 @@ public class NamedConst extends UnsignedConstant {
 		Main.log.prettyPrint(name);
 	}
 
+	// Check name of const, set as boolean, else, find right decl and set right type
 	@Override void check(Block curScope, Library lib){
 		if (name.equals("true") || name.equals("false"))
 			type = lib.booleanType;
 		else{
-			PascalDecl d = curScope.findDecl(name,this);
+			PascalDecl d = curScope.findDecl(name, this);
 			type = d.type;
 		}
-			
-        }
+	}
 
 	@Override public String identify() {
 		return "<named constant> on line " + lineNum;

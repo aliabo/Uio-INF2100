@@ -104,9 +104,11 @@ public enum TokenKind {
     }
 
     /**
-     * a function to check all the tokens
-     * but name & number//	 TokenKind k = addToken;// value of it +
-         System.out.println(TokenKind.values()[k] + k.toString());//name of the enum
+     * A function to check all the tokens
+     *
+     * @param s         Value to compare
+     * @param lineNum   linenumber
+     * @return          found token of null
      **/
     public static Token getToken(String s, int lineNum){
 

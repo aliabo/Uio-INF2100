@@ -25,6 +25,11 @@ public class Scanner {
 		return "Scanner reading " + sourceFileName;
 	}
 
+	/**
+	 * Find get current token linenumber.
+	 *
+	 * @return token linenumber
+	 */
 	public int curLineNum(){
 		if(curToken == null)
 			return getFileLineNum();
@@ -33,7 +38,7 @@ public class Scanner {
 	/**
 	 * The control method, that being called when want to read next line
 	 * Is also the control method for the whole class.
-	 * <p>
+	 *
 	 * Use of methods:
 	 * if end of line update with new line:				{@link #reachedEndOfLine}
 	 * we skip spaces and tabs: 						{@link #skipSpaces}
@@ -44,7 +49,7 @@ public class Scanner {
 	 * First call to readNextToken:						{@link #firstCallToReadNextToken}
 	 * Second call to readNextToken: 					{@link #secoundCallToReadNextToken}
 	 * If still tokens, log, else, e-o-f:				{@link #logEndOfToken}
-	 *<p>
+	 *
 	 */
 	public void readNextToken() {
 		curToken = nextToken;  nextToken = null;
@@ -71,7 +76,7 @@ public class Scanner {
 
 	/**
 	 * Method to update lineLength
-	 *<p>
+	 *
 	 * @return 	lineLength		 updated value
 	 */
 	private int currentLineLength(){
@@ -95,7 +100,7 @@ public class Scanner {
 	
 	/**
 	 * Test if still more to read
-	 * <p>
+	 *
 	 * @return boolean 		True if empty, False otherwise
 	 */
 	private boolean moreToRead(int lineLength){
@@ -104,7 +109,7 @@ public class Scanner {
 
 	/**
 	 * Test if string is empty
-	 * <p>
+	 *
 	 * @return boolean 		True if empty, False otherwise
 	 */
 	private boolean sourceLineEmpty(){
@@ -113,7 +118,7 @@ public class Scanner {
 
 	/**
 	 * What char we have at this position?
-	 * <p>
+	 *
 	 * @return char 	char a specified position
 	 */
 	private char charAtPositionIs(){
@@ -199,7 +204,6 @@ public class Scanner {
 	 * <p>
 	 * If s contains "/*" we skip to 2 else if s contains "{" we skip 1, se more
 	 * at the use of:	    {@link #readNewLine}
-	 * if line is empty:    {@link #noEndtestIfEmpty}
 	 *
 	 *
 	 * @param 	s	the location of the token, relative to the s argument

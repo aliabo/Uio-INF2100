@@ -14,12 +14,12 @@ public class InnerExpr extends Factor {
 	/**
 	 * Parser method to declare the language, explained as a rail-diagram; InnerExpr
 	 *
-	 * {@link package.main.log.enterParser} Make a note that the parser has started parsing a non-terminal.
+	 * Make a note that the parser has started parsing a non-terminal.
 	 *
-	 * --> ( '(' ) [expression] ( ')' )
+	 * -- ( '(' ) [expression] ( ')' )
 	 * s.skip(non-terminal) parse terminal s.skip(non-terminal)
 	 *
-	 * {@link package.main.log.enterParser} Make a note that the parser has finished parsing a non-terminal.
+	 * Make a note that the parser has finished parsing a non-terminal.
 	 *
 	 * @param s     is the Scanner object, of the token that the is the scanners current Token read,
 	 *              s.skip(), send it to specific parser [non - terminal]
@@ -44,6 +44,7 @@ public class InnerExpr extends Factor {
 		Main.log.prettyPrint(")");
 	}
 
+	// call recursively and We set type
 	@Override void check(Block curScope, Library lib){
 		exp.check(curScope,lib);
 		type = exp.type;

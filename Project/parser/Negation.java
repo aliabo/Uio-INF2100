@@ -14,11 +14,11 @@ public class Negation extends Factor {
 	/**
 	 * Parser method to declare the language, explained as a rail-diagram; negation
 	 *
-	 * {@link package.main.log.enterParser} Make a note that the parser has started parsing a non-terminal.
+	 * Make a note that the parser has started parsing a non-terminal.
 	 *
-	 * --> (not) --> [factor] -->
+	 * -- (not) -- [factor] --
 	 *
-	 * {@link package.main.log.enterParser} Make a note that the parser has finished parsing a non-terminal.
+	 * Make a note that the parser has finished parsing a non-terminal.
 	 *
 	 * @param s     is the Scanner object, of the token that the is the scanners current Token read,
 	 *              s.skip(), send it to specific parser [non - terminal]
@@ -37,13 +37,13 @@ public class Negation extends Factor {
 		return n;
 	}
 
+	// check recursively type, set type
 	@Override void check(Block curScope, Library lib){
 		f.check(curScope,lib);
 		type = f.type;
 		type.checkType(lib.booleanType, "'not' operand", this,
                        "not and"+ f.identify() +" are of different type!"); 
 	}
-
 
 	@Override void prettyPrint() {
 		Main.log.prettyPrint("not ");

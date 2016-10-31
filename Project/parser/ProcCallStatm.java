@@ -18,21 +18,21 @@ class ProcCallStatm extends Statement {
      * Parser method to declare the language, explained as a rail-diagram; ProcCallStatm
      * functions always return a value
      *
-     * {@link package.main.log.enterParser} Make a note that the parser has started parsing a non-terminal.
+     * Make a note that the parser has started parsing a non-terminal.
      *
      * Z' == 0, in combination with '*' and '?'
      * 'One' == 1, in combination with '*' and '?'
      * '?' == 0 or 1 (indicates that after this '?' symbol, it can be 0 or 1 terminal)
      * '*' == or many (indicates that after this '*' symbol, it can be 0 or many terminal)
      *
-     * --> [name] --> Z  ( '(' ) --> One [expression] * --> ( , )  ? -->
+     * -- [name] -- Z  ( '(' ) -- One [expression] * -- ( , )  ? --
      *
      * Special condition, name; we use {@link package.test} if nametoken (else testError)
      * we also need to update, so a call for {@link package.readNextToken}
      * if we have a ' ( ' we also have a [non-terminal]
      * s.skip(), [non-terminal]
      *
-     * {@link package.main.log.enterParser} Make a note that the parser has finished parsing a non-terminal.
+     * Make a note that the parser has finished parsing a non-terminal.
      *
      * @param s     is the Scanner object, of the token that the is the scanners current Token read,
      *              s.skip(), send it to specific parser [non - terminal]
@@ -63,7 +63,7 @@ class ProcCallStatm extends Statement {
     }
 
     /**
-     * Abstract code beautifiers, inherited from PascalSyntax --> Statment
+     * Abstract code beautifiers, inherited from PascalSyntax -- Statment
      *
      * NameToken, if expList not null we print and remove
      * List is empty, new line
@@ -89,6 +89,17 @@ class ProcCallStatm extends Statement {
         }
     }
 
+    /**
+     * Suppose name exists in the local block:
+     * Therefore we are sending a pointer to it as parameter to check.
+     * checkWhetherProcedure(this);
+     * If d is an instance of Type Decl, procedure write
+     * cast to ProcDecl, check if parameter is the same.
+     * and check if the parameters have the same type
+     *
+     * @param curScope  current scope
+     * @param lib       library (bind)
+     */
     @Override void check(Block curScope, Library lib) {
 	PascalDecl d = curScope.findDecl(procName,this);
 	d.checkWhetherProcedure(this);

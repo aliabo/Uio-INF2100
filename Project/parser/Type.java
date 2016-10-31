@@ -12,12 +12,12 @@ public abstract class Type extends PascalSyntax{
 	/**
 	 * Parser method to declare the language, explained as a rail-diagram; Type
 	 *
-	 * {@link package.main.log.enterParser} Make a note that the parser has started parsing a non-terminal.
+	 * Make a note that the parser has started parsing a non-terminal.
 	 *
-	 * --> [type-name] | [array-type] -->
+	 * -- [type-name] | [array-type] --
 	 * If any of, parse()
 	 *
-	 * {@link package.main.log.enterParser} Make a note that the parser has finished parsing a non-terminal.
+	 * Make a note that the parser has finished parsing a non-terminal.
 	 *
 	 * @param s     is the Scanner object, of the token that the is the scanners current Token read,
 	 *              s.skip(), send it to specific parser [non - terminal]
@@ -27,7 +27,7 @@ public abstract class Type extends PascalSyntax{
 	public static Type parse(Scanner s) {
 
 		enterParser("type");
-		Type t = null;
+		Type t;
 		switch (s.curToken.kind) {
 
 			case arrayToken:
@@ -41,8 +41,7 @@ public abstract class Type extends PascalSyntax{
 
 	@Override void prettyPrint() {}
 
-	@Override void check(Block curScope, Library lib){
-	}
+	@Override void check(Block curScope, Library lib){}
 
 	@Override public String identify() {
 		return "<type> on line " + lineNum;

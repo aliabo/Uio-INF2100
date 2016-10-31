@@ -15,17 +15,17 @@ public class Variable extends Factor {
 	/**
 	 * Parser method to declare the language, explained as a rail-diagram; Variable
 	 *
-	 * {@link package.main.log.enterParser} Make a note that the parser has started parsing a non-terminal.
+	 * Make a note that the parser has started parsing a non-terminal.
 	 *
 	 * '?' == 0 or 1 (indicates that after this '?' symbol, it can be 0 or 1 terminal)
-	 * --> [name] --> ? ( [ ) --> [expression] --> ( ] )  -->
+	 * -- [name] -- ? ( [ ) -- [expression] -- ( ] )  --
 	 * [name], we have a special condition, need to test
 	 * create object
 	 * readNextToken()
 	 * We have left ( [ )
 	 * s.skip() parse() s.skip()
 	 *
-	 * {@link package.main.log.enterParser} Make a note that the parser has finished parsing a non-terminal.
+	 * Make a note that the parser has finished parsing a non-terminal.
 	 *
 	 * @param s     is the Scanner object, of the token that the is the scanners current Token read,
 	 *              s.skip(), send it to specific parser [non - terminal]
@@ -59,27 +59,34 @@ public class Variable extends Factor {
 		}
 	}
 
-    @Override void check(Block curScope, Library lib) {
-	varRef = curScope.findDecl(name,this);
+	/**
+	 * Find decl, if instance if type.Arraytype, cast, and set element type
+	 * else set type, If expression, we check recursively.
+	 * cast and checking index. type
+	 *
+	 * @param curScope	current scoop
+	 * @param lib		library (bind)
+	 */
+	@Override void check(Block curScope, Library lib) {
+		varRef = curScope.findDecl(name,this);
 
-	if(varRef.type instanceof types.ArrayType){//types.ArrayType
-		types.ArrayType a = (types.ArrayType)varRef.type; 
-		type = a.elemType;
+		if(varRef.type instanceof types.ArrayType){//types.ArrayType
+			types.ArrayType a = (types.ArrayType)varRef.type;
+			type = a.elemType;
+		}
+		else{
+			type = varRef.type;
+		}
+		if(exp != null) {
+			exp.check(curScope,lib);
+			// testing index type
+			types.ArrayType a = (types.ArrayType)varRef.type;
+			a.indexType.checkType(exp.type,"array index",this, "array indexes are of different types");
+		}
+
 	}
-	else{
-		type = varRef.type;
-	}
-	if(exp != null) {
-	    exp.check(curScope,lib);
-	    // testing index type
-	    types.ArrayType a = (types.ArrayType)varRef.type;
-	    a.indexType.checkType(exp.type,"array index",this, "array indexes are of different types"); 
-        }
 
-    }
-
-
-    @Override public String identify() {
+	@Override public String identify() {
 		return "<variable> on line " + lineNum;
 	}
 }

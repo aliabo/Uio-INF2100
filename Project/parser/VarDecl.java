@@ -14,14 +14,14 @@ public class VarDecl extends PascalDecl{
 	 * Parser method to declare the language, explained as a rail-diagram; Var decl
      * This is a non-terminal representing a declaration, a subclass of PascalDecl
 	 *
-	 * {@link package.main.log.enterParser} Make a note that the parser has started parsing a non-terminal.
+	 * Make a note that the parser has started parsing a non-terminal.
 	 *
-	 * --> [name] -->  ( : ) --> [type] --> ( ; ) -->
+	 * -- [name] --  ( : ) -- [type] -- ( ; ) --
 	 * [name], we have a special condition, need to test before we create object
      * readNextToken()
 	 * s.skip() parse() s.skip()
 	 *
-	 * {@link package.main.log.enterParser} Make a note that the parser has finished parsing a non-terminal.
+	 * Make a note that the parser has finished parsing a non-terminal.
 	 *
 	 * @param s     is the Scanner object, of the token that the is the scanners current Token read,
 	 *              s.skip(), send it to specific parser [non - terminal]
@@ -52,12 +52,26 @@ public class VarDecl extends PascalDecl{
 		return "<var decl> " + name + " on line " + lineNum;
 	}
 
+	/**
+	 * 	Name --> addDecl this.
+	 * 	check type
+	 * 	set type
+	 *
+	 * 	@param curScope		current block
+	 * 	@param lib 			library (bind)
+ 	 */
+
 	@Override void check(Block curScope, Library lib) {
 		curScope.addDecl(name, this);
 		t.check(curScope, lib);
 		type = t.type;
 	}
 
+	/**
+	 *  In any declarations that may be left in an assignment void checkWhetherAssignable(PascalSyntax where) is left blank
+	 *
+	 * @param where		indicating where in your program type occurs
+	 */
 	void checkWhetherAssignable(PascalSyntax where){}
 
 	void checkWhetherFunction(PascalSyntax where){

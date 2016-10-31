@@ -17,19 +17,19 @@ public class ProcDecl extends PascalDecl{
      * Procedure cant return a value
      * This is a non-terminal representing a declaration, a subclass of PascalDecl
      *
-     * {@link package.main.log.enterParser} Make a note that the parser has started parsing a non-terminal.
+     * Make a note that the parser has started parsing a non-terminal.
      *
      * Z' == 0, in combination with '*' and '?'
      * '?' == 0 or 1 (indicates that after this '?' symbol, it can be 0 or 1 terminal)
      *
-     * --> (procedure) --> [name] --> Z [param-decl-list] ? ( ; ) [block] ( ; )
+     * -- (procedure) -- [name] -- Z [param-decl-list] ? ( ; ) [block] ( ; )
      *
-     * Special condition, name; we use {@link package.test} if nametoken (else testError)
-     * we also need to update, so a call for {@link package.readNextToken}
+     * Special condition, name; we use package.Scanner.test if nametoken (else testError)
+     * we also need to update, so a call for package.Scanner.readNextToken
      * if we have a ' ( ' we also have a [terminal]
      * s.skip(), parse[non-terminal] and new [block]
      *
-     * {@link package.main.log.enterParser} Make a note that the parser has finished parsing a non-terminal.
+     * Make a note that the parser has finished parsing a non-terminal.
      *
      * @param s     is the Scanner object, of the token that the is the scanners current Token read,
      *              s.skip(), send it to specific parser [non - terminal]
@@ -56,12 +56,12 @@ public class ProcDecl extends PascalDecl{
     }
 
     /**
-     * Abstract code beautifiers, inherited from PascalSyntax --> PascalDecl
+     * Abstract code beautifiers, inherited from PascalSyntax -- PascalDecl
      *
      * NameToken, if exlist not null we print and remove
      * If not null, print else proceed
      *
-     * Calls the logFile {@link package.main.log.prettyPrint}, an formatting conventions
+     * Calls the logFile package.main.log.prettyPrint, an formatting conventions
      * that adjust positioning and spacing (indent style), to make the content easier for other
      * programmers to view, read, and understand.
      */
@@ -78,6 +78,8 @@ public class ProcDecl extends PascalDecl{
 
     }
 
+    // Set proc decl, its curent block. add to decl list in block
+    // If paramdecl list is not empty, check and check this block
     @Override void check(Block curScope, Library lib) {
 	progBlock.outerScope = curScope;
 	curScope.addDecl(name, this);
