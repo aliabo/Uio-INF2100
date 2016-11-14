@@ -60,10 +60,9 @@ public class ParamDeclList extends PascalSyntax{
     public @Override void prettyPrint() {
         Main.log.prettyPrint("(");
         pList.get(0).prettyPrint();
-        pList.remove(0);
-        for(ParamDecl p: pList){
+        for(int i = 1; i<pList.size();i++){
             Main.log.prettyPrint("; ");
-            p.prettyPrint();
+            pList.get(i).prettyPrint();
         }
         Main.log.prettyPrint(")");
     }

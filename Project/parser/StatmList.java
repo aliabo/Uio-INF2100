@@ -50,11 +50,11 @@ public class StatmList extends PascalSyntax{
     @Override void prettyPrint(){
 
         stList.get(0).prettyPrint();
-        stList.remove(0);
+    
 
-        for(Statement st: stList ){
+        for(int i = 1; i < stList.size();i++){
             Main.log.prettyPrintLn(";");
-            st.prettyPrint();
+            stList.get(i).prettyPrint();
         }
     }
 

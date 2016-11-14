@@ -79,11 +79,10 @@ class ProcCallStatm extends Statement {
             Main.log.prettyPrint("(");
 
             expList.get(0).prettyPrint();
-            expList.remove(0);
 
-            for(Expression ex: expList){
+	    for(int i = 1; i<expList.size();i++){
                 Main.log.prettyPrint(", ");
-                ex.prettyPrint();
+                expList.get(i).prettyPrint();
             }
             Main.log.prettyPrint(")");
         }

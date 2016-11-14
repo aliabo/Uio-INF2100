@@ -219,6 +219,11 @@ public class Scanner {
 			while((!sourceLineEmpty()) && moreToRead(lineLength) && ((charAtPositionIs() != '/') || (sourceLine.charAt(sourcePos-1) != '*'))){
                                 sourcePos++;
 				lineLength = readNewLine(lineLength, nrOfCharToRemove);
+				
+				//if sourcepos <1
+				if(sourcePos < 1 && !success)
+					if(lineLength > 1)
+						sourcePos++;
 
 				if(sourcePos>0){
 				    if(charAtPositionIs() == '/' && sourceLine.charAt(sourcePos-1) == '*')
