@@ -93,8 +93,15 @@ public class Expression extends PascalSyntax {
     @Override void genCode(CodeFile f) {
 	sE1.genCode(f);
         if (sE2 != null) {
-	    //TODO
             sE2.genCode(f);
+
+            if(type instanceof types.BoolType){
+                f.genInstr("", "movl", "-4(%ebp),%edx", "");
+                rO.genCode(f);
+            }
+	    //TODO
+
+
         }
 
     }

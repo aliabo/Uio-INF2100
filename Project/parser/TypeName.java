@@ -61,5 +61,6 @@ public class TypeName extends Type{
         return "<type name> on line " + lineNum;
     }
 
-    @Override void genCode(CodeFile f) {}
+    @Override void genCode(CodeFile f) {
+    }
 }

@@ -74,5 +74,7 @@ public class RelOperator extends Operator {
         return "<rel operator> on line " + lineNum;
     }
 
-    @Override void genCode(CodeFile f) {}
+    @Override void genCode(CodeFile f) {
+        f.genInstr("", "setl", "%al", "Test " + str + "");
+    }
 }

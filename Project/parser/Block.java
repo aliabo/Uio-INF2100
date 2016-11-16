@@ -174,8 +174,9 @@ public class Block extends PascalSyntax {
 	}
 	
 	@Override void genCode(CodeFile f) {
-		if(cDeclPart != null)
+		if(cDeclPart != null) {
 			cDeclPart.genCode(f);
+		}
 		if(vDeclPart != null){
 			vDeclPart.genCode(f);
 		}

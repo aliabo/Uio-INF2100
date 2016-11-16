@@ -84,5 +84,13 @@ public class Constant extends PascalSyntax{
 		}
 	}
 
-	@Override void genCode(CodeFile f) {}
+	@Override void genCode(CodeFile f) {
+		uConst.genCode(f);
+		f.genInstr("", "movl", "-4(%ebp),%edx", "");
+		f.genInstr("", "movl", "%eax,-36(%edx)", "i :=");
+		if (pOp != null) {
+			pOp.genCode(f);
+		}
+
+	}
 }

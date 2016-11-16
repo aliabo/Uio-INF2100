@@ -64,5 +64,9 @@ public class VarDeclPart extends PascalSyntax{
 		return "<var decl part> on line " + lineNum;
 	}
 
-	@Override void genCode(CodeFile f) {}
+	@Override void genCode(CodeFile f) {
+		for(VarDecl vDecl: vDeclList){
+			vDecl.genCode(f);
+		}
+	}
 }
