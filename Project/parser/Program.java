@@ -6,7 +6,7 @@ import static scanner.TokenKind.*;
 public class Program extends PascalDecl {
 
 	private Block progBlock;
-
+	public int level = 1;
 	Program(String id, int lNum) {
 		super(id, lNum);
 	}
@@ -72,6 +72,7 @@ public class Program extends PascalDecl {
 	public @Override void check(Block curScope, Library lib){
 		progBlock.outerScope = lib;
 		progBlock.check(curScope,lib);
+		progBlock.level = level+1;
 	}
 
 	@Override public String identify() {
@@ -92,5 +93,20 @@ public class Program extends PascalDecl {
 
 	void checkWhetherValue(PascalSyntax where){
 		where.error("program is not a value!");
+	}
+
+	@Override public void genCode(CodeFile f) {
+		String label = f.getLabel(name);
+		label = "prog$" + label;
+		f.genInstr("", ".globl", "main", "");
+		f.genInstr("main", "", "", "");
+		f.genInstr("", "call", label, "Start program");
+		f.genInstr("", "movl", "$0,%eax", "Set status 0 and");
+		f.genInstr("", "ret", "", "terminate the program");
+		f.genInstr(label, "", "", "");
+		f.genInstr("", "enter", "$32,$" + level, "Start of " + name);
+		progBlock.genCode(f);
+		f.genInstr("", "leave", "", "End of " + name);	
+		f.genInstr("", "ret", "", "");		
 	}
 }

@@ -4,6 +4,7 @@ import parser.*;
 import scanner.Scanner;
 import static scanner.TokenKind.*;
 import java.io.*;
+import main.CodeFile;
 
 public class Main {
     public static final String version = "2016-08-22";
@@ -27,9 +28,9 @@ public class Main {
 	    readArgs(arg);
 	    log.init(baseFileName + ".log");
 
-	    Scanner s = new Scanner(sourceFileName); //jobb
+	    Scanner s = new Scanner(sourceFileName);
 	    if (testScanner) 
-		doTestScanner(s);// jobb
+		doTestScanner(s);
 	    // Del 2: 
 	    else if (testParser)
 	         doTestParser(s);
@@ -37,8 +38,8 @@ public class Main {
 	    else if (testChecker)
 	         doTestChecker(s);
 	    // Del 4:
-	    // else
-	    //     doRunRealCompiler(s);
+	    else
+	         doRunRealCompiler(s);
 	} catch (PascalError e) {
 	    System.out.println();
 	    System.err.println(e.getMessage());
@@ -122,7 +123,7 @@ public class Main {
     }
 
 
-    /* Del 4:
+    // Del 4:
     private static void doRunRealCompiler(Scanner s) {
 	System.out.print("Parsing...");
 	Program prog = Program.parse(s);
@@ -133,7 +134,7 @@ public class Main {
 	    prog.prettyPrint();
 	
 	System.out.print(" checking...");
-	library = new Library();
+	Library library = new Library();
 	prog.check(library, library);
 
 	System.out.print(" generating code...");
@@ -144,7 +145,6 @@ public class Main {
 
 	assembleCode();
     }
-    */
 
 
     private static void assembleCode() {

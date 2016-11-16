@@ -73,4 +73,6 @@ public class RelOperator extends Operator {
     @Override public String identify() {
         return "<rel operator> on line " + lineNum;
     }
+
+    @Override void genCode(CodeFile f) {}
 }

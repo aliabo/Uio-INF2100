@@ -55,4 +55,6 @@ public class NamedConst extends UnsignedConstant {
 	@Override public String identify() {
 		return "<named constant> on line " + lineNum;
 	}
+
+	@Override void genCode(CodeFile f) {}
 }

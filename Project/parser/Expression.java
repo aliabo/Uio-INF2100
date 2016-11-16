@@ -1,6 +1,7 @@
 package parser;
 import scanner.*;
 import static scanner.TokenKind.*;
+import main.*;
 
 public class Expression extends PascalSyntax {
 
@@ -87,5 +88,14 @@ public class Expression extends PascalSyntax {
 
     @Override public String identify() {
         return "<expression> on line " + lineNum;
+    }
+
+    @Override void genCode(CodeFile f) {
+	sE1.genCode(f);
+        if (sE2 != null) {
+	    //TODO
+            sE2.genCode(f);
+        }
+
     }
 }

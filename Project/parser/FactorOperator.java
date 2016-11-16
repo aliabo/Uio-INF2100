@@ -63,4 +63,6 @@ public class FactorOperator extends Operator {
     @Override public String identify() {
         return "<factor opr> on line " + lineNum;
     }
+
+    @Override void genCode(CodeFile f) {}
 }

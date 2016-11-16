@@ -84,4 +84,6 @@ public class IfStatm extends Statement {
     @Override public String identify() {
         return "<if-statm> on line " + lineNum;
     }
+
+    @Override void genCode(CodeFile f) {}
 }

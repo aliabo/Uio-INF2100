@@ -57,4 +57,6 @@ public class NumberLiteral extends UnsignedConstant {
 	@Override public String identify() {
 		return "<number literal> on line " + lineNum;
 	}
+
+	@Override void genCode(CodeFile f) {}
 }

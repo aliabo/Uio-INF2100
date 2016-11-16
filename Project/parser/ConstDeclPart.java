@@ -72,4 +72,5 @@ public class ConstDeclPart extends PascalSyntax{
 			cDecl.check(curScope, lib);
 	}
 
+	@Override void genCode(CodeFile f) {}
 }	

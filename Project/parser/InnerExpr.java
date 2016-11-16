@@ -53,4 +53,6 @@ public class InnerExpr extends Factor {
 	@Override public String identify() {
 		return "<inner expr> on line " + lineNum;
 	}
+
+	@Override void genCode(CodeFile f) {}
 }

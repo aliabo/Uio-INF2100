@@ -76,4 +76,6 @@ public class ParamDeclList extends PascalSyntax{
     @Override public String identify() {
         return "<param decl list> on line " + lineNum;
     }
+
+    @Override void genCode(CodeFile f) {}
 }

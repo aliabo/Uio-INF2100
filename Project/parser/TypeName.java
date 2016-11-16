@@ -60,4 +60,6 @@ public class TypeName extends Type{
     @Override public String identify() {
         return "<type name> on line " + lineNum;
     }
+
+    @Override void genCode(CodeFile f) {}
 }

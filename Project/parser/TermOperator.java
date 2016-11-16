@@ -55,4 +55,6 @@ public class TermOperator extends Operator {
     @Override void prettyPrint(){
         Main.log.prettyPrint(" " + str + " ");
     }
+
+    @Override void genCode(CodeFile f) {}
 }

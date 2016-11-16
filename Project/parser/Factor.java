@@ -1,5 +1,6 @@
 package parser;
 import scanner.*;
+import main.*;
 
 public abstract class Factor extends PascalSyntax {
 
@@ -70,4 +71,6 @@ public abstract class Factor extends PascalSyntax {
     @Override public String identify() {
         return "<factor> on line " + lineNum;
     }
+
+    @Override void genCode(CodeFile f) {}
 }

@@ -1,5 +1,6 @@
 package parser;
 import scanner.*;
+import main.*;
 
 abstract class Statement extends PascalSyntax {
 
@@ -73,5 +74,5 @@ abstract class Statement extends PascalSyntax {
 	
 	@Override void prettyPrint() {}
 
-
+	@Override void genCode(CodeFile f) {}
 }

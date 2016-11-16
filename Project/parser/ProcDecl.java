@@ -7,6 +7,7 @@ public class ProcDecl extends PascalDecl{
 
     private Block progBlock;
     public ParamDeclList pList;
+    public int level = 0;
 
     ProcDecl(String id, int lNum) {
         super(id, lNum);
@@ -86,6 +87,7 @@ public class ProcDecl extends PascalDecl{
 	if(pList != null)
 		pList.check(progBlock, lib);
 	
+	progBlock.level = level;
 	progBlock.check(progBlock, lib);
     }
 
@@ -105,5 +107,9 @@ public class ProcDecl extends PascalDecl{
     void checkWhetherProcedure(PascalSyntax where){}
     void checkWhetherValue(PascalSyntax where){
         where.error("procedure is not a value!");
+    }
+
+    @Override void genCode(CodeFile f) {
+	System.out.println("bbbb");
     }
 }

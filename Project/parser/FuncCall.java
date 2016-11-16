@@ -119,4 +119,6 @@ public class FuncCall extends Factor {
 	@Override public String identify() {
 		return "<func call> on line " + lineNum;
 	}
+
+	@Override void genCode(CodeFile f) {}
 }

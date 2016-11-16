@@ -68,6 +68,10 @@ public class StatmList extends PascalSyntax{
         return "<statm list> on line " + lineNum;
     }
 
-    
+    @Override void genCode(CodeFile f) {
+	
+	for(Statement stmt : stList)
+		stmt.genCode(f);
+    }
 
 }

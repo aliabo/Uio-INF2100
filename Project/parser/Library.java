@@ -4,6 +4,7 @@
  * Here is where we we deal with them
  */
 package parser;
+import main.*;
 
 public class Library extends Block{
 
@@ -74,5 +75,6 @@ public class Library extends Block{
 		tDecl.setType(arrayType);
 		addDecl("array",new TypeDecl("arrayType",0));
 	}
-
+	
+	@Override public void genCode(CodeFile f) {}
 }

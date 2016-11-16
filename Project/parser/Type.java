@@ -1,5 +1,6 @@
 package parser;
 import scanner.*;
+import main.*;
 
 public abstract class Type extends PascalSyntax{
 
@@ -46,4 +47,6 @@ public abstract class Type extends PascalSyntax{
 	@Override public String identify() {
 		return "<type> on line " + lineNum;
 	}
+
+	@Override void genCode(CodeFile f) {}
 }

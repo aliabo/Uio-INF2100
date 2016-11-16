@@ -3,7 +3,7 @@
  *
  */
 package parser;
-
+import main.*;
 public class TypeDecl extends PascalDecl{
 
 	PascalDecl decl = null;
@@ -60,4 +60,8 @@ public class TypeDecl extends PascalDecl{
 	@Override void prettyPrint() {}
 
 	@Override void check(Block curScope, Library lib) {}
+
+	@Override void genCode(CodeFile f) {
+		System.out.println("ccc");
+	}
 }

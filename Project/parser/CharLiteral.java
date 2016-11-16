@@ -63,4 +63,10 @@ public class CharLiteral extends UnsignedConstant {
 	@Override public String identify() {
 		return "<char literal> on line " + lineNum;
 	}
+	
+	@Override void genCode(CodeFile f) {
+		int ascii = String.valueOf(c).codePointAt(0);
+		f.genInstr("", "movl", "$"+ascii+",%eax", "  '"+c+"'");	
+		f.genInstr("", "pushl", "%eax", "Push next param.");
+	}
 }

@@ -2,6 +2,7 @@ package parser;
 import scanner.*;
 import static scanner.TokenKind.*;
 import java.util.ArrayList;
+import main.*;
 
 public class SimpleExpr extends PascalSyntax{
 
@@ -118,5 +119,32 @@ public class SimpleExpr extends PascalSyntax{
 
 	@Override public String identify() {
 		return "<simple expr> on line " + lineNum;
+	}
+
+	@Override void genCode(CodeFile f) {
+
+
+		Term t = termList.get(0);
+		t.genCode(f);/*
+		type = t.type;
+		//checking that term is integer if there is a prefix operator
+		if(pOpr != null){
+			type.checkType(lib.integerType, "prefix " + pOpr.k + " operand", this,
+					"Operands to " + pOpr.k + " are of different type!");
+			type = lib.integerType;
+		}
+		for(int i = 0; i < termOprList.size(); i++){
+			Term t2 = termList.get(i+1);
+			t2.check(curScope, lib);
+			String oprName = termOprList.get(i).str;
+			if (oprName.equals("or"))// to get the same logfile as ifi's compiler
+				oprName = "'or'";
+			type.checkType(t2.type,"left " + oprName + " operand", this,
+					"Left operand to " + oprName + " is not a number!");
+
+			t2.type.checkType(type,"right " + oprName + " operand", this,
+					"Right operand to " + oprName + " is not a number!");
+			type = t2.type;
+		}*/
 	}
 }

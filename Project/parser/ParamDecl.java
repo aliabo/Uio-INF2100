@@ -71,4 +71,6 @@ public class ParamDecl extends PascalDecl{
 		where.error("parameter is not a procedure!");
 	}
 	void checkWhetherValue(PascalSyntax where){}
+
+	@Override void genCode(CodeFile f) {}
 }

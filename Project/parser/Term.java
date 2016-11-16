@@ -2,6 +2,7 @@ package parser;
 import scanner.*;
 import static scanner.TokenKind.*;
 import java.util.ArrayList;
+import main.*;
 
 public class Term extends PascalSyntax{
 
@@ -93,5 +94,11 @@ public class Term extends PascalSyntax{
 
 	@Override public String identify() {
 		return "<term> on line " + lineNum;
+	}
+
+	@Override void genCode(CodeFile f) {
+		Factor ff = factorList.get(0);
+		ff.genCode(f);
+
 	}
 }

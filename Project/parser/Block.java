@@ -12,7 +12,7 @@ public class Block extends PascalSyntax {
 	private ArrayList<ProcDecl> pfDecl = new ArrayList<>();
 	private StatmList sList;
 	public PascalSyntax context = null;
-
+	public int level = 0;
 	public	HashMap<String,PascalDecl> decls = new HashMap<>();
 	public Block outerScope = null;
 
@@ -111,6 +111,7 @@ public class Block extends PascalSyntax {
 
 		for(ProcDecl decl: pfDecl){
 			decl.check(this, lib);
+			decl.level = level+1;
 		}
 		sList.check(this, lib);
 	}
@@ -171,5 +172,16 @@ public class Block extends PascalSyntax {
 	@Override public String identify() {
 		return "<block> on line " + lineNum;
 	}
-
+	
+	@Override void genCode(CodeFile f) {
+		if(cDeclPart != null)
+			cDeclPart.genCode(f);
+		if(vDeclPart != null){
+			vDeclPart.genCode(f);
+		}
+		for(ProcDecl p: pfDecl){
+			p.genCode(f);
+		}
+		sList.genCode(f);
+	}
 }

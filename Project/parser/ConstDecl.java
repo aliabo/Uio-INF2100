@@ -87,4 +87,6 @@ public class ConstDecl extends PascalDecl{
 	}
 
 	void checkWhetherValue(PascalSyntax where){}
+	
+	@Override void genCode(CodeFile f) {}
 }

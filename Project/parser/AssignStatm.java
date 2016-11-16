@@ -74,5 +74,5 @@ public class AssignStatm extends Statement {
         return "<assign statm> on line " + lineNum;
     }
 
-
+    @Override void genCode(CodeFile f) {}
 }

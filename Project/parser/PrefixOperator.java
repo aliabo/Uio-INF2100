@@ -55,4 +55,5 @@ public class PrefixOperator extends Operator {
 		return "<prefix opr> on line " + lineNum;
 	}
 
+	@Override void genCode(CodeFile f) {}
 }

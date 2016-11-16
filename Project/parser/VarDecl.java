@@ -83,4 +83,6 @@ public class VarDecl extends PascalDecl{
 	}
 
 	void checkWhetherValue(PascalSyntax where){}
+	
+	@Override void genCode(CodeFile f) {}
 }

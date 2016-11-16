@@ -1,5 +1,6 @@
 package parser;
 import scanner.*;
+import main.*;
 
 public abstract class UnsignedConstant extends Factor {
 	
@@ -50,4 +51,6 @@ public abstract class UnsignedConstant extends Factor {
 	@Override public String identify() {
 		return "<unsigned constant> on line " + lineNum;
 	}
+
+	@Override void genCode(CodeFile f) {}
 }

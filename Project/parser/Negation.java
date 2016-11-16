@@ -53,4 +53,6 @@ public class Negation extends Factor {
 	@Override public String identify() {
 		return "<negation> on line " + lineNum;
 	}
+
+	@Override void genCode(CodeFile f) {}
 }

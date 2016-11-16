@@ -1,6 +1,7 @@
 package parser;
 import scanner.*;
 import static scanner.TokenKind.*;
+import main.*;
 
 public class Constant extends PascalSyntax{
 
@@ -82,4 +83,6 @@ public class Constant extends PascalSyntax{
 			constVal = -constVal;
 		}
 	}
+
+	@Override void genCode(CodeFile f) {}
 }

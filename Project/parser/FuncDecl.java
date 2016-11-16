@@ -8,7 +8,7 @@ public class FuncDecl extends ProcDecl{
 	private Block progBlock;
 	private TypeName tName;
 	public ParamDeclList pList;
-
+        public int level = 0;
 	FuncDecl(String id, int lNum) {
 		super(id, lNum);
 	}
@@ -92,6 +92,7 @@ public class FuncDecl extends ProcDecl{
 			pList.check(progBlock, lib);
 		tName.check(progBlock, lib);
 		type = tName.type;
+		progBlock.level = level;
 		progBlock.check(progBlock, lib);
 	}
 
@@ -114,5 +115,10 @@ public class FuncDecl extends ProcDecl{
 
 	void checkWhetherValue(PascalSyntax where){
 		where.error("function is not a value!");
+	}
+
+	@Override void genCode(CodeFile f) {
+
+		System.out.println("aaaa");
 	}
 }

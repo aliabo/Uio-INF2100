@@ -1,6 +1,6 @@
 package parser;
 import scanner.*;
-import main.Main;
+import main.*;
 public class EmptyStatm extends Statement{
 
 	EmptyStatm(int lNum){
@@ -36,4 +36,6 @@ public class EmptyStatm extends Statement{
 	@Override public String identify() {
 		return "<empty statm> on line " + lineNum;
 	}
+
+	@Override void genCode(CodeFile f) {}
 }

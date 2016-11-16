@@ -87,4 +87,6 @@ public class ArrayType extends Type{
 	@Override public String identify() {
 		return "<array-type> on line " + lineNum;
 	}
+	
+	@Override void genCode(CodeFile f) {}
 }

@@ -1,5 +1,5 @@
 package parser;
-import main.Main;
+import main.*;
 import scanner.Scanner;
 import java.util.ArrayList;
 import static scanner.TokenKind.*;
@@ -9,6 +9,7 @@ class ProcCallStatm extends Statement {
     private ArrayList<Expression> expList = new ArrayList<>();
     String procName;
     ProcDecl procRef;
+    TypeDecl writeRef = null;
 
     ProcCallStatm(int lNum) {
         super(lNum);
@@ -103,6 +104,7 @@ class ProcCallStatm extends Statement {
 	PascalDecl d = curScope.findDecl(procName,this);
 	d.checkWhetherProcedure(this);
 	if(d instanceof TypeDecl){// procedure write
+		writeRef = (TypeDecl)d;
 		for (Expression exp: expList)
 			exp.check(curScope,lib);
 		return;
@@ -126,5 +128,22 @@ class ProcCallStatm extends Statement {
 
     @Override public String identify() {
         return "<proc call> on line " + lineNum;
+    }
+
+    @Override void genCode(CodeFile f) {
+	// write
+	if(writeRef != null){// procedure write
+		for (Expression exp: expList){
+			exp.genCode(f);
+			if(exp.type instanceof types.CharType)
+				f.genInstr("", "call", "write_char", "");
+			f.genInstr("", "addl", "$4,%esp", "Pop param.");
+		}
+			//TODO
+			//case lib.		
+	}
+	else{
+		
+	}
     }
 }
