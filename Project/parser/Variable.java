@@ -90,5 +90,6 @@ public class Variable extends Factor {
 		return "<variable> on line " + lineNum;
 	}
 
-	@Override void genCode(CodeFile f) {}
+	@Override void genCode(CodeFile f) {
+	}
 }
