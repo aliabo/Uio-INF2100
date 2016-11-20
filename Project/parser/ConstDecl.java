@@ -87,9 +87,9 @@ public class ConstDecl extends PascalDecl{
 	}
 
 	void checkWhetherValue(PascalSyntax where){}
-	
+
 	@Override void genCode(CodeFile f) {
-		f.genInstr("", "movl", "$"+constVal+",%eax", "	" + constVal + "");
-		con.genCode(f);
+		//f.genInstr("", "movl", "$"+constVal+",%eax", "a	" + constVal + "");
+		//con.genCode(f);
 	}
 }

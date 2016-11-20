@@ -71,7 +71,7 @@ abstract class Statement extends PascalSyntax {
 	}
 
 	@Override void check(Block curScope, Library lib){}
-	
+
 	@Override void prettyPrint() {}
 
 	@Override void genCode(CodeFile f) {}

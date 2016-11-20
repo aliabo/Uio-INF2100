@@ -50,7 +50,7 @@ public class StatmList extends PascalSyntax{
     @Override void prettyPrint(){
 
         stList.get(0).prettyPrint();
-    
+
 
         for(int i = 1; i < stList.size();i++){
             Main.log.prettyPrintLn(";");
@@ -62,16 +62,15 @@ public class StatmList extends PascalSyntax{
     @Override void check(Block curScope, Library lib){
 	for(Statement stmt : stList)
 		stmt.check(curScope, lib);
-    }	
+    }
 
     @Override public String identify() {
         return "<statm list> on line " + lineNum;
     }
 
     @Override void genCode(CodeFile f) {
-	
-	for(Statement stmt : stList)
-		stmt.genCode(f);
+	     for(Statement stmt : stList)
+		     stmt.genCode(f);
     }
 
 }

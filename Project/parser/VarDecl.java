@@ -6,6 +6,7 @@ import static scanner.TokenKind.*;
 public class VarDecl extends PascalDecl{
 
 	private Type t;
+	public int offset;
 	VarDecl(String id, int lNum) {
 		super(id, lNum);
 	}
@@ -83,8 +84,8 @@ public class VarDecl extends PascalDecl{
 	}
 
 	void checkWhetherValue(PascalSyntax where){}
-	
+
 	@Override void genCode(CodeFile f) {
-		t.genCode(f);
+		//t.genCode(f);
 	}
 }

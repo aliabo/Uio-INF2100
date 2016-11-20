@@ -75,7 +75,9 @@ public class AssignStatm extends Statement {
     }
 
     @Override void genCode(CodeFile f) {
-        var.genCode(f);
         ex.genCode(f);
+        f.genInstr("","movl", "" + (-4)*var.varRef.declLevel+ "(%ebp),%edx", "");
+        f.genInstr("","movl", "%eax," + var.varRef.declOffset+ "(%edx)", var.varRef.name + " :=");
+        //var.genCode(f);
     }
 }

@@ -70,9 +70,9 @@ public class Program extends PascalDecl {
 	 * @param lib		library connected
 	 */
 	public @Override void check(Block curScope, Library lib){
+		progBlock.level = level;
 		progBlock.outerScope = lib;
 		progBlock.check(curScope,lib);
-		progBlock.level = level+1;
 	}
 
 	@Override public String identify() {
@@ -104,9 +104,12 @@ public class Program extends PascalDecl {
 		f.genInstr("", "movl", "$0,%eax", "Set status 0 and");
 		f.genInstr("", "ret", "", "terminate the program");
 		f.genInstr(label, "", "", "");
-		f.genInstr("", "enter", "$32,$" + level, "Start of " + name);
+                int numberOfVariables = 0;
+                if(progBlock.vDeclPart != null)
+                    numberOfVariables = progBlock.vDeclPart.vDeclList.size();
+		f.genInstr("", "enter", "$"+ (32+ (4 * numberOfVariables)) +",$" + level, "Start of " + name);
 		progBlock.genCode(f);
-		f.genInstr("", "leave", "", "End of " + name);	
-		f.genInstr("", "ret", "", "");		
+		f.genInstr("", "leave", "", "End of " + name);
+		f.genInstr("", "ret", "", "");
 	}
 }

@@ -131,19 +131,19 @@ class ProcCallStatm extends Statement {
     }
 
     @Override void genCode(CodeFile f) {
-	// write
-	if(writeRef != null){// procedure write
-		for (Expression exp: expList){
-			exp.genCode(f);
-			if(exp.type instanceof types.CharType)
-				f.genInstr("", "call", "write_char", "");
-			f.genInstr("", "addl", "$4,%esp", "Pop param.");
-		}
-			//TODO
-			//case lib.		
-	}
-	else{
-		
-	}
+	     // write
+	    if(writeRef != null){// procedure write
+		      for (Expression exp: expList){
+			         exp.genCode(f);
+			         if(exp.type instanceof types.CharType)
+			            f.genInstr("", "call", "write_char", "");
+			            f.genInstr("", "addl", "$4,%esp", "Pop param.");
+		      }
+			 //TODO
+			 //case lib.
+	    }
+	    else{
+
+	    }
     }
 }

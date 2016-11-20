@@ -8,11 +8,11 @@ import java.util.HashMap;
 public class Block extends PascalSyntax {
 
 	private ConstDeclPart cDeclPart = null;
-	private VarDeclPart vDeclPart = null;
+	public VarDeclPart vDeclPart = null;
 	private ArrayList<ProcDecl> pfDecl = new ArrayList<>();
 	private StatmList sList;
 	public PascalSyntax context = null;
-	public int level = 0;
+	public int level;
 	public	HashMap<String,PascalDecl> decls = new HashMap<>();
 	public Block outerScope = null;
 
@@ -106,12 +106,13 @@ public class Block extends PascalSyntax {
 		}
 
 		if (vDeclPart != null) {
+			vDeclPart.declLevel = level;
 			vDeclPart.check(this, lib);
 		}
 
 		for(ProcDecl decl: pfDecl){
 			decl.check(this, lib);
-			decl.level = level+1;
+			decl.declLevel = level+1;
 		}
 		sList.check(this, lib);
 	}
@@ -172,7 +173,7 @@ public class Block extends PascalSyntax {
 	@Override public String identify() {
 		return "<block> on line " + lineNum;
 	}
-	
+
 	@Override void genCode(CodeFile f) {
 		if(cDeclPart != null) {
 			cDeclPart.genCode(f);

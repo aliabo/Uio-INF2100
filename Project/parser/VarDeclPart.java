@@ -6,8 +6,8 @@ import java.util.ArrayList;
 
 public class VarDeclPart extends PascalSyntax{
 
-	private ArrayList<VarDecl> vDeclList;
-
+	public ArrayList<VarDecl> vDeclList;
+	int declLevel;
 	VarDeclPart(int lNum) {
 		super(lNum);
 		vDeclList = new ArrayList<>();
@@ -46,18 +46,22 @@ public class VarDeclPart extends PascalSyntax{
 
 	// Recursively go through every declared vardecl in list
 	@Override void check(Block curScope, Library lib) {
+		int offset = -36;
 		for(VarDecl vDecl: vDeclList){
+			vDecl.declOffset = offset;
+			offset -= 4;
+			vDecl.declLevel = declLevel;
 			vDecl.check(curScope, lib);
-		}	
+		}
 	}
 
 	@Override void prettyPrint() {
-		
+
 		Main.log.prettyPrintLn("var ");
 		Main.log.prettyIndent();
 		for(VarDecl v:vDeclList)
-			v.prettyPrint(); 
-		Main.log.prettyOutdent();		
+			v.prettyPrint();
+		Main.log.prettyOutdent();
 	}
 
 	@Override public String identify() {
@@ -66,7 +70,7 @@ public class VarDeclPart extends PascalSyntax{
 
 	@Override void genCode(CodeFile f) {
 		for(VarDecl vDecl: vDeclList){
-			vDecl.genCode(f);
+			//vDecl.genCode(f);
 		}
 	}
 }

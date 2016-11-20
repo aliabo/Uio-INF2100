@@ -91,7 +91,7 @@ public class Expression extends PascalSyntax {
     }
 
     @Override void genCode(CodeFile f) {
-	sE1.genCode(f);
+	      sE1.genCode(f);
         if (sE2 != null) {
             sE2.genCode(f);
 

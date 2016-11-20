@@ -3,8 +3,8 @@ import scanner.*;
 import main.*;
 
 public abstract class UnsignedConstant extends Factor {
-	
-	public int constVal; 
+
+	public int constVal;
 
 	UnsignedConstant(int lNum) {
 		super(lNum);
@@ -52,5 +52,6 @@ public abstract class UnsignedConstant extends Factor {
 		return "<unsigned constant> on line " + lineNum;
 	}
 
-	@Override void genCode(CodeFile f) {}
+	@Override void genCode(CodeFile f) {		
+	}
 }
