@@ -35,7 +35,7 @@ public class CharLiteral extends UnsignedConstant {
 		CharLiteral cl = new CharLiteral(s.curLineNum());
 
 		s.test(charValToken);
-		
+
 		cl.c = s.curToken.charVal;
 		s.readNextToken();
 
@@ -57,16 +57,15 @@ public class CharLiteral extends UnsignedConstant {
         }
 
 	@Override void prettyPrint() {
-		Main.log.prettyPrint("'" + c + "'");		
+		Main.log.prettyPrint("'" + c + "'");
 	}
 
 	@Override public String identify() {
 		return "<char literal> on line " + lineNum;
 	}
-	
+
 	@Override void genCode(CodeFile f) {
 		int ascii = String.valueOf(c).codePointAt(0);
 		f.genInstr("", "movl", "$"+ascii+",%eax", "  '"+c+"'");	
-		f.genInstr("", "pushl", "%eax", "Push next param.");
 	}
 }

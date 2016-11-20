@@ -127,13 +127,28 @@ public class SimpleExpr extends PascalSyntax{
 		Term t = termList.get(0);
 		t.genCode(f);
 		if (pOpr != null)
-			if (type instanceof types.IntType) {
 				pOpr.genCode(f);
-			}
 
 		for (int i = 0; i < termOprList.size(); i++) {
+			f.genInstr("", "pushl", "%eax", "");
 			Term t2 = termList.get(i + 1);
+			TermOperator tOpr = termOprList.get(i);
 			t2.genCode(f);
+			String command = "";
+			switch(tOpr.str){
+				case "+":
+					command = "addl";
+					break;
+				case "-":
+					command = "subl";
+					break;
+				case "or":
+					command = "orl";
+					break;
+			}
+			f.genInstr("", "movl", "%eax,%ecx", "");
+			f.genInstr("", "popl", "%eax", "");
+			f.genInstr("", command, "%ecx,%eax", "  " + tOpr.str);
 		}
 		/*
 		for(int i = 0; i < termOprList.size(); i++){

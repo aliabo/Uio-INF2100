@@ -41,8 +41,8 @@ class WhileStatm extends Statement {
 		return ws;
 	}
 
-        @Override void prettyPrint() {
-		Main.log.prettyPrint("while "); 
+  @Override void prettyPrint() {
+		Main.log.prettyPrint("while ");
 		expr.prettyPrint();
 		Main.log.prettyPrintLn(" do");
 		Main.log.prettyIndent();

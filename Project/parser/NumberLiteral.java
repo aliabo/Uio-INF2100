@@ -6,7 +6,6 @@ import static scanner.TokenKind.*;
 public class NumberLiteral extends UnsignedConstant {
 
 	private int num;
-	int constVal;
 
 	NumberLiteral(int lNum) {
 		super(lNum);

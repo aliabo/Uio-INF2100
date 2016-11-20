@@ -91,5 +91,22 @@ public class Variable extends Factor {
 	}
 
 	@Override void genCode(CodeFile f) {
+		if(varRef instanceof ConstDecl){//constant
+			ConstDecl c = (ConstDecl)varRef;
+			f.genInstr("","movl", "$" + c.con.constVal+ ",%eax", "  " + c.con.constVal);
+		}else{//variable
+			if(varRef instanceof TypeDecl){
+					TypeDecl t = (TypeDecl)varRef;
+					if(t.decl instanceof ConstDecl){
+						ConstDecl c = (ConstDecl)t.decl;
+						if(c.name.equals("eol")){
+							f.genInstr("","movl", "$10,%eax", "  10");
+						}
+					}
+			}else{
+				f.genInstr("","movl", "" + (-4)*varRef.declLevel+ "(%ebp),%edx", "");
+				f.genInstr("","movl", varRef.declOffset+ "(%edx)" + ",%eax", "  " + varRef.name);
+			}
+		}
 	}
 }

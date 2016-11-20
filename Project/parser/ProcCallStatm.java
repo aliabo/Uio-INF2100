@@ -135,9 +135,10 @@ class ProcCallStatm extends Statement {
 	    if(writeRef != null){// procedure write
 		      for (Expression exp: expList){
 			         exp.genCode(f);
+               f.genInstr("", "pushl", "%eax", "Push next param.");
 			         if(exp.type instanceof types.CharType)
 			            f.genInstr("", "call", "write_char", "");
-			            f.genInstr("", "addl", "$4,%esp", "Pop param.");
+			         f.genInstr("", "addl", "$4,%esp", "Pop param.");
 		      }
 			 //TODO
 			 //case lib.

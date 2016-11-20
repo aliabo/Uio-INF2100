@@ -7,7 +7,7 @@ public class Constant extends PascalSyntax{
 
 	public PrefixOperator pOp = null;
 	public UnsignedConstant uConst;
-	private int constVal;
+	public int constVal;
 	public types.Type type;
 
 

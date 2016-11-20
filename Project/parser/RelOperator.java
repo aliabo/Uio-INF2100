@@ -6,7 +6,7 @@ import static scanner.TokenKind.*;
 public class RelOperator extends Operator {
 
 
-    protected String str = null;
+    public String str = null;
     protected types.Type type = null;
 
     RelOperator(int lNum) {

@@ -93,16 +93,36 @@ public class Expression extends PascalSyntax {
     @Override void genCode(CodeFile f) {
 	      sE1.genCode(f);
         if (sE2 != null) {
-            sE2.genCode(f);
+            //sE2.genCode(f);
+            String compareOperator = "";
+            switch(rO.str){
+              case "<":
+                compareOperator = "setl";
+                break;
+              case "<=":
+                compareOperator = "setle";
+                break;
+              case ">":
+                compareOperator = "setg";
+                break;
+              case ">=":
+                compareOperator = "setge";
+                break;
+              case "=":
+                compareOperator = "sete";
+                break;
+              case "<>":
+                compareOperator = "setne";
+                break;
 
-            if(type instanceof types.BoolType){
-                f.genInstr("", "movl", "-4(%ebp),%edx", "");
-                rO.genCode(f);
             }
-	    //TODO
 
-
-        }
-
-    }
+            f.genInstr("", "pushl", "%eax", "");
+            sE2.genCode(f);
+            f.genInstr("", "popl", "%ecx", "");
+            f.genInstr("", "cmpl", "%eax,%ecx", "");
+            f.genInstr("", "movl", "$0,%eax", "");
+            f.genInstr("", compareOperator, "%al", "Test " + rO.str );
+          }
+      }
 }

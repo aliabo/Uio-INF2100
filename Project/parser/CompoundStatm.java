@@ -62,5 +62,7 @@ class CompoundStatm extends Statement{
         return "<compound statm> on line " + lineNum;
     }
 
-    @Override void genCode(CodeFile f) {}
+    @Override void genCode(CodeFile f) {
+        st.genCode(f);
+    }
 }

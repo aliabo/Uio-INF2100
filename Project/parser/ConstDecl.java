@@ -5,7 +5,7 @@ import static scanner.TokenKind.*;
 
 public class ConstDecl extends PascalDecl{
 
-	private Constant con;
+	public Constant con;
 	int constVal;
 
 	ConstDecl(String id, int lNum) {
