@@ -103,8 +103,30 @@ public class Term extends PascalSyntax {
 		Factor ff = factorList.get(0);
 		ff.genCode(f);
 		for (int i = 0; i < factorOprList.size(); i++) {
+			f.genInstr("","pushl", "%eax", "");
+			String str = factorOprList.get(i).str;
 			Factor f2 = factorList.get(i + 1);
 			f2.genCode(f);
+			f.genInstr("","movl", "%eax,%ecx", "");
+			f.genInstr("","popl", "%eax", "");
+			switch(str){
+				case "div":
+					f.genInstr("","cdq", "", "");
+					f.genInstr("","idivl", "%ecx", "  /");
+					break;
+				case "*":
+					f.genInstr("","imull", "%ecx,%eax", "  *");
+					break;
+				case "mod":
+					f.genInstr("","cdq", "", "");
+					f.genInstr("","idivl", "%ecx", "");
+					f.genInstr("","movl", "%edx,%eax", "  mod" );
+					break;
+				case "and":
+					f.genInstr("","andl", "%ecx,%eax", "  and");
+					break;
+			}
+
 		}
 	}
 }

@@ -69,8 +69,12 @@ public class ParamDeclList extends PascalSyntax{
 
     // go through list and check.
     @Override void check(Block curScope, Library lib){
-	for(ParamDecl pDecl : pList)
-		pDecl.check(curScope, lib);
+       int declOffset = 8;
+       for(ParamDecl pDecl : pList){
+         pDecl.declOffset = declOffset;
+         declOffset += 4;
+		     pDecl.check(curScope, lib);
+       }
     }
 
     @Override public String identify() {

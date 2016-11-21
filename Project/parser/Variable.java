@@ -106,7 +106,7 @@ public class Variable extends Factor {
 			}else{
 				f.genInstr("","movl", "" + (-4)*varRef.declLevel+ "(%ebp),%edx", "");
 				f.genInstr("","movl", varRef.declOffset+ "(%edx)" + ",%eax", "  " + varRef.name);
-			}
+		 	 }
 		}
 	}
 }

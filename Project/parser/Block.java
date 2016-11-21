@@ -15,6 +15,7 @@ public class Block extends PascalSyntax {
 	public int level;
 	public	HashMap<String,PascalDecl> decls = new HashMap<>();
 	public Block outerScope = null;
+	public String label = "";
 
 	Block(int lNum){
 		super(lNum);
@@ -106,13 +107,12 @@ public class Block extends PascalSyntax {
 		}
 
 		if (vDeclPart != null) {
-			vDeclPart.declLevel = level;
 			vDeclPart.check(this, lib);
 		}
 
 		for(ProcDecl decl: pfDecl){
-			decl.check(this, lib);
 			decl.declLevel = level+1;
+			decl.check(this, lib);
 		}
 		sList.check(this, lib);
 	}
@@ -175,15 +175,17 @@ public class Block extends PascalSyntax {
 	}
 
 	@Override void genCode(CodeFile f) {
-		if(cDeclPart != null) {
-			cDeclPart.genCode(f);
-		}
-		if(vDeclPart != null){
-			vDeclPart.genCode(f);
-		}
+		PascalDecl decl = (PascalDecl)context;
 		for(ProcDecl p: pfDecl){
+			//p.declLevel = decl.declLevel + 1;
 			p.genCode(f);
 		}
+
+		f.genInstr(label, "", "", "");
+								int numberOfVariables = 0;
+								if(vDeclPart != null)
+										numberOfVariables = vDeclPart.vDeclList.size();
+		f.genInstr("", "enter", "$"+ (32+ (4 * numberOfVariables)) +",$" + decl.declLevel, "Start of " + decl.name);
 		sList.genCode(f);
 	}
 }

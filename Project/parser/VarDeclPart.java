@@ -7,7 +7,6 @@ import java.util.ArrayList;
 public class VarDeclPart extends PascalSyntax{
 
 	public ArrayList<VarDecl> vDeclList;
-	int declLevel;
 	VarDeclPart(int lNum) {
 		super(lNum);
 		vDeclList = new ArrayList<>();
@@ -50,7 +49,6 @@ public class VarDeclPart extends PascalSyntax{
 		for(VarDecl vDecl: vDeclList){
 			vDecl.declOffset = offset;
 			offset -= 4;
-			vDecl.declLevel = declLevel;
 			vDecl.check(curScope, lib);
 		}
 	}

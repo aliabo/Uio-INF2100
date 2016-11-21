@@ -66,6 +66,7 @@ public class VarDecl extends PascalDecl{
 		curScope.addDecl(name, this);
 		t.check(curScope, lib);
 		type = t.type;
+		declLevel = curScope.level;
 	}
 
 	/**

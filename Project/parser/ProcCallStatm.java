@@ -101,50 +101,60 @@ class ProcCallStatm extends Statement {
      * @param lib       library (bind)
      */
     @Override void check(Block curScope, Library lib) {
-	PascalDecl d = curScope.findDecl(procName,this);
-	d.checkWhetherProcedure(this);
-	if(d instanceof TypeDecl){// procedure write
-		writeRef = (TypeDecl)d;
-		for (Expression exp: expList)
-			exp.check(curScope,lib);
-		return;
-	}
-	procRef = (ProcDecl)d;
-	if(expList.size()!=0){
-		if(expList.size() > procRef.pList.pList.size())
-				error("Too many parameters in call on " + procRef.name + "!");
-		else if (expList.size() < procRef.pList.pList.size())
-				error("Too few parameters in call on " + procRef.name + "!");
-		for(int i = 0; i < expList.size(); i++){
-			// checking that parameters has same type as in declaration of function
-			Expression procCallParam = expList.get(i);
-			ParamDecl procDeclParam = procRef.pList.pList.get(i);
-			procCallParam.check(curScope,lib);
-			procCallParam.type.checkType(procDeclParam.type,"param #" + (i+1), this,
+	     PascalDecl d = curScope.findDecl(procName,this);
+	     d.checkWhetherProcedure(this);
+	     if(d instanceof TypeDecl){// procedure write
+		       writeRef = (TypeDecl)d;
+		       for (Expression exp: expList)
+			        exp.check(curScope,lib);
+		       return;
+	     }
+	     procRef = (ProcDecl)d;
+	     if(expList.size()!=0){
+		       if(expList.size() > procRef.pList.pList.size())
+				       error("Too many parameters in call on " + procRef.name + "!");
+		       else if (expList.size() < procRef.pList.pList.size())
+				       error("Too few parameters in call on " + procRef.name + "!");
+		       for(int i = 0; i < expList.size(); i++){
+			          // checking that parameters has same type as in declaration of function
+			          Expression procCallParam = expList.get(i);
+			          ParamDecl procDeclParam = procRef.pList.pList.get(i);
+			          procCallParam.check(curScope,lib);
+			          procCallParam.type.checkType(procDeclParam.type,"param #" + (i+1), this,
                     	"Illegal type of parameter #"+ (i+1) + "!");
-		}
-	}
-    }
+		       }
+	    }
+     }
 
     @Override public String identify() {
         return "<proc call> on line " + lineNum;
     }
 
     @Override void genCode(CodeFile f) {
-	     // write
+
+       // write
 	    if(writeRef != null){// procedure write
 		      for (Expression exp: expList){
-			         exp.genCode(f);
+               exp.genCode(f);
                f.genInstr("", "pushl", "%eax", "Push next param.");
 			         if(exp.type instanceof types.CharType)
 			            f.genInstr("", "call", "write_char", "");
+               else if (exp.type instanceof types.IntType)
+                  f.genInstr("", "call", "write_int", "");
+               else if (exp.type instanceof types.BoolType )
+                  f.genInstr("", "call", "write_bool", "");
 			         f.genInstr("", "addl", "$4,%esp", "Pop param.");
-		      }
+		    }
 			 //TODO
 			 //case lib.
 	    }
 	    else{
-
-	    }
+          for (int i = 0; i < expList.size();i++){
+              expList.get(i).genCode(f);
+              f.genInstr("", "pushl", "%eax", "Push param #" + (i + 1) + ".");
+	        }
+          f.genInstr("", "call", procRef.progProcFuncName,"");
+          f.genInstr("", "addl", "$" + (4 * expList.size()) + ",%esp", "Pop params.");
+      }
     }
 }

@@ -85,5 +85,27 @@ public class IfStatm extends Statement {
         return "<if-statm> on line " + lineNum;
     }
 
-    @Override void genCode(CodeFile f) {}
+    @Override void genCode(CodeFile f) {
+      //f.genInstr("","movl", "" + (-4)*varRef.declLevel+ "(%ebp),%edx", "");
+      String label = f.getLocalLabel(),
+      elseLabel = "";
+      f.genInstr("", "", "", "Start if-statement");
+      exp.genCode(f);
+      f.genInstr("", "cmpl", "$0,%eax", "");
+      f.genInstr("", "je", label, "");
+      stat1.genCode(f);
+      if(stat2 != null){
+        elseLabel = f.getLocalLabel();
+        f.genInstr("", "jmp", elseLabel, "");
+      }
+
+      f.genInstr(label, "", "", "");
+      if(stat2 != null){
+        stat2.genCode(f);
+        f.genInstr(elseLabel, "", "", "End if-statement");
+      }
+
+
+
+    }
 }

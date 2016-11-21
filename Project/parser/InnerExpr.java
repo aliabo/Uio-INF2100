@@ -54,5 +54,7 @@ public class InnerExpr extends Factor {
 		return "<inner expr> on line " + lineNum;
 	}
 
-	@Override void genCode(CodeFile f) {}
+	@Override void genCode(CodeFile f) {
+			exp.genCode(f);
+	}
 }

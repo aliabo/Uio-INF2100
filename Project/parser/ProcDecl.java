@@ -7,7 +7,6 @@ public class ProcDecl extends PascalDecl{
 
     private Block progBlock;
     public ParamDeclList pList;
-    public int level = 0;
 
     ProcDecl(String id, int lNum) {
         super(id, lNum);
@@ -82,13 +81,14 @@ public class ProcDecl extends PascalDecl{
     // Set proc decl, its curent block. add to decl list in block
     // If paramdecl list is not empty, check and check this block
     @Override void check(Block curScope, Library lib) {
-	progBlock.outerScope = curScope;
-	curScope.addDecl(name, this);
-	if(pList != null)
-		pList.check(progBlock, lib);
-	
-	progBlock.level = level;
-	progBlock.check(progBlock, lib);
+       progBlock.outerScope = curScope;
+	     curScope.addDecl(name, this);
+       progBlock.level = declLevel;
+	     if(pList != null)
+		     pList.check(progBlock, lib);
+
+
+	     progBlock.check(progBlock, lib);
     }
 
     @Override public String identify() {
@@ -110,6 +110,12 @@ public class ProcDecl extends PascalDecl{
     }
 
     @Override void genCode(CodeFile f) {
-	System.out.println("bbbb");
+      progProcFuncName = f.getLabel(name);
+      progProcFuncName = "proc$" + progProcFuncName;
+      f.genInstr(progProcFuncName, "", "", "");
+      progBlock.genCode(f);
+      f.genInstr("", "leave", "", "End of " + name);
+  		f.genInstr("", "ret", "", "");
+
     }
 }

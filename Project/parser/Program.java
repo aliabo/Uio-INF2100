@@ -6,9 +6,9 @@ import static scanner.TokenKind.*;
 public class Program extends PascalDecl {
 
 	private Block progBlock;
-	public int level = 1;
 	Program(String id, int lNum) {
 		super(id, lNum);
+		declLevel = 1;
 	}
 
 	/**
@@ -70,7 +70,7 @@ public class Program extends PascalDecl {
 	 * @param lib		library connected
 	 */
 	public @Override void check(Block curScope, Library lib){
-		progBlock.level = level;
+		progBlock.level = declLevel;
 		progBlock.outerScope = lib;
 		progBlock.check(curScope,lib);
 	}
@@ -96,18 +96,14 @@ public class Program extends PascalDecl {
 	}
 
 	@Override public void genCode(CodeFile f) {
-		String label = f.getLabel(name);
-		label = "prog$" + label;
+		progProcFuncName = f.getLabel(name);
+		progProcFuncName = "prog$" + progProcFuncName;
+		progBlock.label = progProcFuncName;
 		f.genInstr("", ".globl", "main", "");
 		f.genInstr("main", "", "", "");
-		f.genInstr("", "call", label, "Start program");
+		f.genInstr("", "call", progProcFuncName, "Start program");
 		f.genInstr("", "movl", "$0,%eax", "Set status 0 and");
 		f.genInstr("", "ret", "", "terminate the program");
-		f.genInstr(label, "", "", "");
-                int numberOfVariables = 0;
-                if(progBlock.vDeclPart != null)
-                    numberOfVariables = progBlock.vDeclPart.vDeclList.size();
-		f.genInstr("", "enter", "$"+ (32+ (4 * numberOfVariables)) +",$" + level, "Start of " + name);
 		progBlock.genCode(f);
 		f.genInstr("", "leave", "", "End of " + name);
 		f.genInstr("", "ret", "", "");

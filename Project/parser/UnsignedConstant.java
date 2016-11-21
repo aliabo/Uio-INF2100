@@ -52,6 +52,6 @@ public abstract class UnsignedConstant extends Factor {
 		return "<unsigned constant> on line " + lineNum;
 	}
 
-	@Override void genCode(CodeFile f) {		
+	@Override void genCode(CodeFile f) {
 	}
 }

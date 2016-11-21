@@ -59,6 +59,7 @@ public class ParamDecl extends PascalDecl{
 		curScope.addDecl(name, this);
 		tName.check(curScope, lib);
 		type = tName.type;
+		declLevel = curScope.level;
 	}
 
 	// left: it is assignable, right: value
