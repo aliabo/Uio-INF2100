@@ -88,6 +88,7 @@ public class FuncDecl extends ProcDecl{
 	@Override void check(Block curScope, Library lib) {
 		progBlock.outerScope = curScope;
 		progBlock.level = declLevel;
+		declLevel--;//variabel can be used in the context 
 		curScope.addDecl(name, this);
 		progBlock.addDecl(name,this);
 		declOffset = 8;

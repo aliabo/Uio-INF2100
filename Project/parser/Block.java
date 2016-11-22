@@ -184,8 +184,11 @@ public class Block extends PascalSyntax {
 		f.genInstr(label, "", "", "");
 		int numberOfVariables = 0;
 		if(vDeclPart != null)
-			numberOfVariables = vDeclPart.vDeclList.size();	
-		f.genInstr("", "enter", "$"+ (32+ (4 * numberOfVariables)) +",$" + decl.declLevel, "Start of " + decl.name);
+			numberOfVariables = vDeclPart.vDeclList.size();
+		if(decl instanceof FuncDecl)//level of its block
+			f.genInstr("", "enter", "$"+ (32+ (4 * numberOfVariables)) +",$" + (decl.declLevel+1), "Start of " + decl.name);
+		else
+			f.genInstr("", "enter", "$"+ (32+ (4 * numberOfVariables)) +",$" + decl.declLevel, "Start of " + decl.name);
 		sList.genCode(f);
 	}
 }

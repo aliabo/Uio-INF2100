@@ -78,7 +78,7 @@ public class AssignStatm extends Statement {
         ex.genCode(f);
         if(type instanceof types.ArrayType){}
         else if (var.varRef instanceof FuncDecl){//func :=
-          f.genInstr("","movl", "" + (-4)*(var.varRef.declLevel)+ "(%ebp),%edx", "");
+          f.genInstr("","movl", "" + (-4)*(var.varRef.declLevel + 1)+ "(%ebp),%edx", "");
           f.genInstr("","movl", "%eax,-32(%edx)", var.varRef.name  + " :=");
 
           //var.genCode(f);
