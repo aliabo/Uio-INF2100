@@ -8,7 +8,6 @@ public class FuncDecl extends ProcDecl{
 	private Block progBlock;
 	private TypeName tName;
 	public ParamDeclList pList;
-        public int level = 0;
 	FuncDecl(String id, int lNum) {
 		super(id, lNum);
 	}
@@ -50,6 +49,7 @@ public class FuncDecl extends ProcDecl{
 		f.tName = TypeName.parse(s);
 		s.skip(semicolonToken);
 		f.progBlock = Block.parse(s);
+		f.progBlock.context = f;
 
 		s.skip(semicolonToken);
 		leaveParser("func decl");
@@ -87,12 +87,19 @@ public class FuncDecl extends ProcDecl{
 	 */
 	@Override void check(Block curScope, Library lib) {
 		progBlock.outerScope = curScope;
+		progBlock.level = declLevel;
 		curScope.addDecl(name, this);
-		if(pList != null)
+		progBlock.addDecl(name,this);
+		declOffset = 8;
+
+
+		if(pList != null){
+			for(ParamDecl p : pList.pList)//each parameter
+			  p.declOffset += 4;
 			pList.check(progBlock, lib);
+		}
 		tName.check(progBlock, lib);
 		type = tName.type;
-		progBlock.level = level;
 		progBlock.check(progBlock, lib);
 	}
 
@@ -119,6 +126,13 @@ public class FuncDecl extends ProcDecl{
 
 	@Override void genCode(CodeFile f) {
 
-		System.out.println("aaaa");
+		progProcFuncName = f.getLabel(name);
+		progProcFuncName = "func$" + progProcFuncName;
+		f.genInstr(progProcFuncName, "", "", "");
+		progBlock.genCode(f);
+		f.genInstr("", "movl", "-32(%ebp),%eax", "Fetch return value");
+		f.genInstr("", "leave", "", "End of " + name);
+		f.genInstr("", "ret", "", "");
+
 	}
 }

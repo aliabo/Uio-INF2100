@@ -149,7 +149,7 @@ class ProcCallStatm extends Statement {
 			 //case lib.
 	    }
 	    else{
-          for (int i = 0; i < expList.size();i++){
+          for (int i = expList.size() -1 ; i >=0 ;i--){
               expList.get(i).genCode(f);
               f.genInstr("", "pushl", "%eax", "Push param #" + (i + 1) + ".");
 	        }

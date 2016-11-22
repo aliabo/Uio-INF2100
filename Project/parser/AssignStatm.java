@@ -77,10 +77,14 @@ public class AssignStatm extends Statement {
     @Override void genCode(CodeFile f) {
         ex.genCode(f);
         if(type instanceof types.ArrayType){}
-        else{
+        else if (var.varRef instanceof FuncDecl){//func :=
+          f.genInstr("","movl", "" + (-4)*(var.varRef.declLevel)+ "(%ebp),%edx", "");
+          f.genInstr("","movl", "%eax,-32(%edx)", var.varRef.name  + " :=");
+
+          //var.genCode(f);
+        }else{
           f.genInstr("","movl", "" + (-4)*var.varRef.declLevel+ "(%ebp),%edx", "");
           f.genInstr("","movl", "%eax," + var.varRef.declOffset+ "(%edx)", var.varRef.name + " :=");
-          //var.genCode(f);
         }
     }
 }
