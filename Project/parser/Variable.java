@@ -99,8 +99,14 @@ public class Variable extends Factor {
 					TypeDecl t = (TypeDecl)varRef;
 					if(t.decl instanceof ConstDecl){
 						ConstDecl c = (ConstDecl)t.decl;
-						if(c.name.equals("eol")){
+						if(c.name.equals("eol")){//eol
 							f.genInstr("","movl", "$10,%eax", "  10");
+						}
+						else if(c.name.equals("true")){//true
+							f.genInstr("","movl", "$1,%eax", "  1");
+						}
+						else if(c.name.equals("false")){//false
+							f.genInstr("","movl", "$0,%eax", "  0");
 						}
 					}
 			}else{

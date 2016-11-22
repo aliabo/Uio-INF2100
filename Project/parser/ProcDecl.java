@@ -112,7 +112,6 @@ public class ProcDecl extends PascalDecl{
     @Override void genCode(CodeFile f) {
       progProcFuncName = f.getLabel(name);
       progProcFuncName = "proc$" + progProcFuncName;
-      f.genInstr(progProcFuncName, "", "", "");
       progBlock.genCode(f);
       f.genInstr("", "leave", "", "End of " + name);
   		f.genInstr("", "ret", "", "");

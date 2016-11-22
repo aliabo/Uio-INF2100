@@ -154,7 +154,8 @@ class ProcCallStatm extends Statement {
               f.genInstr("", "pushl", "%eax", "Push param #" + (i + 1) + ".");
 	        }
           f.genInstr("", "call", procRef.progProcFuncName,"");
-          f.genInstr("", "addl", "$" + (4 * expList.size()) + ",%esp", "Pop params.");
+          if(expList.size() != 0)
+            f.genInstr("", "addl", "$" + (4 * expList.size()) + ",%esp", "Pop params.");
       }
     }
 }

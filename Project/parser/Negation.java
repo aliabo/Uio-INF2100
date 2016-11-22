@@ -26,13 +26,13 @@ public class Negation extends Factor {
 	 * @return n  object Negation
 	 */
 	public static Negation parse(Scanner s) {
-         
+
 		enterParser("negation");
 		Negation n = new Negation(s.curLineNum());
-			
+
 		s.skip(notToken);
 		n.f = Factor.parse(s);
-			
+
 		leaveParser("negation");
 		return n;
 	}
@@ -42,7 +42,7 @@ public class Negation extends Factor {
 		f.check(curScope,lib);
 		type = f.type;
 		type.checkType(lib.booleanType, "'not' operand", this,
-                       "not and"+ f.identify() +" are of different type!"); 
+                       "not and"+ f.identify() +" are of different type!");
 	}
 
 	@Override void prettyPrint() {
@@ -54,5 +54,8 @@ public class Negation extends Factor {
 		return "<negation> on line " + lineNum;
 	}
 
-	@Override void genCode(CodeFile f) {}
+	@Override void genCode(CodeFile c) {
+		f.genCode(c);
+		c.genInstr("","xorl", "$0x1,%eax", "  not");
+	}
 }

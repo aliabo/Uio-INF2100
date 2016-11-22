@@ -180,8 +180,7 @@ public class Block extends PascalSyntax {
 			//p.declLevel = decl.declLevel + 1;
 			p.genCode(f);
 		}
-
-		f.genInstr(label, "", "", "");
+		f.genInstr(((PascalDecl)context).progProcFuncName, "", "", "");
 		int numberOfVariables = 0;
 		if(vDeclPart != null)
 			numberOfVariables = vDeclPart.vDeclList.size();

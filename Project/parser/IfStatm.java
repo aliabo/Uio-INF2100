@@ -102,10 +102,7 @@ public class IfStatm extends Statement {
       f.genInstr(label, "", "", "");
       if(stat2 != null){
         stat2.genCode(f);
-        f.genInstr(elseLabel, "", "", "End if-statement");
       }
-
-
-
+      f.genInstr(elseLabel, "", "", "End if-statement");
     }
 }

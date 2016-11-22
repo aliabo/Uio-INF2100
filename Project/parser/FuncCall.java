@@ -126,7 +126,8 @@ public class FuncCall extends Factor {
 				f.genInstr("", "pushl", "%eax", "Push param #" + (i + 1));
 		}
 		f.genInstr("", "call", funcRef.progProcFuncName,"");
-		f.genInstr("", "addl", "$" + (4 * expList.size()) + ",%esp", "Pop parameters");
+		if(expList.size() != 0)
+			f.genInstr("", "addl", "$" + (4 * expList.size()) + ",%esp", "Pop parameters");
 
 	}
 }

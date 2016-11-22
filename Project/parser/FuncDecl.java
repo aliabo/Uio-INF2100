@@ -88,7 +88,7 @@ public class FuncDecl extends ProcDecl{
 	@Override void check(Block curScope, Library lib) {
 		progBlock.outerScope = curScope;
 		progBlock.level = declLevel;
-		declLevel--;//variabel can be used in the context 
+		declLevel--;//variabel can be used in the context
 		curScope.addDecl(name, this);
 		progBlock.addDecl(name,this);
 		declOffset = 8;
@@ -129,7 +129,6 @@ public class FuncDecl extends ProcDecl{
 
 		progProcFuncName = f.getLabel(name);
 		progProcFuncName = "func$" + progProcFuncName;
-		f.genInstr(progProcFuncName, "", "", "");
 		progBlock.genCode(f);
 		f.genInstr("", "movl", "-32(%ebp),%eax", "Fetch return value");
 		f.genInstr("", "leave", "", "End of " + name);
