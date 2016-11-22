@@ -5,9 +5,9 @@ import static scanner.TokenKind.*;
 
 public class ArrayType extends Type{
 
-	private Constant c1;
+	public Constant c1;
 	private Constant c2;
-	private Type t;
+	public Type t;
 
 
 	ArrayType(int lNum) {
@@ -87,6 +87,6 @@ public class ArrayType extends Type{
 	@Override public String identify() {
 		return "<array-type> on line " + lineNum;
 	}
-	
+
 	@Override void genCode(CodeFile f) {}
 }

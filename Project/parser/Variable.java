@@ -5,7 +5,7 @@ import static scanner.TokenKind.*;
 
 public class Variable extends Factor {
 
-	private Expression exp;
+	public Expression exp;
 	private String name;
 
 	Variable(int lNum) {
@@ -91,7 +91,18 @@ public class Variable extends Factor {
 	}
 
 	@Override void genCode(CodeFile f) {
-		if(varRef instanceof ConstDecl){//constant
+		if (exp != null){//array not implemented 
+			exp.genCode(f);
+			VarDecl v = (VarDecl)varRef;
+			ArrayType t = (ArrayType)v.t;
+			if(t.c1.constVal != 0) //array[c1..c2]
+				f.genInstr("","subl", "$" + t.c1.constVal+ ",%eax", "");
+			f.genInstr("","movl", ""+ (-4 * varRef.declLevel)+"(%ebp),%edx", "");
+			f.genInstr("","leal", ""+ (varRef.declOffset)+"(%edx),%edx", "");
+			//f.genInstr("","popl", "%ecx", "");
+			f.genInstr("","movl", "(%edx,%eax,4),%eax", "");
+		}
+		else if(varRef instanceof ConstDecl){//constant
 			ConstDecl c = (ConstDecl)varRef;
 			f.genInstr("","movl", "$" + c.con.constVal+ ",%eax", "  " + c.con.constVal);
 		}else{//variable
@@ -115,4 +126,5 @@ public class Variable extends Factor {
 			}
 		}
 	}
+
 }

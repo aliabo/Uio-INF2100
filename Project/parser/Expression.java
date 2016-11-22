@@ -37,7 +37,6 @@ public class Expression extends PascalSyntax {
         enterParser("expression");
         Expression ex = new Expression(s.curLineNum());
         ex.sE1 = SimpleExpr.parse(s);
-
         if(s.curToken.kind == equalToken || s.curToken.kind == notEqualToken ||
                 s.curToken.kind == lessToken ||s.curToken.kind == lessEqualToken ||
                 s.curToken.kind == greaterToken ||s.curToken.kind == greaterEqualToken) {
@@ -45,7 +44,6 @@ public class Expression extends PascalSyntax {
             ex.rO = RelOperator.parse(s);
             ex.sE2 = SimpleExpr.parse(s);
         }
-
         leaveParser("expression");
         return ex;
     }
@@ -65,7 +63,6 @@ public class Expression extends PascalSyntax {
             sE2.prettyPrint();
         }
     }
-
     /**
      * We recursively call the next, simpleExpr is checked, type set
      * if next simpleExpr not null, we check, get name, checks type

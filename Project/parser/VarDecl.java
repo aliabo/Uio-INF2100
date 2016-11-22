@@ -5,7 +5,7 @@ import static scanner.TokenKind.*;
 
 public class VarDecl extends PascalDecl{
 
-	private Type t;
+	public Type t;
 	public int offset;
 	VarDecl(String id, int lNum) {
 		super(id, lNum);

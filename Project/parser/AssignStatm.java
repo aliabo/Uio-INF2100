@@ -76,7 +76,19 @@ public class AssignStatm extends Statement {
 
     @Override void genCode(CodeFile f) {
         ex.genCode(f);
-        if(type instanceof types.ArrayType){}
+
+        if( var.exp != null){ //array[exp] := not implemented
+            f.genInstr("","pushl", "%eax", "");
+            var.exp.genCode(f);
+            VarDecl v = (VarDecl)var.varRef;
+            ArrayType t = (ArrayType)v.t;
+            if(t.c1.constVal != 0) //array[c1..c2]
+              f.genInstr("","subl", "$" + t.c1.constVal+ ",%eax", "");
+            f.genInstr("","movl", ""+ (-4 * var.varRef.declLevel)+"(%ebp),%edx", "");
+            f.genInstr("","leal", ""+ (var.varRef.declOffset)+"(%edx),%edx", "");
+            f.genInstr("","popl", "%ecx", "");
+            f.genInstr("","movl", "%ecx,(%edx,%eax,4)", "");
+        }
         else if (var.varRef instanceof FuncDecl){//func :=
           f.genInstr("","movl", "" + (-4)*(var.varRef.declLevel + 1)+ "(%ebp),%edx", "");
           f.genInstr("","movl", "%eax,-32(%edx)", var.varRef.name  + " :=");

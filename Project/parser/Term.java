@@ -98,6 +98,7 @@ public class Term extends PascalSyntax {
 		return "<term> on line " + lineNum;
 	}
 
+
 	@Override
 	void genCode(CodeFile f) {
 		Factor ff = factorList.get(0);

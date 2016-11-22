@@ -57,4 +57,5 @@ public class NamedConst extends UnsignedConstant {
 	}
 
 	@Override void genCode(CodeFile f) {}
+
 }

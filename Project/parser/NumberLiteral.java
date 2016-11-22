@@ -60,4 +60,6 @@ public class NumberLiteral extends UnsignedConstant {
 	@Override void genCode(CodeFile f) {
 		f.genInstr("", "movl", "$" + constVal + ",%eax", "  " + constVal);
 	}
+
+
 }

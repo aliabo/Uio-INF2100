@@ -150,19 +150,5 @@ public class SimpleExpr extends PascalSyntax{
 			f.genInstr("", "popl", "%eax", "");
 			f.genInstr("", command, "%ecx,%eax", "  " + tOpr.str);
 		}
-		/*
-		for(int i = 0; i < termOprList.size(); i++){
-			Term t2 = termList.get(i+1);
-			t2.check(curScope, lib);
-			String oprName = termOprList.get(i).str;
-			if (oprName.equals("or"))// to get the same logfile as ifi's compiler
-				oprName = "'or'";
-			type.checkType(t2.type,"left " + oprName + " operand", this,
-					"Left operand to " + oprName + " is not a number!");
-
-			t2.type.checkType(type,"right " + oprName + " operand", this,
-					"Right operand to " + oprName + " is not a number!");
-			type = t2.type;
-		}*/
 	}
 }
