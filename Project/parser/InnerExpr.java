@@ -48,6 +48,7 @@ public class InnerExpr extends Factor {
 	@Override void check(Block curScope, Library lib){
 		exp.check(curScope,lib);
 		type = exp.type;
+		value = exp.value;
 	}
 
 	@Override public String identify() {

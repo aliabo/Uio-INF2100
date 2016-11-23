@@ -182,8 +182,16 @@ public class Block extends PascalSyntax {
 		}
 		f.genInstr(((PascalDecl)context).progProcFuncName, "", "", "");
 		int numberOfVariables = 0;
-		if(vDeclPart != null)
-			numberOfVariables = vDeclPart.vDeclList.size();
+		int numOfArrays = 0;
+		if(vDeclPart != null) {
+			for (VarDecl v : vDeclPart.vDeclList)
+				if (v.t instanceof ArrayType){
+					ArrayType t = (ArrayType)v.t;
+					numberOfVariables += t.size;
+					numOfArrays++;
+				}
+			numberOfVariables += (vDeclPart.vDeclList.size() - numOfArrays);
+		}
 		if(decl instanceof FuncDecl)//level of its block
 			f.genInstr("", "enter", "$"+ (32+ (4 * numberOfVariables)) +",$" + (decl.declLevel+1), "Start of " + decl.name);
 		else

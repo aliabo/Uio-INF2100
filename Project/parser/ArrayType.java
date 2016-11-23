@@ -6,8 +6,9 @@ import static scanner.TokenKind.*;
 public class ArrayType extends Type{
 
 	public Constant c1;
-	private Constant c2;
+	public Constant c2;
 	public Type t;
+	public int size = 0;
 
 
 	ArrayType(int lNum) {
@@ -82,6 +83,7 @@ public class ArrayType extends Type{
 		//index type test
 		c1.type.checkType(c2.type,"array limits",this,"" +c1.type.identify()+ " "+ c2.type.identify() +" are different types!");
 		type = new types.ArrayType(t.type, c1.type, c1.uConst.constVal, c2.uConst.constVal);
+		size = c2.constVal - c1.constVal;
 	}
 
 	@Override public String identify() {

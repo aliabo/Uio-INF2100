@@ -83,6 +83,7 @@ public class Variable extends Factor {
 			types.ArrayType a = (types.ArrayType)varRef.type;
 			a.indexType.checkType(exp.type,"array index",this, "array indexes are of different types");
 		}
+		System.out.println(name +identify() + value);
 
 	}
 
@@ -98,7 +99,7 @@ public class Variable extends Factor {
 			if(t.c1.constVal != 0) //array[c1..c2]
 				f.genInstr("","subl", "$" + t.c1.constVal+ ",%eax", "");
 			f.genInstr("","movl", ""+ (-4 * varRef.declLevel)+"(%ebp),%edx", "");
-			f.genInstr("","leal", ""+ (varRef.declOffset)+"(%edx),%edx", "");
+			f.genInstr("","leal", ""+ (varRef.declOffset + (exp.value * 4)) +"(%edx),%edx", "");
 			//f.genInstr("","popl", "%ecx", "");
 			f.genInstr("","movl", "(%edx,%eax,4),%eax", "");
 		}

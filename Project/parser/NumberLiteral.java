@@ -47,6 +47,7 @@ public class NumberLiteral extends UnsignedConstant {
 	@Override void check(Block curScope, Library lib){
 		constVal = num;
 		type = lib.integerType;
+		value = num;
 	}
 
 	@Override void prettyPrint() {

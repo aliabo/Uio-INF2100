@@ -10,6 +10,7 @@ public class SimpleExpr extends PascalSyntax{
 	private ArrayList<Term> termList;
 	private ArrayList<TermOperator> termOprList;
 	public types.Type type = null;
+	public int value = 0;
 
 	SimpleExpr(int lNum) {
 		super(lNum);
@@ -114,7 +115,36 @@ public class SimpleExpr extends PascalSyntax{
 			t2.type.checkType(type,"right " + oprName + " operand", this,
 					"Right operand to " + oprName + " is not a number!");
 			type = t2.type;
+
+
 		}
+		findValue();
+	}
+
+	private void findValue(){
+
+
+		Term t = termList.get(0);
+		value = t.value;
+		for(int i = 0; i < termOprList.size(); i++){
+			Term t2 = termList.get(i+1);
+			String oprName = termOprList.get(i).str;
+
+			if (oprName.equals("+"))// to get the same logfile as ifi's compiler
+				value = t.value + t2.value;
+			else if(oprName.equals("-"))
+				value = t.value - t2.value;
+
+		}
+		if(pOpr != null){
+			if (pOpr.k.equals("-"))
+					value = -value;
+
+		}
+	}
+
+	public void calculate(){
+		findValue();
 	}
 
 	@Override public String identify() {

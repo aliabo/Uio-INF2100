@@ -9,6 +9,7 @@ public class Term extends PascalSyntax {
 	private ArrayList<Factor> factorList;
 	private ArrayList<FactorOperator> factorOprList;
 	public types.Type type = null;
+	public int value = 0;
 
 	Term(int lNum) {
 		super(lNum);
@@ -64,6 +65,22 @@ public class Term extends PascalSyntax {
 		}
 	}
 
+	private void findValue(){
+		Factor f = factorList.get(0);
+		value = f.value;
+		for(int i = 0; i < factorOprList.size(); i++) {
+			Factor f2 = factorList.get(i + 1);
+			String oprName = factorOprList.get(i).str;
+
+			if (oprName.equals("*"))// to get the same logfile as ifi's compiler
+				value = f.value * f2.value;
+			else if (oprName.equals("div"))
+				value = f.value / f2.value;
+			else if (oprName.equals("mod"))
+				value = f.value % f2.value;
+		}
+	}
+
 	/**
 	 * Their will always be 1 facor, so we get the first from the list
 	 * and check and set type.
@@ -91,7 +108,12 @@ public class Term extends PascalSyntax {
 					"Operands to " + oprName + " are of different type!");
 			type = f2.type;
 		}
+
+		findValue();
+
 	}
+
+
 
 	@Override
 	public String identify() {
@@ -130,4 +152,5 @@ public class Term extends PascalSyntax {
 
 		}
 	}
+
 }

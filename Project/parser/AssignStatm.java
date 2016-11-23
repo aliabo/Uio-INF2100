@@ -66,8 +66,11 @@ public class AssignStatm extends Statement {
         var.check(curScope, lib);
         type = var.type;
         var.varRef.checkWhetherAssignable(this);
+
         ex.check(curScope, lib);
         type.checkType(ex.type, ":=", this, "Different types in assignment!");
+        ex.calculate();
+        var.value = ex.value;
     }
 
     @Override public String identify() {
@@ -77,7 +80,7 @@ public class AssignStatm extends Statement {
     @Override void genCode(CodeFile f) {
         ex.genCode(f);
 
-        if( var.exp != null){ //array[exp] := not implemented
+        if( var.exp != null){ //array[exp] := not implemented completly
             f.genInstr("","pushl", "%eax", "");
             var.exp.genCode(f);
             VarDecl v = (VarDecl)var.varRef;
@@ -85,9 +88,10 @@ public class AssignStatm extends Statement {
             if(t.c1.constVal != 0) //array[c1..c2]
               f.genInstr("","subl", "$" + t.c1.constVal+ ",%eax", "");
             f.genInstr("","movl", ""+ (-4 * var.varRef.declLevel)+"(%ebp),%edx", "");
-            f.genInstr("","leal", ""+ (var.varRef.declOffset)+"(%edx),%edx", "");
+            System.out.println(var.exp.value);
+            f.genInstr("","leal", ""+ (var.varRef.declOffset + (4*(t.size)))+"(%edx),%edx", "");
             f.genInstr("","popl", "%ecx", "");
-            f.genInstr("","movl", "%ecx,(%edx,%eax,4)", "");
+            f.genInstr("","movl", "%ecx,0(%edx,%eax,4)", "");
         }
         else if (var.varRef instanceof FuncDecl){//func :=
           f.genInstr("","movl", "" + (-4)*(var.varRef.declLevel + 1)+ "(%ebp),%edx", "");

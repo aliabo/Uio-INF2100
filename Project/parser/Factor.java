@@ -6,6 +6,7 @@ public abstract class Factor extends PascalSyntax {
 
     public types.Type type;
     public PascalDecl varRef = null;
+    public int value = 0;
 
     Factor(int lNum) {
         super(lNum);
