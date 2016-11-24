@@ -181,21 +181,17 @@ public class Block extends PascalSyntax {
 			p.genCode(f);
 		}
 		f.genInstr(((PascalDecl)context).progProcFuncName, "", "", "");
-		int numberOfVariables = 0;
-		int numOfArrays = 0;
+		int offset = 0;
 		if(vDeclPart != null) {
-			for (VarDecl v : vDeclPart.vDeclList)
-				if (v.t instanceof ArrayType){
-					ArrayType t = (ArrayType)v.t;
-					numberOfVariables += t.size;
-					numOfArrays++;
-				}
-			numberOfVariables += (vDeclPart.vDeclList.size() - numOfArrays);
+			// setting offset
+			for (VarDecl v : vDeclPart.vDeclList){
+					offset += v.type.size();
+			}//end for
 		}
 		if(decl instanceof FuncDecl)//level of its block
-			f.genInstr("", "enter", "$"+ (32+ (4 * numberOfVariables)) +",$" + (decl.declLevel+1), "Start of " + decl.name);
+			f.genInstr("", "enter", "$"+ (32+ offset) +",$" + (decl.declLevel+1), "Start of " + decl.name);
 		else
-			f.genInstr("", "enter", "$"+ (32+ (4 * numberOfVariables)) +",$" + decl.declLevel, "Start of " + decl.name);
+			f.genInstr("", "enter", "$"+ (32+ offset) +",$" + decl.declLevel, "Start of " + decl.name);
 		sList.genCode(f);
 	}
 }

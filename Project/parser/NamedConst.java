@@ -49,6 +49,8 @@ public class NamedConst extends UnsignedConstant {
 		else{
 			PascalDecl d = curScope.findDecl(name, this);
 			type = d.type;
+			ConstDecl decl = (ConstDecl)d;
+			constVal = decl.constVal;
 		}
 	}
 

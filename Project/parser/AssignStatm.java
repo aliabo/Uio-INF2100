@@ -69,8 +69,6 @@ public class AssignStatm extends Statement {
 
         ex.check(curScope, lib);
         type.checkType(ex.type, ":=", this, "Different types in assignment!");
-        ex.calculate();
-        var.value = ex.value;
     }
 
     @Override public String identify() {
@@ -80,18 +78,17 @@ public class AssignStatm extends Statement {
     @Override void genCode(CodeFile f) {
         ex.genCode(f);
 
-        if( var.exp != null){ //array[exp] := not implemented completly
+        if( var.exp != null){ //array[exp] :=
             f.genInstr("","pushl", "%eax", "");
             var.exp.genCode(f);
             VarDecl v = (VarDecl)var.varRef;
-            ArrayType t = (ArrayType)v.t;
-            if(t.c1.constVal != 0) //array[c1..c2]
-              f.genInstr("","subl", "$" + t.c1.constVal+ ",%eax", "");
+            types.ArrayType t = (types.ArrayType)v.type;
+            if(t.loLim != 0) //array[c1..c2]
+              f.genInstr("","subl", "$" + t.loLim+ ",%eax", "");
             f.genInstr("","movl", ""+ (-4 * var.varRef.declLevel)+"(%ebp),%edx", "");
-            System.out.println(var.exp.value);
-            f.genInstr("","leal", ""+ (var.varRef.declOffset + (4*(t.size)))+"(%edx),%edx", "");
+            f.genInstr("","leal", "" + var.varRef.declOffset  + "(%edx),%edx", "");
             f.genInstr("","popl", "%ecx", "");
-            f.genInstr("","movl", "%ecx,0(%edx,%eax,4)", "");
+            f.genInstr("","movl", "%ecx,0(%edx,%eax,4)", var.varRef.name + "[x] :=");
         }
         else if (var.varRef instanceof FuncDecl){//func :=
           f.genInstr("","movl", "" + (-4)*(var.varRef.declLevel + 1)+ "(%ebp),%edx", "");

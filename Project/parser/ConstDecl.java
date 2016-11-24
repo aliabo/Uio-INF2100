@@ -37,7 +37,6 @@ public class ConstDecl extends PascalDecl{
 		s.skip(equalToken);
 		cDecl.con = Constant.parse(s);
 		s.skip(semicolonToken);
-
 		leaveParser("const decl");
 		return cDecl;
 	}
@@ -67,6 +66,7 @@ public class ConstDecl extends PascalDecl{
 		curScope.addDecl(name, this);
 		con.check(curScope, lib);
 		type = con.type;
+		constVal = con.constVal;
 	}
 
 	@Override public String identify() {
@@ -89,7 +89,5 @@ public class ConstDecl extends PascalDecl{
 	void checkWhetherValue(PascalSyntax where){}
 
 	@Override void genCode(CodeFile f) {
-		//f.genInstr("", "movl", "$"+constVal+",%eax", "a	" + constVal + "");
-		//con.genCode(f);
 	}
 }

@@ -76,4 +76,4 @@ public class ConstDeclPart extends PascalSyntax{
 		for(ConstDecl cDecl: cDeclList)
 			cDecl.genCode(f);
 	}
-}	
+}

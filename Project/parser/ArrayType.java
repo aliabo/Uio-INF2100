@@ -91,4 +91,8 @@ public class ArrayType extends Type{
 	}
 
 	@Override void genCode(CodeFile f) {}
+
+	public int size(){
+		return size;
+	}
 }

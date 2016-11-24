@@ -13,7 +13,6 @@ public class Expression extends PascalSyntax {
     private SimpleExpr sE2 = null;
     private RelOperator rO = null;
     public types.Type type = null;
-    public int value = 0;
 
     /**
      * Parser method to declare the language, explained as a rail-diagram; Expression
@@ -84,10 +83,6 @@ public class Expression extends PascalSyntax {
         }
     }
 
-    public void calculate(){
-        sE1.calculate() ;
-        value = sE1.value;
-    }
 
     @Override public String identify() {
         return "<expression> on line " + lineNum;

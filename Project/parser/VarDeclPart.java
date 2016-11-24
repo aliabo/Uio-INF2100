@@ -45,11 +45,12 @@ public class VarDeclPart extends PascalSyntax{
 
 	// Recursively go through every declared vardecl in list
 	@Override void check(Block curScope, Library lib) {
-		int offset = -36;
+		int offset = -32;
 		for(VarDecl vDecl: vDeclList){
-			vDecl.declOffset = offset;
-			offset -= 4;
 			vDecl.check(curScope, lib);
+			// setting offset
+			offset -= vDecl.type.size();
+			vDecl.declOffset = offset;				
 		}
 	}
 
