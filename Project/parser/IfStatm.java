@@ -85,6 +85,7 @@ public class IfStatm extends Statement {
         return "<if-statm> on line " + lineNum;
     }
 
+
     @Override void genCode(CodeFile f) {
       //f.genInstr("","movl", "" + (-4)*varRef.declLevel+ "(%ebp),%edx", "");
       String label = f.getLocalLabel(),

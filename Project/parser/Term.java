@@ -104,6 +104,13 @@ public class Term extends PascalSyntax {
 	}
 
 
+	/**
+	 * Generate codefile. Go thru our factor op. list
+	 * Check to test for div, *, mod, and
+	 * Generate the appropriate instructions
+	 *
+	 * @param f 	Code file to be generated after traversing the tree
+	 */
 	@Override
 	void genCode(CodeFile f) {
 		Factor ff = factorList.get(0);

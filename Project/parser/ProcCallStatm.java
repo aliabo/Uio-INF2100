@@ -130,8 +130,12 @@ class ProcCallStatm extends Statement {
         return "<proc call> on line " + lineNum;
     }
 
+    /**
+     * Function were we handle the case of procedure write: for char int and bool.
+     *
+     * @param f     Code file to be generated after traversing the tree
+     */
     @Override void genCode(CodeFile f) {
-
        // write
 	    if(writeRef != null){// procedure write
 		      for (Expression exp: expList){

@@ -88,10 +88,16 @@ public class Expression extends PascalSyntax {
         return "<expression> on line " + lineNum;
     }
 
+    /**
+     * If the secound simple expression is not null, we need to
+     * check the real operator, and set the right command to code
+     * Is followed by code instructions.
+     *
+     * @param f     Code file to be generated after traversing the tree
+     */
     @Override void genCode(CodeFile f) {
 	      sE1.genCode(f);
         if (sE2 != null) {
-            //sE2.genCode(f);
             String compareOperator = "";
             switch(rO.str){
               case "<":

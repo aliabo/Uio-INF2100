@@ -92,6 +92,15 @@ public class Variable extends Factor {
 		return "<variable> on line " + lineNum;
 	}
 
+	/**
+	 * Function has three big ifs,
+	 * 1.if the array is not implemented , we need to check
+	 * if array is array[c1..c2]
+	 * 2. Their is an constant
+	 * 3. it is a variable
+	 *
+	 * @param f		Code file to be generated after traversing the tree
+	 */
 	@Override void genCode(CodeFile f) {
 		if (exp != null){//array not implemented
 			exp.genCode(f);

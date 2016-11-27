@@ -124,9 +124,13 @@ public class SimpleExpr extends PascalSyntax{
 		return "<simple expr> on line " + lineNum;
 	}
 
+	/**
+	 * Similar to the function in Term, we go thru the list of Termoperators, and
+	 * check for prefix ops: + - or, and add appropriate instructions to generate code
+	 *
+	 * @param f		Code file to be generated after traversing the tree
+	 */
 	@Override void genCode(CodeFile f) {
-
-
 		Term t = termList.get(0);
 		t.genCode(f);
 		if (pOpr != null)

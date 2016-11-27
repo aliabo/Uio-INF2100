@@ -126,7 +126,6 @@ public class FuncDecl extends ProcDecl{
 	}
 
 	@Override void genCode(CodeFile f) {
-
 		progProcFuncName = f.getLabel(name);
 		progProcFuncName = "func$" + progProcFuncName;
 		progBlock.genCode(f);

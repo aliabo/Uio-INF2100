@@ -120,6 +120,12 @@ public class FuncCall extends Factor {
 		return "<func call> on line " + lineNum;
 	}
 
+	/**
+	 * We traverse the list of expressions and let the expressions handle their own code generating.
+	 * If explist is not 0, we add the value * 4
+	 *
+	 * @param f		Code file to be generated after traversing the tree
+	 */
 	@Override void genCode(CodeFile f) {
 		for (int i = expList.size() -1 ; i >=0 ;i--){
 				expList.get(i).genCode(f);

@@ -1,3 +1,11 @@
+/**
+ * Class to check whatever assignable expressions
+ *
+ * @author Youssef Bel Mekki, youssebe
+ * @author Ali Abouaid
+ * @version 1, 27-11-2016
+ */
+
 package parser;
 import main.*;
 import scanner.*;
@@ -75,6 +83,17 @@ public class AssignStatm extends Statement {
         return "<assign statm> on line " + lineNum;
     }
 
+    /**
+     * Recursive polymorphic function that generates assembler code,
+     * for a Pascal2016 program tree
+     *
+     * If array[exp] :=
+     * if array[c1..c2]
+     * or if func :=
+     * else var :=
+     *
+     * @param f     Code file to be generated after traversing the tree
+     */
     @Override void genCode(CodeFile f) {
         ex.genCode(f);
 

@@ -174,6 +174,15 @@ public class Block extends PascalSyntax {
 		return "<block> on line " + lineNum;
 	}
 
+	/**
+	 * Recursive polymorphic function that generates assembler code,
+	 * for a Pascal2016 program tree
+	 *
+	 * We genCode pass to the class to handle it, anf add to offset,
+	 * if  decl is an funcdcl we have levele of its block
+	 *
+	 * @param f		Code file to be generated after traversing the tree
+	 */
 	@Override void genCode(CodeFile f) {
 		PascalDecl decl = (PascalDecl)context;
 		for(ProcDecl p: pfDecl){

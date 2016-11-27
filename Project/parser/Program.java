@@ -95,6 +95,12 @@ public class Program extends PascalDecl {
 		where.error("program is not a value!");
 	}
 
+	/**
+	 * The start, were generating of code starts and declevel i set.
+	 * Set up for starting and terminating the program after the block gencode is called.
+	 *
+	 * @param f		Code file to be generated after traversing the tree
+	 */
 	@Override public void genCode(CodeFile f) {
 		progProcFuncName = f.getLabel(name);
 		progProcFuncName = "prog$" + progProcFuncName;

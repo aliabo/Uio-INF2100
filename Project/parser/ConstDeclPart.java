@@ -72,6 +72,14 @@ public class ConstDeclPart extends PascalSyntax{
 			cDecl.check(curScope, lib);
 	}
 
+	/**
+	 * Recursive polymorphic function that generates assembler code,
+	 * for a Pascal2016 program tree
+	 *
+	 * Pass the codefile f, let the polyform handle their own code generating
+	 *
+	 * @param f		Code file to be generated after traversing the tree
+	 */
 	@Override void genCode(CodeFile f) {
 		for(ConstDecl cDecl: cDeclList)
 			cDecl.genCode(f);
