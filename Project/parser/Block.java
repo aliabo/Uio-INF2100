@@ -176,7 +176,7 @@ public class Block extends PascalSyntax {
 
 	/**
 	 * Recursive polymorphic function that generates assembler code,
-	 * for a Pascal2016 program tree
+	 * for a Pascal2016 program tre
 	 *
 	 * We genCode pass to the class to handle it, anf add to offset,
 	 * if  decl is an funcdcl we have levele of its block
